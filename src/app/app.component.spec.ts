@@ -14,16 +14,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'MathsFrontend' title`, () => {
+  it(`should have the 'MathematicsLearningTool' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MathsFrontend');
+    expect(app.title).toEqual('MathematicsLearningTool');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MathsFrontend');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, MathematicsLearningTool'
+    );
   });
 });

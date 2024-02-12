@@ -1,0 +1,10 @@
+.button-contents {
+	display: flex;
+	height: 1em;
+	align-items: center;
+	gap: 1em;
+}
+
+img {
+	height: 2em;
+}

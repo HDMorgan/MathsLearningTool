@@ -3,7 +3,7 @@ import { Directive, HostListener, Input, ElementRef } from '@angular/core';
 @Directive({
 	selector: '[charLimit]',
 })
-export class MaxLengthDirective {
+export class CharLimitDirective {
 	@Input() appMaxLength!: number;
 	el: any;
 	constructor(el: ElementRef) {

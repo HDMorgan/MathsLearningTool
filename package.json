@@ -9,7 +9,7 @@
     "test": "ng test",
     "ci:clean": "rimraf ./dist",
     "ci:test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
-    "ci:build": "ng build --prod"
+    "ci:build": "ng build"
   },
   "private": true,
   "dependencies": {

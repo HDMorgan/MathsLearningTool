@@ -10,5 +10,12 @@
     "ui": {
       "enabled": true
     }
-  }
+  },
+  "hosting": [
+    {
+      "target": "mathematicslearningtool",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
 }

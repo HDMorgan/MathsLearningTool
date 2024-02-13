@@ -12,7 +12,7 @@
     }
   },
   "hosting": {
-    "public": "dist\\mathematics-learning-tool\\browser",
+    "public": "./dist/mathematics-learning-tool/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

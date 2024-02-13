@@ -10,5 +10,19 @@
     "ui": {
       "enabled": true
     }
+  },
+  "hosting": {
+    "public": "dist\\mathematics-learning-tool\\browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }

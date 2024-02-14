@@ -1,0 +1,26 @@
+.verticalFlexbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 80vw;
+	max-width: 300px;
+	flex-direction: column;
+	margin: auto;
+	gap: 2vh;
+}
+
+.verticalFlexbox input {
+	text-align: center;
+}
+
+.mainFlexbox {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+.joinInput {
+	font-size: 2em;
+	width: 100%;
+}

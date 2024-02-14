@@ -17,4 +17,13 @@ export class IconRegisterService {
 			this.sanitiser.bypassSecurityTrustResourceUrl('assets/icons/logo.svg')
 		);
 	}
+
+	RegisterGoogleIcon() {
+		this.iconRegistry.addSvgIcon(
+			'google-logo',
+			this.sanitiser.bypassSecurityTrustResourceUrl(
+				'assets/icons/google-logo.svg'
+			)
+		);
+	}
 }

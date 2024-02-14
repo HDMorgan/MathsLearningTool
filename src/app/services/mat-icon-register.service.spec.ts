@@ -18,6 +18,7 @@ describe('MatIconRegisterService', () => {
 		spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl').and.returnValue(
 			'url'
 		);
+		spyOn(matIconRegistry, 'addSvgIcon');
 	});
 
 	it('should be created', () => {
@@ -25,8 +26,6 @@ describe('MatIconRegisterService', () => {
 	});
 
 	it('should register main-logo when RegisterGenericIcons is called', () => {
-		spyOn(matIconRegistry, 'addSvgIcon');
-
 		service.RegisterGenericIcons();
 		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledOnceWith(
 			'main-logo',
@@ -39,5 +38,20 @@ describe('MatIconRegisterService', () => {
 		expect(
 			domSanitizer.bypassSecurityTrustResourceUrl
 		).toHaveBeenCalledOnceWith('assets/icons/logo.svg');
+	});
+
+	it('should register google-logo when RegisterGoogleIcon is called', () => {
+		service.RegisterGoogleIcon();
+		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledOnceWith(
+			'google-logo',
+			jasmine.any(String)
+		);
+	});
+
+	it('dom should be sanitised for google-logo icon when RegisterGoogleIcon is called', () => {
+		service.RegisterGoogleIcon();
+		expect(
+			domSanitizer.bypassSecurityTrustResourceUrl
+		).toHaveBeenCalledOnceWith('assets/icons/google-logo.svg');
 	});
 });

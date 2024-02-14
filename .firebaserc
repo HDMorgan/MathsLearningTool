@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "mathematicslearningtool"
+  },
+  "targets": {
+    "mathematicslearningtool": {
+      "hosting": {
+        "mathematicslearningtool": [
+          "mathematicslearningtool"
+        ]
+      }
+    }
   }
 }

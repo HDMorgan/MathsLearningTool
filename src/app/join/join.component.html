@@ -1,0 +1,10 @@
+<div class="mainFlexbox">
+	<app-join-header></app-join-header>
+	<section class="verticalFlexbox">
+		<mat-form-field class="joinInput">
+			<input matInput placeholder="Enter code" class="centerText" oninput="this.value = this.value.toUpperCase()"
+				maxlength="4">
+		</mat-form-field>
+		<button mat-raised-button color="primary" (click)="OnJoinPress()" style="transform: scale(2);">JOIN</button>
+	</section>
+</div>

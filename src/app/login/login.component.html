@@ -4,6 +4,7 @@
 		<h1>Sign in</h1>
 		<button mat-stroked-button><mat-icon svgIcon="google-logo"></mat-icon>Continue with Google</button>
 		<p>Or</p>
-		<app-login-form></app-login-form>
+		<app-login-form *ngIf="urlIsLogin"></app-login-form>
+		<app-sign-up-form *ngIf="!urlIsLogin"></app-sign-up-form>
 	</div>
 </div>

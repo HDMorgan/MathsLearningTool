@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { IconRegisterService } from './services/mat-icon-register.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
 	let iconRegisterService: IconRegisterService;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [AppComponent],
+			imports: [AppComponent, HttpClientModule],
 		}).compileComponents();
 
 		let fixture = TestBed.createComponent(AppComponent);

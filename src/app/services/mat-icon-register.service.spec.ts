@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { IconRegisterService } from './mat-icon-register.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 describe('MatIconRegisterService', () => {
 	let service: IconRegisterService;
@@ -10,7 +11,9 @@ describe('MatIconRegisterService', () => {
 	let domSanitizer: DomSanitizer;
 
 	beforeEach(() => {
-		TestBed.configureTestingModule({});
+		TestBed.configureTestingModule({
+			imports: [MatIconTestingModule],
+		});
 		service = TestBed.inject(IconRegisterService);
 		matIconRegistry = TestBed.inject(MatIconRegistry);
 		domSanitizer = TestBed.inject(DomSanitizer);

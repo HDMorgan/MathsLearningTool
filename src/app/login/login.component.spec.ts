@@ -10,6 +10,7 @@ import {
 } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -23,7 +24,12 @@ describe('LoginComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [LoginComponent, RouterTestingModule, BrowserAnimationsModule],
+			imports: [
+				LoginComponent,
+				RouterTestingModule,
+				BrowserAnimationsModule,
+				MatIconTestingModule,
+			],
 			providers: [
 				{ provide: ActivatedRoute, useValue: { params: of({ id: 'login' }) } },
 			],

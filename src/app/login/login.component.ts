@@ -36,9 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(
 		private iconRegisterService: IconRegisterService,
 		private route: ActivatedRoute
-	) {
-		console.log('construct');
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.iconRegisterService.RegisterGoogleIcon();

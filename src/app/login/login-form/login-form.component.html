@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="OnSubmit()">
+<form [formGroup]="loginForm" (ngSubmit)="OnSubmit()" class="login-form">
 	<mat-form-field appearance="fill">
 		<mat-label>Email</mat-label>
 		<input matInput type="email" formControlName="email">
@@ -17,7 +17,7 @@
 	<button mat-raised-button color="primary" type="submit">Login</button>
 
 </form>
-<button mat-button color="primary" style="margin-top: 1em;">RESET PASSWORD</button>
+<button mat-button color="primary">RESET PASSWORD</button>
 <div class="button-and-text">
 	Don't have an account?
 	<button mat-button color="primary" routerLink="/auth/sign-up">SIGN UP</button>

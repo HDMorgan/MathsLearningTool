@@ -1,18 +1,14 @@
+import { Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { IconRegisterService } from './../services/mat-icon-register.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginFormComponent } from './login-form/login-form.component';
-import {
-	ActivatedRoute,
-	RouterOutlet,
-	Params,
-	RouterModule,
-} from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { CommonModule } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { ILoginForm } from './ilogin-form';
 
 @Component({
 	selector: 'app-login',
@@ -29,24 +25,16 @@ import { Observable, Subscription } from 'rxjs';
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit, OnDestroy {
-	urlIsLogin: boolean = true;
-	paramsSubscription: Subscription | undefined;
+export class LoginComponent {
+	pageTitle: string = 'clank';
 
 	constructor(
-		private iconRegisterService: IconRegisterService,
-		private route: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		private changeDetectorRef: ChangeDetectorRef
 	) {}
 
-	ngOnInit(): void {
-		this.iconRegisterService.RegisterGoogleIcon();
-
-		this.paramsSubscription = this.route.params.subscribe((params) => {
-			this.urlIsLogin = params['id'] === 'login';
-		});
-	}
-
-	ngOnDestroy(): void {
-		this.paramsSubscription?.unsubscribe();
+	OnActivated(componentReference: ILoginForm) {
+		this.pageTitle = componentReference.title;
+		this.changeDetectorRef.detectChanges();
 	}
 }

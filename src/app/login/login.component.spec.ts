@@ -30,18 +30,13 @@ describe('LoginComponent', () => {
 				BrowserAnimationsModule,
 				MatIconTestingModule,
 			],
-			providers: [
-				{ provide: ActivatedRoute, useValue: { params: of({ id: 'login' }) } },
-			],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LoginComponent);
 
 		activatedRoute = TestBed.inject(ActivatedRoute);
-		iconRegisterService = TestBed.inject(IconRegisterService);
 
-		spyOn(activatedRoute.params, 'subscribe').and.returnValue(mockSubscription);
-		spyOn(iconRegisterService, 'RegisterGoogleIcon');
+		spyOn(activatedRoute.url, 'subscribe').and.returnValue(mockSubscription);
 		spyOn(mockSubscription, 'unsubscribe');
 
 		component = fixture.componentInstance;
@@ -50,18 +45,5 @@ describe('LoginComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
-	});
-
-	it('should subscribe to route params', () => {
-		expect(activatedRoute?.params.subscribe).toHaveBeenCalledTimes(1);
-	});
-
-	it('should unsubscribe from route params on component destroy', () => {
-		component.ngOnDestroy();
-		expect(mockSubscription.unsubscribe).toHaveBeenCalled();
-	});
-
-	it('should register the google-logo icon', () => {
-		expect(iconRegisterService.RegisterGoogleIcon).toHaveBeenCalledTimes(1);
 	});
 });

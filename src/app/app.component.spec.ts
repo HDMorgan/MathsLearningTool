@@ -16,7 +16,7 @@ describe('AppComponent', () => {
 		let fixture = TestBed.createComponent(AppComponent);
 
 		iconRegisterService = TestBed.inject(IconRegisterService);
-		spyOn(iconRegisterService, 'RegisterGenericIcons');
+		spyOn(iconRegisterService, 'RegisterSvgIcons');
 
 		fixture.detectChanges();
 	});
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
 		expect(app.title).toEqual('MathsQuiz');
 	});
 
-	it('should call RegisterGenericIcons', () => {
-		expect(iconRegisterService.RegisterGenericIcons).toHaveBeenCalled();
+	it('should call RegisterSvgIcons', () => {
+		expect(iconRegisterService.RegisterSvgIcons).toHaveBeenCalled();
 	});
 });

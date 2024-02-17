@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 	constructor(private iconRegisterService: IconRegisterService) {}
 
 	ngOnInit(): void {
-		this.iconRegisterService.RegisterGenericIcons();
+		this.iconRegisterService.RegisterSvgIcons();
 	}
 
 	title = 'MathsQuiz';

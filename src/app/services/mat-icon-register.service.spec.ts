@@ -22,39 +22,37 @@ describe('MatIconRegisterService', () => {
 			'url'
 		);
 		spyOn(matIconRegistry, 'addSvgIcon');
+
+		service.RegisterSvgIcons();
 	});
 
 	it('should be created', () => {
 		expect(service).toBeTruthy();
 	});
 
-	it('should register main-logo when RegisterGenericIcons is called', () => {
-		service.RegisterGenericIcons();
-		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledOnceWith(
+	it('should register main-logo when RegisterSvgIcons is called', () => {
+		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledWith(
 			'main-logo',
 			jasmine.any(String)
 		);
 	});
 
-	it('dom should be sanitised for main-logo icon when RegisterGenericIcons is called', () => {
-		service.RegisterGenericIcons();
-		expect(
-			domSanitizer.bypassSecurityTrustResourceUrl
-		).toHaveBeenCalledOnceWith('assets/icons/logo.svg');
+	it('dom should be sanitised for main-logo icon when RegisterSvgIcons is called', () => {
+		expect(domSanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(
+			'assets/icons/logo.svg'
+		);
 	});
 
-	it('should register google-logo when RegisterGoogleIcon is called', () => {
-		service.RegisterGoogleIcon();
-		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledOnceWith(
+	it('should register google-logo when RegisterSvgIcons is called', () => {
+		expect(matIconRegistry.addSvgIcon).toHaveBeenCalledWith(
 			'google-logo',
 			jasmine.any(String)
 		);
 	});
 
-	it('dom should be sanitised for google-logo icon when RegisterGoogleIcon is called', () => {
-		service.RegisterGoogleIcon();
-		expect(
-			domSanitizer.bypassSecurityTrustResourceUrl
-		).toHaveBeenCalledOnceWith('assets/icons/google-logo.svg');
+	it('dom should be sanitised for google-logo icon when RegisterSvgIcons is called', () => {
+		expect(domSanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(
+			'assets/icons/google-logo.svg'
+		);
 	});
 });

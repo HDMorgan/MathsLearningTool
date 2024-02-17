@@ -1,10 +1,9 @@
 <div class="main-container">
 	<div class="form-container">
 		<object type="image/svg+xml" data="assets/icons/logo.svg" width="50" height="50"></object>
-		<h1>Sign in</h1>
+		<h1>{{ pageTitle }}</h1>
 		<button mat-stroked-button><mat-icon svgIcon="google-logo"></mat-icon>Continue with Google</button>
 		<p>Or</p>
-		<app-login-form *ngIf="urlIsLogin"></app-login-form>
-		<app-sign-up-form *ngIf="!urlIsLogin"></app-sign-up-form>
+		<router-outlet (activate)="OnActivated($event)"></router-outlet>
 	</div>
 </div>

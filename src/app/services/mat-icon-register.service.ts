@@ -11,14 +11,12 @@ export class IconRegisterService {
 		private sanitiser: DomSanitizer
 	) {}
 
-	RegisterGenericIcons() {
+	RegisterSvgIcons() {
 		this.iconRegistry.addSvgIcon(
 			'main-logo',
 			this.sanitiser.bypassSecurityTrustResourceUrl('assets/icons/logo.svg')
 		);
-	}
 
-	RegisterGoogleIcon() {
 		this.iconRegistry.addSvgIcon(
 			'google-logo',
 			this.sanitiser.bypassSecurityTrustResourceUrl(

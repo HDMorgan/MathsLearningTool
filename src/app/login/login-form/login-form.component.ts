@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { ILoginForm } from '../ilogin-form';
 
 @Component({
 	selector: 'app-login-form',
@@ -25,8 +26,9 @@ import { RouterLink } from '@angular/router';
 	templateUrl: './login-form.component.html',
 	styleUrl: './login-form.component.css',
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements ILoginForm {
 	loginForm: FormGroup;
+	title = 'Login';
 
 	constructor(private formBuilder: FormBuilder) {
 		this.loginForm = formBuilder.group({

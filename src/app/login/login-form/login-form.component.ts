@@ -30,10 +30,7 @@ export class LoginFormComponent implements ILoginForm {
 	loginForm: FormGroup;
 	title = 'Login';
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private authService: AuthService
-	) {
+	constructor(formBuilder: FormBuilder, private authService: AuthService) {
 		this.loginForm = formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]],

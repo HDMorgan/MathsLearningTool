@@ -14,8 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PasswordErrorStateMatcherService } from '../../services/password-error-state-matcher.service';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -45,6 +46,8 @@ export class SignUpFormComponent implements ILoginForm, OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
+		private snackBar: MatSnackBar,
+		private authService: AuthService,
 		passwordErrorMatcher: PasswordErrorStateMatcherService
 	) {
 		this.passwordErrorMatcher = passwordErrorMatcher;
@@ -62,6 +65,12 @@ export class SignUpFormComponent implements ILoginForm, OnInit {
 	ngOnInit(): void {}
 
 	OnSubmit() {
-		console.log(this.signUpForm.get('password')?.errors);
+		if (this.signUpForm.valid) {
+			let email = this.signUpForm.get('email')?.value;
+			let password = this.signUpForm.get('password')?.value;
+			this.authService
+				.createAccountAndSignIn(email, password)
+				.catch(() => this.signUpForm.reset());
+		}
 	}
 }

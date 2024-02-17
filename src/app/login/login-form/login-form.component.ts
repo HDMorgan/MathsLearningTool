@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ILoginForm } from '../ilogin-form';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-login-form',
@@ -29,7 +30,10 @@ export class LoginFormComponent implements ILoginForm {
 	loginForm: FormGroup;
 	title = 'Login';
 
-	constructor(private formBuilder: FormBuilder) {
+	constructor(
+		private formBuilder: FormBuilder,
+		private authService: AuthService
+	) {
 		this.loginForm = formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]],
@@ -37,6 +41,12 @@ export class LoginFormComponent implements ILoginForm {
 	}
 
 	OnSubmit() {
-		console.log(this.loginForm);
+		if (this.loginForm.valid) {
+			let email = this.loginForm.get('email')?.value;
+			let password = this.loginForm.get('password')?.value;
+			this.authService
+				.login(email, password)
+				.catch(() => this.loginForm.reset());
+		}
 	}
 }

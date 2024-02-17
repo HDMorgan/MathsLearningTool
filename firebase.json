@@ -11,18 +11,25 @@
       "enabled": true
     }
   },
-  "hosting": {
-    "public": "./dist/mathematics-learning-tool/browser",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "public": "./dist/mathematics-learning-tool/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "mathematicslearningtool",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
 }

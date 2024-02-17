@@ -24,7 +24,6 @@ import { ILoginForm } from '../ilogin-form';
 		RouterLink,
 	],
 	templateUrl: './login-form.component.html',
-	styleUrl: './login-form.component.css',
 })
 export class LoginFormComponent implements ILoginForm {
 	loginForm: FormGroup;
@@ -38,6 +37,6 @@ export class LoginFormComponent implements ILoginForm {
 	}
 
 	OnSubmit() {
-		console.log('Email:' + this.loginForm.value[0]);
+		console.log(this.loginForm);
 	}
 }

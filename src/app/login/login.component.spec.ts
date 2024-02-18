@@ -5,7 +5,10 @@ import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, importProvidersFrom } from '@angular/core';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { environment } from '../../environments/environment';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -23,6 +26,12 @@ describe('LoginComponent', () => {
 				RouterTestingModule,
 				BrowserAnimationsModule,
 				MatIconTestingModule,
+			],
+			providers: [
+				importProvidersFrom(provideAuth(() => getAuth())),
+				importProvidersFrom(
+					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
+				),
 			],
 		}).compileComponents();
 

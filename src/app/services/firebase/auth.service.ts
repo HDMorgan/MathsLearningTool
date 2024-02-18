@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
 	Auth,
+	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signInWithPopup,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 	private snackbarDuration = 5000;
+	private googleAuthProvider = new GoogleAuthProvider();
 
 	constructor(
 		private auth: Auth,
@@ -33,17 +36,33 @@ export class AuthService {
 		});
 	}
 
-	login(email: string, password: string): Promise<boolean> {
+	loginWithEmail(email: string, password: string): Promise<boolean> {
 		return new Promise<boolean>((resolve, reject) => {
 			signInWithEmailAndPassword(this.auth, email, password)
 				.then(() => {
 					this.router.navigateByUrl('/dashboard');
+					resolve(true);
 				})
 				.catch((error) => {
 					this.snackBar.open(`Login failed: ${error.code}`, undefined, {
 						duration: this.snackbarDuration,
 					});
 					reject(error);
+				});
+		});
+	}
+
+	loginWithGoogle(): Promise<boolean> {
+		return new Promise<boolean>((resolve, reject) => {
+			signInWithPopup(this.auth, this.googleAuthProvider)
+				.then(() => {
+					this.router.navigateByUrl('/dashboard');
+					resolve(true);
+				})
+				.catch((error) => {
+					this.snackBar.open(`Login failed: ${error.code}`, undefined, {
+						duration: this.snackbarDuration,
+					});
 				});
 		});
 	}

@@ -1,4 +1,3 @@
-import { AuthService } from './../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ILoginForm } from '../ilogin-form';
@@ -15,8 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PasswordErrorStateMatcherService } from '../../services/password-error-state-matcher.service';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/firebase/auth.service';
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -45,13 +45,14 @@ export class SignUpFormComponent implements ILoginForm, OnInit {
 	};
 
 	constructor(
-		formBuilder: FormBuilder,
+		private formBuilder: FormBuilder,
+		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		passwordErrorMatcher: PasswordErrorStateMatcherService
 	) {
 		this.passwordErrorMatcher = passwordErrorMatcher;
 
-		this.signUpForm = formBuilder.group(
+		this.signUpForm = this.formBuilder.group(
 			{
 				email: ['', [Validators.required, Validators.email]],
 				password: ['', [Validators.required, Validators.minLength(6)]],

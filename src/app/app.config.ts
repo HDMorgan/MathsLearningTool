@@ -7,6 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -14,16 +15,7 @@ export const appConfig: ApplicationConfig = {
 		provideAnimations(),
 		provideHttpClient(),
 		importProvidersFrom(
-			provideFirebaseApp(() =>
-				initializeApp({
-					projectId: 'mathematicslearningtool',
-					appId: '1:143208606582:web:ad90504e613fbf8b652857',
-					storageBucket: 'mathematicslearningtool.appspot.com',
-					apiKey: 'AIzaSyCNlfWeUYvRHkfRe7xvfvwR8JOLcMRC6Po',
-					authDomain: 'mathematicslearningtool.firebaseapp.com',
-					messagingSenderId: '143208606582',
-				})
-			)
+			provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 		),
 		importProvidersFrom(provideAuth(() => getAuth())),
 		importProvidersFrom(provideFirestore(() => getFirestore())),

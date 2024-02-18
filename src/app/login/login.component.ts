@@ -9,6 +9,7 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { CommonModule } from '@angular/common';
 import { ILoginForm } from './ilogin-form';
+import { AuthService } from '../services/firebase/auth.service';
 
 @Component({
 	selector: 'app-login',
@@ -29,12 +30,16 @@ export class LoginComponent {
 	pageTitle: string = 'clank';
 
 	constructor(
-		private activatedRoute: ActivatedRoute,
-		private changeDetectorRef: ChangeDetectorRef
+		private changeDetectorRef: ChangeDetectorRef,
+		private authService: AuthService
 	) {}
 
 	OnActivated(componentReference: ILoginForm) {
 		this.pageTitle = componentReference.title;
 		this.changeDetectorRef.detectChanges();
+	}
+
+	GoogleSignIn() {
+		this.authService.loginWithGoogle();
 	}
 }

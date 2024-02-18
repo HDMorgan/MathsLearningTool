@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ILoginForm } from '../ilogin-form';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/firebase/auth.service';
 
 @Component({
 	selector: 'app-login-form',
@@ -42,7 +42,7 @@ export class LoginFormComponent implements ILoginForm {
 			let email = this.loginForm.get('email')?.value;
 			let password = this.loginForm.get('password')?.value;
 			this.authService
-				.login(email, password)
+				.loginWithEmail(email, password)
 				.catch(() => this.loginForm.reset());
 		}
 	}

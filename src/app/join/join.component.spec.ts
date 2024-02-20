@@ -5,7 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { AuthModule } from '@angular/fire/auth';
-import { FirebaseAppModule } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { importProvidersFrom } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { AuthService } from '../services/firebase/auth.service';
 
 describe('JoinComponent', () => {
 	let component: JoinComponent;
@@ -19,11 +22,17 @@ describe('JoinComponent', () => {
 				RouterTestingModule,
 				MatIconTestingModule,
 				AuthModule,
-				FirebaseAppModule,
+			],
+			providers: [
+				importProvidersFrom(
+					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
+				),
 			],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(JoinComponent);
+		let authService = TestBed.inject(AuthService);
+		spyOn(authService, 'getAuthState').and.returnValue(true);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

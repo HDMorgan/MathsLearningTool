@@ -5,7 +5,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { AuthModule } from '@angular/fire/auth';
-import { FirebaseAppModule } from '@angular/fire/app';
+import {
+	FirebaseAppModule,
+	initializeApp,
+	provideFirebaseApp,
+} from '@angular/fire/app';
+import { importProvidersFrom } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 describe('JoinHeaderComponent', () => {
 	let component: JoinHeaderComponent;
@@ -20,6 +26,11 @@ describe('JoinHeaderComponent', () => {
 				MatIconTestingModule,
 				AuthModule,
 				FirebaseAppModule,
+			],
+			providers: [
+				importProvidersFrom(
+					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
+				),
 			],
 		}).compileComponents();
 

@@ -4,7 +4,7 @@ import { JoinComponent } from './join.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { AuthModule } from '@angular/fire/auth';
+import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { importProvidersFrom } from '@angular/core';
 import { environment } from '../../environments/environment';
@@ -27,6 +27,7 @@ describe('JoinComponent', () => {
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
+				importProvidersFrom(provideAuth(() => getAuth())),
 			],
 		}).compileComponents();
 

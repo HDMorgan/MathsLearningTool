@@ -2,7 +2,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { TestBed } from '@angular/core/testing';
 
 import { IconRegisterService } from './mat-icon-register.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 describe('MatIconRegisterService', () => {

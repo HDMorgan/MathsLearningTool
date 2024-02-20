@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ILoginForm } from '../ilogin-form';
 import {
 	AbstractControl,
@@ -14,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PasswordErrorStateMatcherService } from '../../services/password-error-state-matcher.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/firebase/auth.service';
 
@@ -31,7 +30,7 @@ import { AuthService } from '../../services/firebase/auth.service';
 	],
 	templateUrl: './sign-up-form.component.html',
 })
-export class SignUpFormComponent implements ILoginForm, OnInit {
+export class SignUpFormComponent implements ILoginForm {
 	title = 'Sign up';
 	signUpForm: FormGroup;
 	passwordErrorMatcher: PasswordErrorStateMatcherService;
@@ -39,14 +38,13 @@ export class SignUpFormComponent implements ILoginForm, OnInit {
 	checkPasswords: ValidatorFn = (
 		group: AbstractControl
 	): ValidationErrors | null => {
-		let pass = group.get('password')?.value;
-		let confirmPass = group.get('confirmPassword')?.value;
+		const pass = group.get('password')?.value;
+		const confirmPass = group.get('confirmPassword')?.value;
 		return pass === confirmPass ? null : { notSame: true };
 	};
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		passwordErrorMatcher: PasswordErrorStateMatcherService
 	) {
@@ -62,12 +60,10 @@ export class SignUpFormComponent implements ILoginForm, OnInit {
 		);
 	}
 
-	ngOnInit(): void {}
-
 	OnSubmit() {
 		if (this.signUpForm.valid) {
-			let email = this.signUpForm.get('email')?.value;
-			let password = this.signUpForm.get('password')?.value;
+			const email = this.signUpForm.get('email')?.value;
+			const password = this.signUpForm.get('password')?.value;
 			this.authService
 				.createAccountAndSignIn(email, password)
 				.catch(() => this.signUpForm.reset());

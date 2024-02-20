@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpFormComponent } from './sign-up-form.component';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth, GoogleAuthProvider } from '@angular/fire/auth';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../../../environments/environment';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

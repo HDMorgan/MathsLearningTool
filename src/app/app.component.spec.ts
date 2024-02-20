@@ -13,7 +13,7 @@ describe('AppComponent', () => {
 			imports: [AppComponent, HttpClientModule, MatIconTestingModule],
 		}).compileComponents();
 
-		let fixture = TestBed.createComponent(AppComponent);
+		const fixture = TestBed.createComponent(AppComponent);
 
 		iconRegisterService = TestBed.inject(IconRegisterService);
 		spyOn(iconRegisterService, 'RegisterSvgIcons');

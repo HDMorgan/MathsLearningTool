@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IdTokenResult, User, UserCredential } from '@angular/fire/auth';
 
 class mockUser implements User {

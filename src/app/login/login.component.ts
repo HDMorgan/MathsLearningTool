@@ -1,11 +1,9 @@
-import { Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { IconRegisterService } from './../services/mat-icon-register.service';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { CommonModule } from '@angular/common';
 import { ILoginForm } from './ilogin-form';
@@ -22,6 +20,7 @@ import { AuthService } from '../services/firebase/auth.service';
 		LoginFormComponent,
 		RouterOutlet,
 		SignUpFormComponent,
+		RouterLink,
 	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',

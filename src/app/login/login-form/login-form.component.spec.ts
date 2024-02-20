@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth, GoogleAuthProvider } from '@angular/fire/auth';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../../../environments/environment';
 
 describe('LoginFormComponent', () => {

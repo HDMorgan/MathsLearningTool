@@ -4,12 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { SignUpFormComponent } from './login/sign-up-form/sign-up-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
 	{ path: '', redirectTo: 'join', pathMatch: 'full' },
 	{ path: 'join', component: JoinComponent },
 	{ path: 'auth', redirectTo: 'auth/login' },
-	{ path: 'dashboard', component: DashboardComponent },
 	{
 		path: 'auth',
 		component: LoginComponent,
@@ -18,5 +18,10 @@ export const routes: Routes = [
 			{ path: 'login', component: LoginFormComponent },
 			{ path: 'sign-up', component: SignUpFormComponent },
 		],
+	},
+	{
+		path: 'dashboard',
+		component: DashboardComponent,
+		canActivate: [authGuard],
 	},
 ];

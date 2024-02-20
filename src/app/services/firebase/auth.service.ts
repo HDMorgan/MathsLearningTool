@@ -53,7 +53,7 @@ export class AuthService {
 	}
 
 	loginWithGoogle(): Promise<boolean> {
-		return new Promise<boolean>((resolve, reject) => {
+		return new Promise<boolean>((resolve) => {
 			signInWithPopup(this.auth, this.googleAuthProvider)
 				.then(() => {
 					this.router.navigateByUrl('/dashboard');
@@ -65,5 +65,13 @@ export class AuthService {
 					});
 				});
 		});
+	}
+
+	getAuthState(): boolean {
+		return !!this.auth.currentUser;
+	}
+
+	signOut() {
+		this.auth.signOut();
 	}
 }

@@ -31,7 +31,7 @@ describe('JoinComponent', () => {
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(JoinComponent);
-		let authService = TestBed.inject(AuthService);
+		const authService = TestBed.inject(AuthService);
 		spyOn(authService, 'getAuthState').and.returnValue(true);
 		component = fixture.componentInstance;
 		fixture.detectChanges();

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoButtonComponent } from './logo-button.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-describe('LogoButtonComponent', () => {
-	let component: LogoButtonComponent;
-	let fixture: ComponentFixture<LogoButtonComponent>;
+describe('ForgotPasswordComponent', () => {
+	let component: ForgotPasswordComponent;
+	let fixture: ComponentFixture<ForgotPasswordComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [LogoButtonComponent, MatIconTestingModule],
+			imports: [ForgotPasswordComponent, MatIconTestingModule],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(LogoButtonComponent);
+		fixture = TestBed.createComponent(ForgotPasswordComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

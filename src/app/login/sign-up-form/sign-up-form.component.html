@@ -1,0 +1,29 @@
+<form [formGroup]="signUpForm" (ngSubmit)="OnSubmit()" class="login-form">
+	<mat-form-field appearance="fill">
+		<mat-label>Email</mat-label>
+		<input matInput type="email" formControlName="email">
+		<mat-error *ngIf="signUpForm.get('email')?.hasError('required')">Email is required</mat-error>
+		<mat-error *ngIf="signUpForm.get('email')?.hasError('email')">Invalid email</mat-error>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill">
+		<mat-label>Password</mat-label>
+		<input matInput type="password" formControlName="password">
+		<mat-error *ngIf="signUpForm.get('password')?.hasError('required')">Password is required</mat-error>
+		<mat-error *ngIf="signUpForm.get('password')?.hasError('minlength')">Password must be at least 6
+			characters</mat-error>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill">
+		<mat-label>Confirm Password</mat-label>
+		<input matInput type="password" formControlName="confirmPassword" [errorStateMatcher]="passwordErrorMatcher">
+		<mat-error *ngIf="signUpForm.hasError('notSame')">Passwords do not match</mat-error>
+	</mat-form-field>
+
+	<button mat-raised-button color="primary" type="submit">Sign up</button>
+
+</form>
+<div class="button-and-text">
+	Have an account?
+	<button mat-button color="primary" routerLink="/auth/login">LOGIN</button>
+</div>

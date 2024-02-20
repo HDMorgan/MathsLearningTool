@@ -1,40 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JoinHeaderComponent } from './join-header.component';
+import { LoginFormComponent } from './login-form.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { AuthModule } from '@angular/fire/auth';
-import {
-	FirebaseAppModule,
-	initializeApp,
-	provideFirebaseApp,
-} from '@angular/fire/app';
 import { importProvidersFrom } from '@angular/core';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../../../environments/environment';
 
-describe('JoinHeaderComponent', () => {
-	let component: JoinHeaderComponent;
-	let fixture: ComponentFixture<JoinHeaderComponent>;
+describe('LoginFormComponent', () => {
+	let component: LoginFormComponent;
+	let fixture: ComponentFixture<LoginFormComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				JoinHeaderComponent,
+				LoginFormComponent,
 				RouterTestingModule,
-				HttpClientModule,
+				BrowserAnimationsModule,
 				MatIconTestingModule,
-				AuthModule,
-				FirebaseAppModule,
 			],
 			providers: [
+				importProvidersFrom(provideAuth(() => getAuth())),
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
 			],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(JoinHeaderComponent);
+		fixture = TestBed.createComponent(LoginFormComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -46,4 +46,4 @@ jobs:
           channelId: live
           projectId: mathematicslearningtool
         env:
-          FIREBASE_CLI_EXPERIMENTS: webframeworks\n\u001b[23m
+          FIREBASE_CLI_EXPERIMENTS: webframeworks\n\u001b[23m,webframeworks

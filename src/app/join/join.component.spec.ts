@@ -4,6 +4,8 @@ import { JoinComponent } from './join.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { AuthModule } from '@angular/fire/auth';
+import { FirebaseAppModule } from '@angular/fire/app';
 
 describe('JoinComponent', () => {
 	let component: JoinComponent;
@@ -16,6 +18,8 @@ describe('JoinComponent', () => {
 				BrowserAnimationsModule,
 				RouterTestingModule,
 				MatIconTestingModule,
+				AuthModule,
+				FirebaseAppModule,
 			],
 		}).compileComponents();
 

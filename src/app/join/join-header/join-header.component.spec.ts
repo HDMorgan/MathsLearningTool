@@ -4,6 +4,8 @@ import { JoinHeaderComponent } from './join-header.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { AuthModule } from '@angular/fire/auth';
+import { FirebaseAppModule } from '@angular/fire/app';
 
 describe('JoinHeaderComponent', () => {
 	let component: JoinHeaderComponent;
@@ -16,6 +18,8 @@ describe('JoinHeaderComponent', () => {
 				RouterTestingModule,
 				HttpClientModule,
 				MatIconTestingModule,
+				AuthModule,
+				FirebaseAppModule,
 			],
 		}).compileComponents();
 

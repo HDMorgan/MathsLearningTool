@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 	imports: [MatIconModule, MatButtonModule, HttpClientModule],
 	template: `<button mat-button>
 		<mat-icon svgIcon="main-logo"></mat-icon>
-		MathQuiz
+		Maths Quiz
 	</button>`,
 })
 export class LogoButtonComponent {}

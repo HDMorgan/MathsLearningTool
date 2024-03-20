@@ -12,6 +12,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export function initializeAuth(auth: Auth): Promise<void> {
 	return new Promise<void>((resolve, reject) => {
@@ -42,6 +43,6 @@ export const appConfig: ApplicationConfig = {
 			useFactory: (auth: Auth) => () => initializeAuth(auth),
 			multi: true,
 			deps: [Auth],
-		},
+		}, provideAnimationsAsync(),
 	],
 };

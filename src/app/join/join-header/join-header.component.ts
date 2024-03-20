@@ -9,7 +9,7 @@ import { AuthService } from '../../services/firebase/auth.service';
 	standalone: true,
 	imports: [LogoButtonComponent, MatButtonModule, RouterLink],
 	templateUrl: './join-header.component.html',
-	styleUrl: './join-header.component.css',
+	styleUrl: './join-header.component.scss',
 })
 export class JoinHeaderComponent implements OnInit {
 	teacherButtonRoute: string = '';

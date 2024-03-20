@@ -23,7 +23,7 @@ import { AuthService } from '../services/firebase/auth.service';
 		RouterLink,
 	],
 	templateUrl: './login.component.html',
-	styleUrl: './login.component.css',
+	styleUrl: './login.component.scss',
 })
 export class LoginComponent {
 	pageTitle: string = 'clank';

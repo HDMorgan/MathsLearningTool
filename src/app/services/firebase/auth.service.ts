@@ -70,8 +70,4 @@ export class AuthService {
 	getAuthState(): boolean {
 		return !!this.auth.currentUser;
 	}
-
-	signOut() {
-		this.auth.signOut();
-	}
 }

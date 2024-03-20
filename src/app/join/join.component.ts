@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 		JoinHeaderComponent,
 	],
 	templateUrl: './join.component.html',
-	styleUrl: './join.component.css',
+	styleUrl: './join.component.scss',
 })
 export class JoinComponent {
 	isVisible = false;

@@ -20,10 +20,10 @@
 		<mat-error *ngIf="signUpForm.hasError('notSame')">Passwords do not match</mat-error>
 	</mat-form-field>
 
-	<button mat-raised-button color="primary" type="submit">Sign up</button>
+	<button mat-flat-button type="submit">Sign up</button>
 
 </form>
 <div class="button-and-text">
 	Have an account?
-	<button mat-button color="primary" routerLink="/auth/login">LOGIN</button>
+	<button mat-button routerLink="/auth/login">LOGIN</button>
 </div>

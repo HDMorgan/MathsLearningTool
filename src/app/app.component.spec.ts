@@ -27,10 +27,10 @@ describe('AppComponent', () => {
 		expect(app).toBeTruthy();
 	});
 
-	it(`should have the 'MathsQuiz' title`, () => {
+	it(`should have the 'Maths Quiz' title`, () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		const app = fixture.componentInstance;
-		expect(app.title).toEqual('MathsQuiz');
+		expect(app.title).toEqual('Maths Quiz');
 	});
 
 	it('should call RegisterSvgIcons', () => {

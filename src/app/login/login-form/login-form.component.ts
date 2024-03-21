@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ILoginForm } from '../ilogin-form';
-import { AuthService } from '../../services/firebase/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
 	selector: 'app-login-form',

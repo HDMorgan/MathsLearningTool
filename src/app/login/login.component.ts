@@ -7,7 +7,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { CommonModule } from '@angular/common';
 import { ILoginForm } from './ilogin-form';
-import { AuthService } from '../services/firebase/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
 	selector: 'app-login',

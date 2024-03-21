@@ -1,3 +1,5 @@
+@use "@angular/material-experimental" as matx;
+
 $theme: matx.define-theme(
 	(
 		color: (

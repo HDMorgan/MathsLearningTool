@@ -3,7 +3,6 @@ import { JoinComponent } from './join/join.component';
 import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { SignUpFormComponent } from './login/sign-up-form/sign-up-form.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -21,7 +20,8 @@ export const routes: Routes = [
 	},
 	{
 		path: 'dashboard',
-		component: DashboardComponent,
+		loadChildren: () =>
+			import('./dashboard/dashboard.routes').then((m) => m.dashboardRoutes),
 		canActivate: [authGuard],
 	},
 ];

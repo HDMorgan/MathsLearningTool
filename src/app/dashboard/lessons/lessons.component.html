@@ -1,0 +1,9 @@
+<header>
+	<h1>Your Lessons</h1>
+	<button mat-button><mat-icon>add</mat-icon>CREATE NEW</button>
+</header>
+<section class="lesson-container">
+	@for (lesson of lessons; track lesson) {
+	<app-lesson-item [lesson]="lesson"></app-lesson-item>
+	}
+</section>

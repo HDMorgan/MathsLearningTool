@@ -1,0 +1,19 @@
+@use "@angular/material" as mat;
+@import "../../../variables.scss";
+
+@media only screen and (min-width: 1000px) {
+	header {
+		width: 45%;
+	}
+}
+
+.lesson-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	row-gap: 20px;
+}
+
+h1 {
+	font: mat.get-theme-typography($theme, title-large, font);
+}

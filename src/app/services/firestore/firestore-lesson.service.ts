@@ -15,8 +15,8 @@ import { ILesson } from '../../interfaces/data/ilesson';
 export class FirestoreLessonService {
 	private collectionUrl: string = '';
 
-	constructor(private firestore: Firestore, private auth: Auth) {
-		this.collectionUrl = `teachers/${this.auth.currentUser?.uid}/lessons`;
+	constructor(private firestore: Firestore, auth: Auth) {
+		this.collectionUrl = `teachers/${auth.currentUser?.uid}/lessons`;
 	}
 
 	loadLessons(): Promise<ILesson[]> {

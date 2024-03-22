@@ -4,7 +4,7 @@ import { JoinHeaderComponent } from './join-header.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { AuthModule } from '@angular/fire/auth';
+import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import {
 	FirebaseAppModule,
 	initializeApp,
@@ -31,6 +31,7 @@ describe('JoinHeaderComponent', () => {
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
+				importProvidersFrom(provideAuth(() => getAuth())),
 			],
 		}).compileComponents();
 

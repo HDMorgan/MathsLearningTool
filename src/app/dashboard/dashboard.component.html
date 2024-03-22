@@ -1,2 +1,13 @@
-<p>dashboard works!</p>
-<button (click)="Logout()">logout</button>
+<header>
+	<app-logo-button></app-logo-button>
+	<button mat-button (click)="Logout()">LOGOUT</button>
+</header>
+
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+	@for (link of links; track link) {
+	<a mat-tab-link [routerLink]="link.url" [active]="activeLink === link.url"> {{link.title}}
+	</a>}
+</nav>
+<mat-tab-nav-panel #tabPanel>
+	<router-outlet></router-outlet>
+</mat-tab-nav-panel>

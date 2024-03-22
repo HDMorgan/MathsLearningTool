@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PasswordErrorStateMatcherService } from '../../services/password-error-state-matcher.service';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/firebase/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
 	selector: 'app-sign-up-form',

@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
@@ -16,7 +17,12 @@ describe('DashboardComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DashboardComponent, AuthModule, FirebaseAppModule],
+			imports: [
+				DashboardComponent,
+				AuthModule,
+				FirebaseAppModule,
+				RouterTestingModule,
+			],
 			providers: [
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))

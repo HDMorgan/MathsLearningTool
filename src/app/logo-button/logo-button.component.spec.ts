@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoButtonComponent } from './logo-button.component';
@@ -9,7 +10,7 @@ describe('LogoButtonComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [LogoButtonComponent, MatIconTestingModule],
+			imports: [LogoButtonComponent, MatIconTestingModule, RouterTestingModule],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LogoButtonComponent);

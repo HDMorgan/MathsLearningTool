@@ -1,17 +1,14 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-@use '@angular/material-experimental' as matx;
+@use "@angular/material" as mat;
+@import "variables";
 
-$theme: matx.define-theme((
-  color: (
-    primary: matx.$m3-blue-palette,
-    )
-));
+:root {
+	--theme: $theme;
+}
 
 .light-theme {
-  @include mat.all-component-themes($theme);
+	@include mat.all-component-themes($theme);
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -43,10 +40,33 @@ h1 {
 	justify-content: center;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: mat.get-theme-color($theme, surface);}
+html,
+body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	background-color: mat.get-theme-color($theme, surface);
+}
 
 .secondary {
 	@include mat.form-field-color($theme, $color-variant: secondary);
 	@include mat.button-color($theme, $color-variant: secondary);
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.surface-container {
+	background-color: mat.get-theme-color($theme, surface-container-high);
+	color: mat.get-theme-color($theme, on-surface);
+}
+
+.container-outline {
+	border: 1px solid;
+	border-color: mat.get-theme-color($theme, outline);
 }

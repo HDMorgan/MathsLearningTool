@@ -8,7 +8,7 @@ import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { importProvidersFrom } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../services/firebase/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 describe('JoinComponent', () => {
 	let component: JoinComponent;

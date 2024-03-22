@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { LogoButtonComponent } from '../../logo-button/logo-button.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/firebase/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
 	selector: 'app-join-header',
 	standalone: true,
 	imports: [LogoButtonComponent, MatButtonModule, RouterLink],
 	templateUrl: './join-header.component.html',
-	styleUrl: './join-header.component.scss',
 })
 export class JoinHeaderComponent implements OnInit {
 	teacherButtonRoute: string = '';

@@ -1,0 +1,10 @@
+<section class="lesson-text">
+	<span>{{lesson?.name}}</span>
+	<ul>
+		<li *ngFor="let item of lesson?.summary">{{ item }}</li>
+	</ul>
+</section>
+<section class="button-flex">
+	<button mat-button>EDIT</button>
+	<button mat-flat-button>Host</button>
+</section>

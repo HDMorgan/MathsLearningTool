@@ -1,0 +1,20 @@
+@use "@angular/material" as mat;
+@import "../../../variables.scss";
+
+:host {
+	display: flex;
+	flex-direction: column;
+	margin: 0px 50px;
+	width: 300px;
+}
+
+@media only screen and (max-width: 800px) {
+	:host {
+		margin: 0 20px;
+		width: auto;
+	}
+}
+
+h2 {
+	font: mat.get-theme-typography($theme, title-medium, font);
+}

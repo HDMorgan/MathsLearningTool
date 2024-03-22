@@ -4,19 +4,21 @@ import { FirestoreLessonService } from './firestore-lesson.service';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { environment } from '../../../environments/environment';
-import { FirestoreModule } from '@angular/fire/firestore';
-import { AuthModule } from '@angular/fire/auth';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 describe('FirestoreLessonService', () => {
 	let service: FirestoreLessonService;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [AuthModule, FirestoreModule],
+			imports: [],
 			providers: [
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
+				importProvidersFrom(provideAuth(() => getAuth())),
+				importProvidersFrom(provideFirestore(() => getFirestore())),
 			],
 		});
 		service = TestBed.inject(FirestoreLessonService);

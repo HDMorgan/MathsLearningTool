@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/app';
 import { AuthModule } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 describe('DashboardComponent', () => {
 	let component: DashboardComponent;
@@ -22,6 +23,7 @@ describe('DashboardComponent', () => {
 				AuthModule,
 				FirebaseAppModule,
 				RouterTestingModule,
+				MatIconTestingModule,
 			],
 			providers: [
 				importProvidersFrom(

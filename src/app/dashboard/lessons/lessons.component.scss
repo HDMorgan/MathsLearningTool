@@ -3,17 +3,28 @@
 
 @media only screen and (min-width: 1000px) {
 	header {
-		width: 45%;
+		// width: 45%;
+		margin: 0 20px;
 	}
 }
 
 .lesson-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	row-gap: 20px;
+	display: grid;
+	gap: 20px;
+	margin: 0px 20px;
+	grid-template-columns: 1fr 1fr;
+}
+
+@media only screen and (max-width: 800px) {
+	.lesson-container {
+		grid-template-columns: 1fr;
+	}
 }
 
 h1 {
 	font: mat.get-theme-typography($theme, title-large, font);
+}
+
+mat-spinner {
+	margin: auto;
 }

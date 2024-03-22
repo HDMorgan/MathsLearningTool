@@ -6,7 +6,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	width: calc(45% - 30px);
+	justify-self: stretch;
 	padding: 10px 20px;
 	border-radius: 20px;
 }
@@ -32,8 +32,6 @@ span {
 	font: mat.get-theme-typography($theme, title-medium, font);
 }
 
-@media only screen and (max-width: 800px) {
-	:host {
-		width: calc(95% - 30px);
-	}
+.lesson-text {
+	height: 100px;
 }

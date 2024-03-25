@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthContainerComponent } from '../auth-container/auth-container.component';
 import { CommonModule } from '@angular/common';
 import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
 	selector: 'app-forgot-password',
@@ -18,6 +19,7 @@ import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
 		CommonModule,
 		MatButtonModule,
 		MatInputModule,
+		MatFormFieldModule,
 		ReactiveFormsModule,
 		AuthContainerComponent,
 	],

@@ -13,6 +13,7 @@ import { AuthContainerComponent } from '../auth-container/auth-container.compone
 import { PasswordErrorStateMatcherService } from '../../services/password-error-state-matcher.service';
 import { checkPasswords } from '../passwordVallidator';
 import { ActivatedRoute } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
 	selector: 'app-reset-password',
@@ -20,6 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 	imports: [
 		MatButtonModule,
 		MatInputModule,
+		MatFormFieldModule,
 		ReactiveFormsModule,
 		CommonModule,
 		AuthContainerComponent,

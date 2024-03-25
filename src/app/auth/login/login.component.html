@@ -1,0 +1,8 @@
+<app-auth-container>
+	<h1>{{ pageTitle }}</h1>
+	<button mat-raised-button (click)="GoogleSignIn()"><mat-icon svgIcon="google-logo"></mat-icon>Continue
+		with
+		Google</button>
+	<p>Or</p>
+	<router-outlet (activate)="OnActivated($event)"></router-outlet>
+</app-auth-container>

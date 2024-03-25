@@ -1,25 +1,23 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginFormComponent } from './login-form.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { ResetPasswordComponent } from './reset-password.component';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../../../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('LoginFormComponent', () => {
-	let component: LoginFormComponent;
-	let fixture: ComponentFixture<LoginFormComponent>;
+describe('ResetPasswordComponent', () => {
+	let component: ResetPasswordComponent;
+	let fixture: ComponentFixture<ResetPasswordComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				LoginFormComponent,
+				ResetPasswordComponent,
 				RouterTestingModule,
 				BrowserAnimationsModule,
-				MatIconTestingModule,
 			],
 			providers: [
 				importProvidersFrom(provideAuth(() => getAuth())),
@@ -29,7 +27,7 @@ describe('LoginFormComponent', () => {
 			],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(LoginFormComponent);
+		fixture = TestBed.createComponent(ResetPasswordComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

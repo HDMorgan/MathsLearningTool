@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@import "../../variables.scss";
+
 nav {
 	width: 450px;
 }
@@ -6,4 +9,9 @@ nav {
 	nav {
 		width: 100%;
 	}
+}
+
+h1 {
+	font: mat.get-theme-typography($theme, headline-large, font);
+	margin-left: 25px;
 }

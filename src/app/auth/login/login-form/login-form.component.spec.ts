@@ -1,23 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignUpFormComponent } from './sign-up-form.component';
+import { LoginFormComponent } from './login-form.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { environment } from '../../../environments/environment';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../../../../environments/environment';
 
-describe('SignUpFormComponent', () => {
-	let component: SignUpFormComponent;
-	let fixture: ComponentFixture<SignUpFormComponent>;
+describe('LoginFormComponent', () => {
+	let component: LoginFormComponent;
+	let fixture: ComponentFixture<LoginFormComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [
-				SignUpFormComponent,
+				LoginFormComponent,
 				RouterTestingModule,
 				BrowserAnimationsModule,
+				MatIconTestingModule,
 			],
 			providers: [
 				importProvidersFrom(provideAuth(() => getAuth())),
@@ -27,7 +29,7 @@ describe('SignUpFormComponent', () => {
 			],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(SignUpFormComponent);
+		fixture = TestBed.createComponent(LoginFormComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

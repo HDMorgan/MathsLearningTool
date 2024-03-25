@@ -3,6 +3,8 @@
 	<button mat-button (click)="Logout()">LOGOUT</button>
 </header>
 
+<h1>Hi, {{teacherName}}</h1>
+
 <nav mat-tab-nav-bar [tabPanel]="tabPanel">
 	@for (link of links; track link) {
 	<a mat-tab-link [routerLink]="link.url" [active]="activeLink === link.url"> {{link.title}}

@@ -1,19 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccountComponent } from './account.component';
+import { SignUpFormComponent } from './sign-up-form.component';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
+import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('AccountComponent', () => {
-	let component: AccountComponent;
-	let fixture: ComponentFixture<AccountComponent>;
+describe('SignUpFormComponent', () => {
+	let component: SignUpFormComponent;
+	let fixture: ComponentFixture<SignUpFormComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [AccountComponent, BrowserAnimationsModule],
+			imports: [
+				SignUpFormComponent,
+				RouterTestingModule,
+				BrowserAnimationsModule,
+			],
 			providers: [
 				importProvidersFrom(provideAuth(() => getAuth())),
 				importProvidersFrom(
@@ -22,7 +27,7 @@ describe('AccountComponent', () => {
 			],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(AccountComponent);
+		fixture = TestBed.createComponent(SignUpFormComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -7,7 +7,8 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { CommonModule } from '@angular/common';
 import { ILoginForm } from './ilogin-form';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { AuthContainerComponent } from '../auth-container/auth-container.component';
 
 @Component({
 	selector: 'app-login',
@@ -21,6 +22,7 @@ import { AuthService } from '../services/auth/auth.service';
 		RouterOutlet,
 		SignUpFormComponent,
 		RouterLink,
+		AuthContainerComponent,
 	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss',

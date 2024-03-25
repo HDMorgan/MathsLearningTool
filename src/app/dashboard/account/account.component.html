@@ -1,1 +1,12 @@
-<p>account works!</p>
+<h2>Teacher Name</h2>
+<form [formGroup]="teacherNameForm">
+	<mat-form-field appearance="fill" hideRequiredMarker="true">
+		<input matInput formControlName="teacherName" />
+	</mat-form-field>
+	<button mat-button (click)="updateTeacherName()" [disabled]="!teacherNameForm.valid">UPDATE</button>
+</form>
+
+
+<h2>Change Password</h2>
+<button mat-button (click)="resetPassword()" [disabled]="resetEmailSent">
+	{{resetEmailSent ? "EMAIL SENT!" : "SEND ME AN EMAIL"}}</button>

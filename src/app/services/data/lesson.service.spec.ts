@@ -4,7 +4,7 @@ import { LessonService } from './lesson.service';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { environment } from '../../../environments/environment';
-import { AuthModule } from '@angular/fire/auth';
+import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { FirestoreModule } from '@angular/fire/firestore';
 
 describe('LessonService', () => {
@@ -14,6 +14,7 @@ describe('LessonService', () => {
 		TestBed.configureTestingModule({
 			imports: [AuthModule, FirestoreModule],
 			providers: [
+				importProvidersFrom(provideAuth(() => getAuth())),
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),

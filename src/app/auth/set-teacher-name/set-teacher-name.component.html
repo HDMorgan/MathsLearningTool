@@ -1,0 +1,12 @@
+<app-auth-container>
+	<h1>Set your teacher name</h1>
+	<form [formGroup]="formGroup" class="login-form">
+		<mat-form-field hideRequiredMarker="true">
+			<mat-label>Teacher name</mat-label>
+			<input matInput formControlName="name" />
+			<mat-hint>e.g. Mr. Morgan</mat-hint>
+		</mat-form-field>
+
+		<button mat-flat-button (click)="saveName()" type="submit">Set name</button>
+	</form>
+</app-auth-container>

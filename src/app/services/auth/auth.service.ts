@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import {
 	Auth,
 	GoogleAuthProvider,
+	confirmPasswordReset,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	verifyPasswordResetCode,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -30,7 +32,7 @@ export class AuthService {
 					resolve(true);
 				})
 				.catch((error) => {
-					this.snackBar.open(`Sign up failed: ${error.message}`);
+					this.snackBar.open(`Sign up failed: ${error.code}`);
 					reject(error);
 				});
 		});
@@ -69,5 +71,17 @@ export class AuthService {
 
 	getAuthState(): boolean {
 		return !!this.auth.currentUser;
+	}
+
+	resetPassword(newPassword: string, oob: string) {
+		verifyPasswordResetCode(this.auth, oob as string)
+			.then((email) => {
+				confirmPasswordReset(this.auth, oob as string, newPassword).then(() => {
+					this.loginWithEmail(email, newPassword);
+				});
+			})
+			.catch((error) => {
+				this.snackBar.open(`Password reset failed: ${error.code}`);
+			});
 	}
 }

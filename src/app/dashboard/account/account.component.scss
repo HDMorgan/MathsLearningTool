@@ -15,6 +15,12 @@
 	}
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
 h2 {
-	font: mat.get-theme-typography($theme, title-medium, font);
+	font: mat.get-theme-typography($theme, title-large, font);
 }

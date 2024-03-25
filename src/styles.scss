@@ -22,7 +22,7 @@ body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 h1 {
-	margin: 0 !important;
+	margin: 0;
 }
 
 .login-form {
@@ -31,6 +31,10 @@ h1 {
 	align-items: stretch;
 	width: 100%;
 	margin-bottom: 1em;
+}
+
+.login-form mat-form-field {
+	margin-bottom: 10px;
 }
 
 .button-and-text {

@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { LessonsComponent } from './lessons/lessons.component';
 import { AccountComponent } from './account/account.component';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
 	selector: 'app-dashboard',
@@ -25,14 +26,25 @@ import { Subscription } from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 	private urlSubscription?: Subscription;
+	private teacherNameSubscription?: Subscription;
 
+	teacherName: string;
 	links = [
 		{ title: 'Lessons', url: 'lessons' },
 		{ title: 'Account', url: 'account' },
 	];
 	activeLink: string = '';
 
-	constructor(private auth: Auth, private router: Router) {}
+	constructor(
+		private auth: Auth,
+		private router: Router,
+		authService: AuthService
+	) {
+		this.teacherName = auth.currentUser?.displayName as string;
+		this.teacherNameSubscription = authService.teacherNameChanged.subscribe(
+			(name) => (this.teacherName = name)
+		);
+	}
 
 	ngOnInit(): void {
 		this.onUrlChanged(this.router.url);
@@ -48,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.urlSubscription?.unsubscribe();
+		this.teacherNameSubscription?.unsubscribe();
 	}
 
 	Logout() {

@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	Auth,
-	User,
-	sendPasswordResetEmail,
-	updateProfile,
-} from '@angular/fire/auth';
+import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
 import {
 	FormBuilder,
 	FormGroup,
@@ -14,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
 	selector: 'app-account',
@@ -33,7 +29,11 @@ export class AccountComponent {
 	updateNameBtnText = 'Update';
 	resetEmailSent = false;
 
-	constructor(private auth: Auth, formBuilder: FormBuilder) {
+	constructor(
+		private auth: Auth,
+		private authService: AuthService,
+		formBuilder: FormBuilder
+	) {
 		this.passwordAuthenticated = auth.currentUser?.providerId === 'password';
 
 		this.teacherNameForm = formBuilder.group({
@@ -51,10 +51,7 @@ export class AccountComponent {
 	updateTeacherName() {
 		if (this.teacherNameForm.valid) {
 			const newName = this.teacherNameForm.get('teacherName')?.value;
-			updateProfile(
-				this.auth.currentUser as User,
-				{ displayName: newName } as User
-			);
+			this.authService.changeTeacherName(newName);
 		}
 	}
 }

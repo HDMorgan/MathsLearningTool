@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import {
 	Auth,
 	GoogleAuthProvider,
+	User,
 	confirmPasswordReset,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	updateProfile,
 	verifyPasswordResetCode,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,6 +20,8 @@ export class AuthService {
 	private snackbarDuration = 5000;
 	private googleAuthProvider = new GoogleAuthProvider();
 
+	teacherNameChanged = new EventEmitter<string>();
+
 	constructor(
 		private auth: Auth,
 		private router: Router,
@@ -28,7 +32,7 @@ export class AuthService {
 		return new Promise<boolean>((resolve, reject) => {
 			createUserWithEmailAndPassword(this.auth, email, password)
 				.then(() => {
-					this.router.navigateByUrl('/dashboard');
+					this.router.navigateByUrl('/auth/set-teacher-name');
 					resolve(true);
 				})
 				.catch((error) => {
@@ -83,5 +87,19 @@ export class AuthService {
 			.catch((error) => {
 				this.snackBar.open(`Password reset failed: ${error.code}`);
 			});
+	}
+
+	changeTeacherName(name: string): Promise<void> {
+		return new Promise<void>((resolve, reject) => {
+			updateProfile(this.auth.currentUser as User, { displayName: name })
+				.then(() => {
+					this.teacherNameChanged.emit(name);
+					resolve();
+				})
+				.catch((error) => {
+					this.snackBar.open(`Name update failed: ${error.code}`);
+					reject();
+				});
+		});
 	}
 }

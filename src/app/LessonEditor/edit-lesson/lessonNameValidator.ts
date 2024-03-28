@@ -1,6 +1,4 @@
-import { inject } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { LessonService } from '../../services/data/lesson.service';
 import { ILesson } from '../../interfaces/data/ilesson';
 
 // Custom validator function to check uniqueness

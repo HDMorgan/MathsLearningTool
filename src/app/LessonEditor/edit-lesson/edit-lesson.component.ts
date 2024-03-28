@@ -46,7 +46,7 @@ export class EditLessonComponent implements OnDestroy {
 	info!: ILesson;
 
 	private nameSubscription!: Subscription;
-	private nameSaveTimeout?: NodeJS.Timeout;
+	private nameSaveTimeout?: ReturnType<typeof setTimeout>;
 
 	constructor(
 		activatedRoute: ActivatedRoute,

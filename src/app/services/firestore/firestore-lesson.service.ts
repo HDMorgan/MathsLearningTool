@@ -7,9 +7,9 @@ import {
 	doc,
 	getDoc,
 	getDocs,
+	orderBy,
 	query,
 	setDoc,
-	where,
 } from '@angular/fire/firestore';
 import { ILesson } from '../../interfaces/data/ilesson';
 import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
@@ -25,7 +25,10 @@ export class FirestoreLessonService {
 	}
 
 	loadLessons(): Promise<IFirebaseDocument<ILesson>[]> {
-		const lessonsQuery = query(collection(this.firestore, this.collectionUrl));
+		const lessonsQuery = query(
+			collection(this.firestore, this.collectionUrl),
+			orderBy('name')
+		);
 		return getDocs(lessonsQuery)
 			.then((result) => {
 				const lessons: IFirebaseDocument<ILesson>[] = [];

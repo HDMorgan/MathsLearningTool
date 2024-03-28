@@ -2,7 +2,7 @@ import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { CurrentLessonService } from '../../services/data/current-lesson.service';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
@@ -11,7 +11,7 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { uniqueLessonNameValidator } from './lessonNameValidator';
 import { IBaseQuestion } from '../../interfaces/data/ibase-question';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -33,6 +33,7 @@ import { Subscription } from 'rxjs';
 		MatProgressSpinnerModule,
 		QuestionItemComponent,
 		MatDividerModule,
+		RouterLink,
 	],
 	templateUrl: './edit-lesson.component.html',
 	styleUrl: './edit-lesson.component.scss',

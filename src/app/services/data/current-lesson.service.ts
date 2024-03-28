@@ -1,4 +1,3 @@
-import { FirestoreLessonService } from './../firestore/firestore-lesson.service';
 import { Injectable } from '@angular/core';
 import {
 	IBaseQuestion,
@@ -22,8 +21,7 @@ export class CurrentLessonService {
 
 	constructor(
 		private firestoreQuestionService: FirestoreQuestionService,
-		private lessonService: LessonService,
-		private firestoreLessonService: FirestoreLessonService
+		private lessonService: LessonService
 	) {}
 
 	getInfo() {
@@ -99,7 +97,7 @@ export class CurrentLessonService {
 
 	saveLessonName(name: string): Promise<void> {
 		this.info.data.name = name;
-		return this.firestoreLessonService.saveLesson(this.info);
+		return this.lessonService.saveLesson(this.info);
 	}
 
 	addQuestion(): Promise<void> {

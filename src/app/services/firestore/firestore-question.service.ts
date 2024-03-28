@@ -5,6 +5,8 @@ import {
 	collection,
 	doc,
 	getDocs,
+	orderBy,
+	query,
 	setDoc,
 } from '@angular/fire/firestore';
 import {
@@ -35,7 +37,9 @@ export class FirestoreQuestionService {
 			`teachers/${teacherId}/lessons/${lessonId}/questions`
 		);
 
-		return getDocs(questionCollection)
+		const questionsQuery = query(questionCollection, orderBy('number'));
+
+		return getDocs(questionsQuery)
 			.then((result) => {
 				const questions: IFirebaseDocument<IBaseQuestion>[] = [];
 				result.forEach((doc) => {

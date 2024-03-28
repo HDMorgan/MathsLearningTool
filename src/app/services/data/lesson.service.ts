@@ -20,6 +20,7 @@ export class LessonService {
 		};
 		this.firestoreLessonService.createLesson(newLesson).then((id) => {
 			this.lessons.push({ id: id, data: newLesson });
+			this.sortLessons();
 		});
 	}
 
@@ -60,5 +61,23 @@ export class LessonService {
 		}
 
 		return this.firestoreLessonService.getLessonFromId(lessonId);
+	}
+
+	saveLesson(lesson: IFirebaseDocument<ILesson>): Promise<void> {
+		this.sortLessons();
+
+		return this.firestoreLessonService.saveLesson(lesson);
+	}
+
+	sortLessons() {
+		this.lessons.sort((a, b) => {
+			if (a.data.name < b.data.name) {
+				return -1;
+			} else if (a.data.name > b.data.name) {
+				return 1;
+			} else {
+				return 0;
+			}
+		});
 	}
 }

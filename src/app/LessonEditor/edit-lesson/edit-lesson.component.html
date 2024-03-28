@@ -1,5 +1,5 @@
 <section class="navigation-container">
-	<button mat-button>EXIT TO DASHBOARD</button>
+	<button mat-button routerLink="/dashboard">EXIT TO DASHBOARD</button>
 </section>
 @if (loading) {
 <mat-spinner diameter="30"></mat-spinner>
@@ -10,7 +10,7 @@
 		<input matInput formControlName="name" />
 		@if (nameFormGroup.get('name')?.dirty){
 		<mat-hint>{{nameSaved ? "Saved" : "Saving..."}}</mat-hint>
-	}
+		}
 		<mat-error *ngIf="nameFormGroup.get('name')?.hasError('required')">Name is required</mat-error>
 		<mat-error *ngIf="nameFormGroup.get('name')?.hasError('notUnique')">Lesson name must be unique</mat-error>
 	</mat-form-field>

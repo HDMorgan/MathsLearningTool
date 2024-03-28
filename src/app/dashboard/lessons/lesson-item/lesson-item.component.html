@@ -1,10 +1,10 @@
 <section class="lesson-text">
-	<span>{{lesson?.name}}</span>
+	<span>{{lesson.data.name}}</span>
 	<ul>
-		<li *ngFor="let item of lesson?.summary">{{ item }}</li>
+		<li *ngFor="let item of lesson.data.summary">{{ item }}</li>
 	</ul>
 </section>
 <section class="button-flex">
-	<button mat-button>EDIT</button>
+	<button mat-button [routerLink]="['/lesson', lesson.id]">EDIT</button>
 	<button mat-flat-button>Host</button>
 </section>

@@ -1,0 +1,26 @@
+@use "@angular/material" as mat;
+@import "../../../variables.scss";
+
+:host {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	justify-self: stretch;
+	padding: 10px 20px;
+	border-radius: 20px;
+}
+
+.button-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.text-container {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+.primary-background {
+	@include mat.button-color($theme, $color-variant: secondary);
+}

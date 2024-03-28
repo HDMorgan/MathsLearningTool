@@ -12,4 +12,11 @@ export const routes: Routes = [
 			import('./dashboard/dashboard.routes').then((m) => m.dashboardRoutes),
 		canActivate: [authGuard],
 	},
+	{
+		path: 'lesson/:id',
+		loadComponent: () =>
+			import('./LessonEditor/edit-lesson/edit-lesson.component').then(
+				(m) => m.EditLessonComponent
+			),
+	},
 ];

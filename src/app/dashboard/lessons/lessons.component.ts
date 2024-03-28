@@ -6,6 +6,7 @@ import { LessonService } from '../../services/data/lesson.service';
 import { LessonItemComponent } from './lesson-item/lesson-item.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
 
 @Component({
 	selector: 'app-lessons',
@@ -21,7 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 	styleUrl: './lessons.component.scss',
 })
 export class LessonsComponent implements OnInit {
-	lessons?: ILesson[];
+	lessons?: IFirebaseDocument<ILesson>[];
 	loading = true;
 
 	constructor(private lessonService: LessonService) {}

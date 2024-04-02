@@ -1,0 +1,15 @@
+@use "@angular/material" as mat;
+@import "../../../variables.scss";
+
+:host {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	color: mat.get-theme-color($theme, on-surface-variant);
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+}
+
+.hintText {
+	flex-grow: 1;
+}

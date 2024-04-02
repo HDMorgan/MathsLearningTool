@@ -1,9 +1,9 @@
 <h3>{{"Q" + question.data.number}}</h3>
 <section class="text-container">
-	<span>{{question.data.type.toString()}}</span>
+	<span>{{question.data.type | questionTypeToString}}</span>
 	<span>{{question.data.summary}}</span>
 </section>
 <section class="button-container">
 	<button mat-icon-button class="primary-background"><mat-icon>more_vert</mat-icon></button>
-	<button mat-flat-button><mat-icon>edit</mat-icon>Edit</button>
+	<button mat-flat-button (click)="editQuestion()"><mat-icon>edit</mat-icon>Edit</button>
 </section>

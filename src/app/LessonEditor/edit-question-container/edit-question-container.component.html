@@ -1,0 +1,5 @@
+<header><span mat-dialog-title>Q{{question.data.number}}: {{question.data.type | questionTypeToString}}</span>
+	<button mat-button>Preview</button>
+</header>
+<app-edit-numeric class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-numeric>

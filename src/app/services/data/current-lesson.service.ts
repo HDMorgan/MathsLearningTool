@@ -1,13 +1,14 @@
+import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { Injectable } from '@angular/core';
 import {
 	IBaseQuestion,
 	QuestionType,
+	QuestionTypeToString,
 } from '../../interfaces/data/ibase-question';
 import { ILesson } from '../../interfaces/data/ilesson';
 import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { FirestoreQuestionService } from '../firestore/firestore-question.service';
 import { LessonService } from './lesson.service';
-import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
 
 @Injectable({
 	providedIn: 'root',
@@ -51,16 +52,27 @@ export class CurrentLessonService {
 		this.questions = [];
 	}
 
-	saveQuestion(questionNumber: number) {
-		this.updateQuestionSummary(questionNumber);
-		this.firestoreQuestionService.saveQuestion(
-			this.info.id,
-			this.questions[questionNumber]
-		);
+	commitQuestionChanges(
+		question: IFirebaseDocument<IBaseQuestion>
+	): Promise<void> {
+		if (question.id == '') {
+			this.questions.push(question);
+		}
+
+		this.updateQuestionSummary(question.data);
+
+		if (question.id == '') {
+			return this.firestoreQuestionService
+				.createQuestion(this.info.id, question.data)
+				.then((id) => {
+					question.id = id;
+				});
+		}
+
+		return this.firestoreQuestionService.saveQuestion(this.info.id, question);
 	}
 
-	updateQuestionSummary(questionNumber: number) {
-		const question = this.questions[questionNumber].data;
+	updateQuestionSummary(question: IBaseQuestion) {
 		switch (question.type) {
 			case QuestionType.Numeric:
 				this.setNumericSummary(question as INumericQuestion);
@@ -70,47 +82,35 @@ export class CurrentLessonService {
 				break;
 		}
 
-		if (questionNumber <= 2) {
+		if (question.number <= 3) {
 			this.updateLessonSummary();
 		}
 	}
 
 	setNumericSummary(question: INumericQuestion) {
 		if (question.equation == '') {
-			question.summary = question.equation;
+			question.summary = question.title;
 			return;
 		}
 
-		question.summary = question.title;
+		question.summary = question.equation;
 	}
 
 	updateLessonSummary() {
 		this.info.data.summary = [];
 		for (let i = 0; i <= 2 && i < this.questions.length; i++) {
 			this.info.data.summary.push(
-				this.questions[i].data.type.toString() +
+				QuestionTypeToString(this.questions[i].data.type) +
 					': ' +
 					this.questions[i].data.summary
 			);
 		}
+
+		this.lessonService.saveLesson(this.info);
 	}
 
 	saveLessonName(name: string): Promise<void> {
 		this.info.data.name = name;
 		return this.lessonService.saveLesson(this.info);
-	}
-
-	addQuestion(): Promise<void> {
-		const question: IBaseQuestion = {
-			number: 1,
-			title: '',
-			summary: '',
-			type: QuestionType.Numeric,
-		};
-		return this.firestoreQuestionService
-			.createQuestion(this.info.id, question)
-			.then((id) => {
-				this.questions.push({ id: id, data: question });
-			});
 	}
 }

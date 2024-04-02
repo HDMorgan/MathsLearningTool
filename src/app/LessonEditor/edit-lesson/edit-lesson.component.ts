@@ -1,3 +1,4 @@
+import { QuestionCreatorService } from './../../services/data/question-creator.service';
 import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { CurrentLessonService } from '../../services/data/current-lesson.service';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { LessonService } from '../../services/data/lesson.service';
 import { ILesson } from '../../interfaces/data/ilesson';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { EditQuestionContainerComponent } from '../edit-question-container/edit-question-container.component';
 
 @Component({
 	selector: 'app-edit-lesson',
@@ -52,7 +55,9 @@ export class EditLessonComponent implements OnDestroy {
 		activatedRoute: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private lessonService: LessonService,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService,
+		private dialogService: MatDialog
 	) {
 		const lessonId = activatedRoute.snapshot.params['id'];
 
@@ -104,7 +109,18 @@ export class EditLessonComponent implements OnDestroy {
 	}
 
 	addQuestion() {
-		this.currentLessonService.addQuestion();
+		const question: IFirebaseDocument<IBaseQuestion> = {
+			id: '',
+			data: this.questionCreatorService.createNumeric(
+				this.questions.length + 1
+			),
+		};
+		this.dialogService.open(EditQuestionContainerComponent, {
+			data: question,
+			maxHeight: '100%',
+			maxWidth: '100%',
+			panelClass: 'dialog-panel',
+		});
 	}
 
 	ngOnDestroy(): void {

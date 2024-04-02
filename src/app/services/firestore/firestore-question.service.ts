@@ -61,7 +61,10 @@ export class FirestoreQuestionService {
 			.catch((error) => Promise.reject(error));
 	}
 
-	saveQuestion(lessonId: string, question: IFirebaseDocument<IBaseQuestion>) {
+	saveQuestion(
+		lessonId: string,
+		question: IFirebaseDocument<IBaseQuestion>
+	): Promise<void> {
 		const teacherId = this.auth.currentUser?.uid as string;
 		const document = doc(
 			collection(
@@ -71,7 +74,7 @@ export class FirestoreQuestionService {
 			question.id
 		);
 
-		setDoc(document, question.data);
+		return setDoc(document, question.data);
 	}
 
 	createQuestion(lessonId: string, question: IBaseQuestion): Promise<string> {

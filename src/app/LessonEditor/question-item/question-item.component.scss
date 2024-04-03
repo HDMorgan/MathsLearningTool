@@ -1,11 +1,13 @@
 :host {
-	display: flex;
-	justify-content: start;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
 	align-items: center;
 	justify-self: stretch;
 	gap: 20px;
 	padding: 10px 20px;
 	border-radius: 20px;
+	margin: 10px;
+	height: 60px;
 }
 
 .button-container {
@@ -26,4 +28,9 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+.draggable {
+	cursor: move;
+	overflow: none;
 }

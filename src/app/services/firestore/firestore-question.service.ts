@@ -96,7 +96,7 @@ export class FirestoreQuestionService {
 
 	deleteQuestionAndUpdateQuestionNumbers(
 		lessonId: string,
-		questionToDelete: string,
+		questionId: string,
 		questions: IFirebaseDocument<IBaseQuestion>[]
 	): Promise<void> {
 		const teacherId = this.auth.currentUser?.uid as string;
@@ -106,7 +106,7 @@ export class FirestoreQuestionService {
 		);
 
 		const batch = this.getQuestionBatch(lessonId, questions);
-		batch.delete(doc(questionCollection, questionToDelete));
+		batch.delete(doc(questionCollection, questionId));
 		return batch.commit();
 	}
 

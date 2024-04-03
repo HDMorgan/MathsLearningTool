@@ -124,10 +124,16 @@ export class CurrentLessonService {
 			question.id,
 			this.questions
 		);
+
+		if (index <= 2) {
+			this.updateLessonSummary();
+		}
 	}
 
-	updateQuestionOrder() {
+	saveQuestionOrder() {
 		this.updateQuestionNumbers();
+
+		this.updateLessonSummary();
 
 		this.firestoreQuestionService.saveMultipleQuestions(
 			this.info.id,

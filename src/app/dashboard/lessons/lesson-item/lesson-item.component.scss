@@ -26,6 +26,15 @@ ul,
 li {
 	font: mat.get-theme-typography($theme, body-large, font);
 	margin: 0;
+	list-style-position: inside;
+}
+
+li {
+	white-space: nowrap; /* Prevent text wrapping */
+	overflow: hidden; /* Hide overflowing content */
+	text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+	list-style-position: inside;
+	width: 200px;
 }
 
 span {

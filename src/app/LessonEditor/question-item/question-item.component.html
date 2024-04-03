@@ -1,13 +1,14 @@
-<h3>{{"Q" + question.data.number}}</h3>
+@if (!moving){<h3>{{"Q" + question.data.number}}</h3>}
+@if (moving){<mat-icon cdkDragHandle class="draggable">drag_indicator</mat-icon>}
 <section class="text-container">
 	<span>{{question.data.type | questionTypeToString}}</span>
 	<span>{{question.data.summary}}</span>
 </section>
 <section class="button-container">
-	<button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+	<button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="moving"><mat-icon>more_vert</mat-icon></button>
 	<mat-menu #menu="matMenu">
-		<button mat-menu-item>Move question</button>
+		<button mat-menu-item (click)="requestMove.emit()">Move question</button>
 		<button mat-menu-item (click)="deleteQuestion()">Delete</button>
 	</mat-menu>
-	<button mat-flat-button (click)="editQuestion()"><mat-icon>edit</mat-icon>Edit</button>
+	<button mat-flat-button (click)="editQuestion()" [disabled]="moving"><mat-icon>edit</mat-icon>Edit</button>
 </section>

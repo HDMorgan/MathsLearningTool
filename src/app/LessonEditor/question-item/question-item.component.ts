@@ -15,6 +15,7 @@ import { EditQuestionContainerComponent } from '../edit-question-container/edit-
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-question-item',
@@ -24,12 +25,14 @@ import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.
 		MatIconModule,
 		QuestionTypeToStringPipe,
 		MatMenuModule,
+		CdkDragHandle,
 	],
 	templateUrl: './question-item.component.html',
 	styleUrl: './question-item.component.scss',
 })
 export class QuestionItemComponent {
 	@Input() question!: IFirebaseDocument<IBaseQuestion>;
+	@Input() moving!: boolean;
 	@Output() requestMove = new EventEmitter<void>();
 
 	@HostBinding('class') class = 'surface-container ';

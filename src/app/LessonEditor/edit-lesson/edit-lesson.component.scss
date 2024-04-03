@@ -21,7 +21,7 @@ mat-form-field {
 app-question-item,
 header,
 .navigation-container {
-	width: 100%;
+	width: calc(100% - 60px);
 	max-width: 1000px;
 }
 

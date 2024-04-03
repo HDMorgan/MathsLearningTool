@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
 	Firestore,
+	WriteBatch,
 	addDoc,
 	collection,
 	doc,
@@ -8,6 +9,7 @@ import {
 	orderBy,
 	query,
 	setDoc,
+	writeBatch,
 } from '@angular/fire/firestore';
 import {
 	IBaseQuestion,
@@ -90,5 +92,47 @@ export class FirestoreQuestionService {
 			.catch((error) => {
 				return Promise.reject(error);
 			});
+	}
+
+	deleteQuestionAndUpdateQuestionNumbers(
+		lessonId: string,
+		questionToDelete: string,
+		questions: IFirebaseDocument<IBaseQuestion>[]
+	): Promise<void> {
+		const teacherId = this.auth.currentUser?.uid as string;
+		const questionCollection = collection(
+			this.firestore,
+			`teachers/${teacherId}/lessons/${lessonId}/questions`
+		);
+
+		const batch = this.getQuestionBatch(lessonId, questions);
+		batch.delete(doc(questionCollection, questionToDelete));
+		return batch.commit();
+	}
+
+	saveMultipleQuestions(
+		lessonId: string,
+		questions: IFirebaseDocument<IBaseQuestion>[]
+	): Promise<void> {
+		return this.getQuestionBatch(lessonId, questions).commit();
+	}
+
+	private getQuestionBatch(
+		lessonId: string,
+		questions: IFirebaseDocument<IBaseQuestion>[]
+	): WriteBatch {
+		const teacherId = this.auth.currentUser?.uid as string;
+		const questionCollection = collection(
+			this.firestore,
+			`teachers/${teacherId}/lessons/${lessonId}/questions`
+		);
+
+		const batch = writeBatch(this.firestore);
+
+		questions.forEach((question) => {
+			batch.set(doc(questionCollection, question.id), question.data);
+		});
+
+		return batch;
 	}
 }

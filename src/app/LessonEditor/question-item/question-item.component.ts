@@ -1,25 +1,43 @@
+import { CurrentLessonService } from './../../services/data/current-lesson.service';
 import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { IBaseQuestion } from './../../interfaces/data/ibase-question';
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	HostBinding,
+	Input,
+	Output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { EditQuestionContainerComponent } from '../edit-question-container/edit-question-container.component';
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
+import { MatMenuModule } from '@angular/material/menu';
+import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
 
 @Component({
 	selector: 'app-question-item',
 	standalone: true,
-	imports: [MatButtonModule, MatIconModule, QuestionTypeToStringPipe],
+	imports: [
+		MatButtonModule,
+		MatIconModule,
+		QuestionTypeToStringPipe,
+		MatMenuModule,
+	],
 	templateUrl: './question-item.component.html',
 	styleUrl: './question-item.component.scss',
 })
 export class QuestionItemComponent {
 	@Input() question!: IFirebaseDocument<IBaseQuestion>;
+	@Output() requestMove = new EventEmitter<void>();
 
 	@HostBinding('class') class = 'surface-container ';
 
-	constructor(private matDialog: MatDialog) {}
+	constructor(
+		private matDialog: MatDialog,
+		private currentLessonService: CurrentLessonService
+	) {}
 
 	editQuestion() {
 		this.matDialog.open(EditQuestionContainerComponent, {
@@ -28,5 +46,18 @@ export class QuestionItemComponent {
 			maxWidth: '100%',
 			panelClass: 'dialog-panel',
 		});
+	}
+
+	deleteQuestion() {
+		this.matDialog
+			.open(DeleteDialogComponent, {
+				data: `Are you sure you want to delete question ${this.question.data.number}?`,
+			})
+			.afterClosed()
+			.subscribe((result) => {
+				if (result) {
+					this.currentLessonService.deleteQuestion(this.question);
+				}
+			});
 	}
 }

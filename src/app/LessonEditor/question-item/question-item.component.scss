@@ -1,11 +1,9 @@
-@use "@angular/material" as mat;
-@import "../../../variables.scss";
-
 :host {
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	align-items: center;
 	justify-self: stretch;
+	gap: 20px;
 	padding: 10px 20px;
 	border-radius: 20px;
 }
@@ -20,7 +18,12 @@
 	display: flex;
 	gap: 10px;
 	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
 }
-.primary-background {
-	@include mat.button-color($theme, $color-variant: secondary);
+
+.text-container span {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }

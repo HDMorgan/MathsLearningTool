@@ -18,9 +18,14 @@
 <mat-divider></mat-divider>
 <header>
 	<h2>Questions</h2>
-	<button mat-button (click)="addQuestion()">ADD NEW</button>
+	@if (!moving){<button mat-button (click)="addQuestion()"><mat-icon>add</mat-icon>ADD NEW</button>}
+	@if (moving){<button mat-button (click)="saveMove()">SAVE</button>}
 </header>
-@for (q of questions; track q) {
-<app-question-item [question]="q"></app-question-item>
-}
+<section cdkDropList [cdkDropListData]="questions" class="drag-drop-container" (cdkDropListDropped)="drop($event)">
+
+	@for (q of questions; track q) {
+	<app-question-item [question]="q" [moving]="moving" (requestMove)="onMoveRequested()" cdkDrag
+		[cdkDragDisabled]="!moving" class="drag-drop-item"></app-question-item>
+	}
+</section>
 }

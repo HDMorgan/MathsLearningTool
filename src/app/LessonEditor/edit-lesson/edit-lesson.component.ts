@@ -23,6 +23,13 @@ import { ILesson } from '../../interfaces/data/ilesson';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditQuestionContainerComponent } from '../edit-question-container/edit-question-container.component';
+import {
+	CdkDrag,
+	CdkDragDrop,
+	CdkDropList,
+	moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-edit-lesson',
@@ -37,6 +44,9 @@ import { EditQuestionContainerComponent } from '../edit-question-container/edit-
 		QuestionItemComponent,
 		MatDividerModule,
 		RouterLink,
+		CdkDropList,
+		CdkDrag,
+		MatIconModule,
 	],
 	templateUrl: './edit-lesson.component.html',
 	styleUrl: './edit-lesson.component.scss',
@@ -47,6 +57,7 @@ export class EditLessonComponent implements OnDestroy {
 	questions: IFirebaseDocument<IBaseQuestion>[] = [];
 	loading: boolean = true;
 	info!: ILesson;
+	moving: boolean = false;
 
 	private nameSubscription!: Subscription;
 	private nameSaveTimeout?: ReturnType<typeof setTimeout>;
@@ -128,5 +139,22 @@ export class EditLessonComponent implements OnDestroy {
 			clearTimeout(this.nameSaveTimeout);
 		}
 		this.nameSubscription?.unsubscribe();
+	}
+
+	drop(event: CdkDragDrop<IFirebaseDocument<IBaseQuestion>[]>) {
+		moveItemInArray(
+			event.container.data,
+			event.previousIndex,
+			event.currentIndex
+		);
+	}
+
+	onMoveRequested() {
+		this.moving = true;
+	}
+
+	saveMove() {
+		this.moving = false;
+		this.currentLessonService.saveQuestionOrder();
 	}
 }

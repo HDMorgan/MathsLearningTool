@@ -113,4 +113,37 @@ export class CurrentLessonService {
 		this.info.data.name = name;
 		return this.lessonService.saveLesson(this.info);
 	}
+
+	deleteQuestion(question: IFirebaseDocument<IBaseQuestion>) {
+		const index = this.questions.indexOf(question);
+		this.questions.splice(index, 1);
+		this.updateQuestionNumbers();
+
+		this.firestoreQuestionService.deleteQuestionAndUpdateQuestionNumbers(
+			this.info.id,
+			question.id,
+			this.questions
+		);
+
+		if (index <= 2) {
+			this.updateLessonSummary();
+		}
+	}
+
+	saveQuestionOrder() {
+		this.updateQuestionNumbers();
+
+		this.updateLessonSummary();
+
+		this.firestoreQuestionService.saveMultipleQuestions(
+			this.info.id,
+			this.questions
+		);
+	}
+
+	private updateQuestionNumbers() {
+		this.questions.forEach((question, i) => {
+			question.data.number = i + 1;
+		});
+	}
 }

@@ -11,7 +11,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { NumberOnlyDirective } from '../../../directives/number-only.directive';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { IMultipleChoiceQuestion } from '../../../interfaces/data/imultiple-choice-question';
 import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
@@ -28,7 +27,6 @@ import { CurrentLessonService } from '../../../services/data/current-lesson.serv
 		MatIconModule,
 		HintComponent,
 		ReactiveFormsModule,
-		NumberOnlyDirective,
 	],
 	templateUrl: './edit-multiple-choice.component.html',
 	styleUrl: './edit-multiple-choice.component.scss',

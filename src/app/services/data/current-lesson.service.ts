@@ -1,15 +1,13 @@
+import { QuestionSummaryService } from './question-summary.service';
 import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { Injectable } from '@angular/core';
 import {
 	IBaseQuestion,
-	QuestionType,
 	QuestionTypeToString,
 } from '../../interfaces/data/ibase-question';
 import { ILesson } from '../../interfaces/data/ilesson';
-import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { FirestoreQuestionService } from '../firestore/firestore-question.service';
 import { LessonService } from './lesson.service';
-import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,7 +21,8 @@ export class CurrentLessonService {
 
 	constructor(
 		private firestoreQuestionService: FirestoreQuestionService,
-		private lessonService: LessonService
+		private lessonService: LessonService,
+		private questionSummaryService: QuestionSummaryService
 	) {}
 
 	getInfo() {
@@ -74,36 +73,11 @@ export class CurrentLessonService {
 	}
 
 	updateQuestionSummary(question: IBaseQuestion) {
-		switch (question.type) {
-			case QuestionType.Numeric:
-				this.setNumericSummary(question as INumericQuestion);
-				break;
-			case QuestionType.MultipleChoice:
-				this.setMultipleChoiceSummary(question as IMultipleChoiceQuestion);
-				break;
-		}
+		this.questionSummaryService.updateQuestionSummary(question);
 
 		if (question.number <= 3) {
 			this.updateLessonSummary();
 		}
-	}
-
-	setNumericSummary(question: INumericQuestion) {
-		if (question.equation == '') {
-			question.summary = question.title;
-			return;
-		}
-
-		question.summary = question.equation;
-	}
-
-	setMultipleChoiceSummary(question: IMultipleChoiceQuestion) {
-		if (question.equation == '') {
-			question.summary = question.title;
-			return;
-		}
-
-		question.summary = question.equation;
 	}
 
 	updateLessonSummary() {

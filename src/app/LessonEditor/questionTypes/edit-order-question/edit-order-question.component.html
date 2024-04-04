@@ -1,0 +1,46 @@
+<form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
+	@if (hasTitle)
+	{<section>
+		<header>
+			Title
+			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
+		</header>
+		<mat-form-field>
+			<input matInput formControlName="title" />
+			<mat-error>A title is required</mat-error>
+		</mat-form-field>
+	</section>}
+
+	<section>
+		@if (!hasTitle){<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>}
+	</section>
+
+	<mat-divider></mat-divider>
+
+	<section formArrayName="items" style="flex-grow: 1;">
+		<header>
+			Items
+		</header>
+		@for (control of formItems.controls; track control;) {
+		<div class="answer-container">
+			<mat-form-field>
+				<input matInput [formControlName]="$index" />
+				<mat-error>An answer is required</mat-error>
+			</mat-form-field>
+			<button mat-icon-button (click)="removeItem($index)"
+				[disabled]="formItems.length <= 2"><mat-icon>remove</mat-icon></button>
+		</div>
+		}
+		@if (formItems.length < 4) { <button mat-button (click)="addItem()"><mat-icon>add</mat-icon>Add
+			item</button>
+			}
+			<app-hint>The order of these items will be used as the correct answer</app-hint>
+			<app-hint>Use square brackets to create
+				fractions. (e.g. [21/7] or [4+2/3])</app-hint>
+	</section>
+
+	<header>
+		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button (click)="saveQuestion()">Save</button>
+	</header>
+</form>

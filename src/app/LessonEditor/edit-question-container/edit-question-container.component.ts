@@ -10,6 +10,7 @@ import { EditNumericComponent } from '../questionTypes/edit-numeric/edit-numeric
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
 import { asPipe } from '../../pipes/as.pipe';
 import { EditMultipleChoiceComponent } from '../questionTypes/edit-multiple-choice/edit-multiple-choice.component';
+import { EditOrderQuestionComponent } from '../questionTypes/edit-order-question/edit-order-question.component';
 
 @Component({
 	selector: 'app-edit-question-container',
@@ -18,6 +19,7 @@ import { EditMultipleChoiceComponent } from '../questionTypes/edit-multiple-choi
 		MatButtonModule,
 		EditNumericComponent,
 		EditMultipleChoiceComponent,
+		EditOrderQuestionComponent,
 		QuestionTypeToStringPipe,
 		asPipe,
 	],

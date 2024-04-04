@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { INumericQuestion } from '../../../interfaces/data/inumeric-question';
 import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
-import { NumberOnlyDirective } from '../../../directives/number-only.directive';
 
 @Component({
 	selector: 'app-edit-numeric',
@@ -27,7 +26,6 @@ import { NumberOnlyDirective } from '../../../directives/number-only.directive';
 		MatIconModule,
 		HintComponent,
 		ReactiveFormsModule,
-		NumberOnlyDirective,
 	],
 	templateUrl: './edit-numeric.component.html',
 	styleUrl: './edit-numeric.component.scss',

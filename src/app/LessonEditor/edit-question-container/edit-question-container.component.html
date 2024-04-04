@@ -10,4 +10,8 @@
 <app-edit-multiple-choice class="question-component" [question]="question | as"
 	(requestDialogClose)="closeDialog()"></app-edit-multiple-choice>
 }
+@case (QuestionType.Order) {
+<app-edit-order-question class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-order-question>
+}
 }

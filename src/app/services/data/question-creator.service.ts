@@ -5,6 +5,7 @@ import {
 } from '../../interfaces/data/ibase-question';
 import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
 import { INumericQuestion } from '../../interfaces/data/inumeric-question';
+import { IOrderQuestion } from '../../interfaces/data/iorder-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,22 +17,30 @@ export class QuestionCreatorService {
 		switch (type) {
 			case QuestionType.Numeric:
 				return {
-					title: '',
-					equation: '',
 					type: QuestionType.Numeric,
-					answer: 0,
-					summary: '',
 					number: questionNumber,
+					title: '',
+					summary: '',
+					equation: '',
+					answer: 0,
 				} as INumericQuestion;
 			case QuestionType.MultipleChoice:
 				return {
-					title: '',
-					equation: '',
 					type: QuestionType.MultipleChoice,
-					answers: ['', ''],
-					summary: '',
 					number: questionNumber,
+					title: '',
+					summary: '',
+					equation: '',
+					answers: ['', ''],
 				} as IMultipleChoiceQuestion;
+			case QuestionType.Order:
+				return {
+					type: QuestionType.Order,
+					number: questionNumber,
+					title: '',
+					summary: '',
+					items: ['', ''],
+				} as IOrderQuestion;
 		}
 	}
 }

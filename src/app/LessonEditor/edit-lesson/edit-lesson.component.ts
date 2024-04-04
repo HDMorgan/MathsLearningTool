@@ -63,7 +63,11 @@ export class EditLessonComponent implements OnDestroy {
 	loading: boolean = true;
 	info!: ILesson;
 	moving: boolean = false;
-	questionTypes = [QuestionType.Numeric, QuestionType.MultipleChoice];
+	questionTypes = [
+		QuestionType.Numeric,
+		QuestionType.MultipleChoice,
+		QuestionType.Order,
+	];
 
 	private nameSubscription!: Subscription;
 	private nameSaveTimeout?: ReturnType<typeof setTimeout>;

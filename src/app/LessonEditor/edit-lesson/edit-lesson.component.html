@@ -18,7 +18,14 @@
 <mat-divider></mat-divider>
 <header>
 	<h2>Questions</h2>
-	@if (!moving){<button mat-button (click)="addQuestion()"><mat-icon>add</mat-icon>ADD NEW</button>}
+	@if (!moving){
+	<button mat-button [mat-menu-trigger-for]="menu"><mat-icon>add</mat-icon>ADD NEW</button>
+	<mat-menu #menu="matMenu">
+		@for (type of questionTypes; track type) {
+		<button mat-menu-item (click)="addQuestion(type)">{{type | questionTypeToString}}</button>
+		}
+	</mat-menu>
+	}
 	@if (moving){<button mat-button (click)="saveMove()">SAVE</button>}
 </header>
 <section cdkDropList [cdkDropListData]="questions" class="drag-drop-container" (cdkDropListDropped)="drop($event)">

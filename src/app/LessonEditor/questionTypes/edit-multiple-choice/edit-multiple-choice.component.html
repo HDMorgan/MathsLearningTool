@@ -36,15 +36,23 @@
 	</section>
 
 	<mat-divider></mat-divider>
-	<section>
+	<section formArrayName="answers">
 		<header>
-			Answer
+			Answers
 		</header>
-		<mat-form-field>
-			<input matInput type="number" formControlName="answer" />
-			<mat-error>Not a valid number</mat-error>
-		</mat-form-field>
-		<button mat-button>AUTO CALCULATE</button>
+		@for (control of formAnswers.controls; track control;) {
+		<div class="answer-container">
+			<mat-form-field>
+				<input matInput [formControlName]="$index" />
+				<mat-error>An answer is required</mat-error>
+			</mat-form-field>
+			<button mat-icon-button (click)="removeAnswer($index)"
+				[disabled]="formAnswers.length <= 2"><mat-icon>remove</mat-icon></button>
+		</div>
+		}
+		@if (formAnswers.length < 4) { <button mat-button (click)="addAnswer()"><mat-icon>add</mat-icon>Add
+			answer</button>
+			}
 	</section>
 
 	<header>

@@ -1,6 +1,6 @@
-import { CurrentLessonService } from './../../../services/data/current-lesson.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+	FormArray,
 	FormBuilder,
 	FormGroup,
 	ReactiveFormsModule,
@@ -11,13 +11,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { HintComponent } from '../../../shared/hint/hint.component';
-import { INumericQuestion } from '../../../interfaces/data/inumeric-question';
-import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
 import { NumberOnlyDirective } from '../../../directives/number-only.directive';
+import { HintComponent } from '../../../shared/hint/hint.component';
+import { IMultipleChoiceQuestion } from '../../../interfaces/data/imultiple-choice-question';
+import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
+import { CurrentLessonService } from '../../../services/data/current-lesson.service';
 
 @Component({
-	selector: 'app-edit-numeric',
+	selector: 'app-edit-multiple-choice',
 	standalone: true,
 	imports: [
 		MatFormFieldModule,
@@ -29,13 +30,14 @@ import { NumberOnlyDirective } from '../../../directives/number-only.directive';
 		ReactiveFormsModule,
 		NumberOnlyDirective,
 	],
-	templateUrl: './edit-numeric.component.html',
-	styleUrl: './edit-numeric.component.scss',
+	templateUrl: './edit-multiple-choice.component.html',
+	styleUrl: './edit-multiple-choice.component.scss',
 })
-export class EditNumericComponent implements OnInit {
-	@Input() question!: IFirebaseDocument<INumericQuestion>;
+export class EditMultipleChoiceComponent implements OnInit {
+	@Input() question!: IFirebaseDocument<IMultipleChoiceQuestion>;
 	@Output() requestDialogClose = new EventEmitter<void>();
 	formGroup!: FormGroup;
+	formAnswers!: FormArray;
 
 	hasEquation: boolean = false;
 	hasTitle: boolean = false;
@@ -46,13 +48,22 @@ export class EditNumericComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.formAnswers = this.formBuilder.array([]);
 		this.formGroup = this.formBuilder.group({
-			answer: [this.question.data.answer, [Validators.required]],
+			answers: this.formAnswers,
 		});
 		this.loadQuestion();
 	}
 
 	private loadQuestion() {
+		this.question.data.answers.forEach((answer) => {
+			const answerControl = this.formBuilder.control(
+				answer,
+				Validators.required
+			);
+			this.formAnswers.push(answerControl);
+		});
+
 		if (this.question.data.title != '') {
 			this.addTitle();
 		}
@@ -78,6 +89,15 @@ export class EditNumericComponent implements OnInit {
 		this.hasEquation = true;
 	}
 
+	addAnswer() {
+		const answerControl = this.formBuilder.control('', Validators.required);
+		this.formAnswers.push(answerControl);
+	}
+
+	removeAnswer(index: number) {
+		this.formAnswers.removeAt(index);
+	}
+
 	removeTitle() {
 		this.hasTitle = false;
 		this.formGroup.removeControl('title');
@@ -89,9 +109,11 @@ export class EditNumericComponent implements OnInit {
 	}
 
 	saveQuestion() {
+		console.log(this.formGroup.controls);
 		if (this.formGroup.valid) {
-			const answer = this.formGroup.get('answer')?.value as number;
-			this.question.data.answer = answer;
+			this.question.data.answers = this.formAnswers.controls.map(
+				(control) => control.value
+			);
 
 			const title = this.formGroup.get('title');
 			this.question.data.title = title ? title.value : '';

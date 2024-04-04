@@ -1,5 +1,13 @@
 <header><span mat-dialog-title>Q{{question.data.number}}: {{question.data.type | questionTypeToString}}</span>
 	<button mat-button>Preview</button>
 </header>
+@switch (question.data.type) {
+@case (QuestionType.Numeric) {
 <app-edit-numeric class="question-component" [question]="question | as"
 	(requestDialogClose)="closeDialog()"></app-edit-numeric>
+}
+@case (QuestionType.MultipleChoice) {
+<app-edit-multiple-choice class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-multiple-choice>
+}
+}

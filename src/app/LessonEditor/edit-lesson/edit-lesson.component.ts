@@ -1,3 +1,4 @@
+import { QuestionType } from './../../interfaces/data/ibase-question';
 import { QuestionCreatorService } from './../../services/data/question-creator.service';
 import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { CurrentLessonService } from '../../services/data/current-lesson.service';
@@ -30,6 +31,8 @@ import {
 	moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
 
 @Component({
 	selector: 'app-edit-lesson',
@@ -47,6 +50,8 @@ import { MatIconModule } from '@angular/material/icon';
 		CdkDropList,
 		CdkDrag,
 		MatIconModule,
+		MatMenuModule,
+		QuestionTypeToStringPipe,
 	],
 	templateUrl: './edit-lesson.component.html',
 	styleUrl: './edit-lesson.component.scss',
@@ -58,6 +63,7 @@ export class EditLessonComponent implements OnDestroy {
 	loading: boolean = true;
 	info!: ILesson;
 	moving: boolean = false;
+	questionTypes = [QuestionType.Numeric, QuestionType.MultipleChoice];
 
 	private nameSubscription!: Subscription;
 	private nameSaveTimeout?: ReturnType<typeof setTimeout>;
@@ -119,11 +125,12 @@ export class EditLessonComponent implements OnDestroy {
 			.then(() => (this.nameSaved = true));
 	}
 
-	addQuestion() {
+	addQuestion(type: QuestionType) {
 		const question: IFirebaseDocument<IBaseQuestion> = {
 			id: '',
-			data: this.questionCreatorService.createNumeric(
-				this.questions.length + 1
+			data: this.questionCreatorService.createQuestion(
+				this.questions.length + 1,
+				type
 			),
 		};
 		this.dialogService.open(EditQuestionContainerComponent, {

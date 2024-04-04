@@ -9,6 +9,7 @@ import { ILesson } from '../../interfaces/data/ilesson';
 import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { FirestoreQuestionService } from '../firestore/firestore-question.service';
 import { LessonService } from './lesson.service';
+import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -78,7 +79,7 @@ export class CurrentLessonService {
 				this.setNumericSummary(question as INumericQuestion);
 				break;
 			case QuestionType.MultipleChoice:
-				question.summary = question.title;
+				this.setMultipleChoiceSummary(question as IMultipleChoiceQuestion);
 				break;
 		}
 
@@ -88,6 +89,15 @@ export class CurrentLessonService {
 	}
 
 	setNumericSummary(question: INumericQuestion) {
+		if (question.equation == '') {
+			question.summary = question.title;
+			return;
+		}
+
+		question.summary = question.equation;
+	}
+
+	setMultipleChoiceSummary(question: IMultipleChoiceQuestion) {
 		if (question.equation == '') {
 			question.summary = question.title;
 			return;

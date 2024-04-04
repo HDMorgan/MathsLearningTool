@@ -1,11 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
-import { IBaseQuestion } from '../../interfaces/data/ibase-question';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../interfaces/data/ibase-question';
 import { MatButtonModule } from '@angular/material/button';
 import { EditNumericComponent } from '../questionTypes/edit-numeric/edit-numeric.component';
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
 import { asPipe } from '../../pipes/as.pipe';
+import { EditMultipleChoiceComponent } from '../questionTypes/edit-multiple-choice/edit-multiple-choice.component';
 
 @Component({
 	selector: 'app-edit-question-container',
@@ -13,6 +17,7 @@ import { asPipe } from '../../pipes/as.pipe';
 	imports: [
 		MatButtonModule,
 		EditNumericComponent,
+		EditMultipleChoiceComponent,
 		QuestionTypeToStringPipe,
 		asPipe,
 	],
@@ -21,6 +26,7 @@ import { asPipe } from '../../pipes/as.pipe';
 })
 export class EditQuestionContainerComponent {
 	questionValid: boolean = false;
+	QuestionType = QuestionType;
 
 	constructor(
 		private dialogRef: MatDialogRef<EditQuestionContainerComponent>,

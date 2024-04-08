@@ -11,6 +11,7 @@ export enum QuestionType {
 	MultipleChoice,
 	Order,
 	Algebra,
+	Time,
 }
 
 export function QuestionTypeToString(type: QuestionType): string {
@@ -25,6 +26,8 @@ export function QuestionTypeToString(type: QuestionType): string {
 			return 'Order';
 		case QuestionType.Algebra:
 			return 'Algebra';
+		case QuestionType.Time:
+			return 'Time';
 		default:
 			return 'Unknown Type';
 	}

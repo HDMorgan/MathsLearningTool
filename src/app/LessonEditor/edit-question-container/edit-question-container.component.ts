@@ -13,6 +13,7 @@ import { EditMultipleChoiceComponent } from '../questionTypes/edit-multiple-choi
 import { EditOrderQuestionComponent } from '../questionTypes/edit-order-question/edit-order-question.component';
 import { EditFractionComponent } from '../questionTypes/edit-fraction/edit-fraction.component';
 import { EditAlgebraComponent } from '../questionTypes/edit-alegebra/edit-algebra.component';
+import { EditTimeComponent } from '../questionTypes/edit-time/edit-time.component';
 
 @Component({
 	selector: 'app-edit-question-container',
@@ -24,6 +25,7 @@ import { EditAlgebraComponent } from '../questionTypes/edit-alegebra/edit-algebr
 		EditMultipleChoiceComponent,
 		EditOrderQuestionComponent,
 		EditAlgebraComponent,
+		EditTimeComponent,
 		QuestionTypeToStringPipe,
 		asPipe,
 	],

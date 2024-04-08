@@ -8,6 +8,7 @@ import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { IOrderQuestion } from '../../interfaces/data/iorder-question';
 import { IFractionQuestion } from '../../interfaces/data/ifraction-question';
 import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
+import { ITimeQuestion } from '../../interfaces/data/itime-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -62,6 +63,15 @@ export class QuestionCreatorService {
 					equations: [''],
 					answers: [0],
 				} as IAlgebraQuestion;
+			case QuestionType.Time:
+				return {
+					type: QuestionType.Time,
+					number: questionNumber,
+					title: '',
+					summary: '',
+					hours: 0,
+					minutes: 0,
+				} as ITimeQuestion;
 		}
 	}
 }

@@ -6,6 +6,7 @@ import {
 import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
 import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { IOrderQuestion } from '../../interfaces/data/iorder-question';
+import { IFractionQuestion } from '../../interfaces/data/ifraction-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -24,6 +25,16 @@ export class QuestionCreatorService {
 					equation: '',
 					answer: 0,
 				} as INumericQuestion;
+			case QuestionType.Fraction:
+				return {
+					type: QuestionType.Fraction,
+					number: questionNumber,
+					title: '',
+					summary: '',
+					equation: '',
+					numerator: 0,
+					denominator: 1,
+				} as IFractionQuestion;
 			case QuestionType.MultipleChoice:
 				return {
 					type: QuestionType.MultipleChoice,

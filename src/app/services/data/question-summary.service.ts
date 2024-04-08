@@ -4,8 +4,7 @@ import {
 	IBaseQuestion,
 	QuestionType,
 } from '../../interfaces/data/ibase-question';
-import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
-import { INumericQuestion } from '../../interfaces/data/inumeric-question';
+import { IBaseEquationQuestion } from '../../interfaces/data/ibase-equation-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,10 +15,9 @@ export class QuestionSummaryService {
 	updateQuestionSummary(question: IBaseQuestion) {
 		switch (question.type) {
 			case QuestionType.Numeric:
-				this.setNumericSummary(question as INumericQuestion);
-				break;
+			case QuestionType.Fraction:
 			case QuestionType.MultipleChoice:
-				this.setMultipleChoiceSummary(question as IMultipleChoiceQuestion);
+				this.setEquationSummary(question as IBaseEquationQuestion);
 				break;
 			case QuestionType.Order:
 				this.setOrderSummary(question as IOrderQuestion);
@@ -29,16 +27,7 @@ export class QuestionSummaryService {
 		}
 	}
 
-	private setNumericSummary(question: INumericQuestion) {
-		if (question.equation == '') {
-			question.summary = question.title;
-			return;
-		}
-
-		question.summary = question.equation;
-	}
-
-	private setMultipleChoiceSummary(question: IMultipleChoiceQuestion) {
+	private setEquationSummary(question: IBaseEquationQuestion) {
 		if (question.equation == '') {
 			question.summary = question.title;
 			return;

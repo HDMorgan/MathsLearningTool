@@ -65,6 +65,7 @@ export class EditLessonComponent implements OnDestroy {
 	moving: boolean = false;
 	questionTypes = [
 		QuestionType.Numeric,
+		QuestionType.Fraction,
 		QuestionType.MultipleChoice,
 		QuestionType.Order,
 	];

@@ -7,6 +7,7 @@ export interface IBaseQuestion {
 
 export enum QuestionType {
 	Numeric,
+	Fraction,
 	MultipleChoice,
 	Order,
 }
@@ -15,6 +16,8 @@ export function QuestionTypeToString(type: QuestionType): string {
 	switch (type) {
 		case QuestionType.Numeric:
 			return 'Numeric';
+		case QuestionType.Fraction:
+			return 'Fraction';
 		case QuestionType.MultipleChoice:
 			return 'Multiple Choice';
 		case QuestionType.Order:

@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
+	@if (hasTitle)
+	{<section>
+		<header>
+			Title
+			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
+		</header>
+		<mat-form-field>
+			<input matInput formControlName="title" />
+			<mat-error>An equation is required</mat-error>
+		</mat-form-field>
+	</section>
+	<mat-divider></mat-divider>}
+
+	@if (hasEquation) {
+	<section>
+		<header>
+			Equation
+			<button mat-icon-button (click)="removeEquation()"><mat-icon>delete</mat-icon></button>
+		</header>
+
+		<mat-form-field>
+			<input matInput formControlName="equation" />
+			<mat-error>An answer is required</mat-error>
+		</mat-form-field>
+
+		<app-hint>Use square brackets to create
+			fractions. (e.g. [21/7] or [4+2/3])</app-hint>
+	</section>
+	<mat-divider></mat-divider>
+	}
+
+	<section class="edit-question-buttons">
+		@if (!hasTitle){<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>}
+		@if (!hasEquation){<button mat-button (click)="addEquation()"><mat-icon>add</mat-icon> Add equation</button>}
+	</section>
+
+	<mat-divider></mat-divider>
+	<section>
+		<header>
+			Answer
+		</header>
+		<div class="fraction-container">
+			<mat-form-field>
+				<input matInput type="number" formControlName="numerator" />
+				<mat-error>Not a valid number</mat-error>
+			</mat-form-field>
+			<hr />
+			<mat-form-field>
+				<input matInput type="number" formControlName="denominator" />
+				<mat-error>Not a valid number</mat-error>
+			</mat-form-field>
+		</div>
+		<button mat-button>AUTO CALCULATE</button>
+	</section>
+
+	<header>
+		<button mat-button (click)="closeDialog()">Cancel</button>
+		<button mat-flat-button (click)="saveQuestion()" [disabled]="!hasTitle && !hasEquation">Save</button>
+	</header>
+</form>

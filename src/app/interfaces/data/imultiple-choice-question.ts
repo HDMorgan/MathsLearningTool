@@ -1,6 +1,5 @@
-import { IBaseQuestion } from './ibase-question';
+import { IBaseEquationQuestion } from './ibase-equation-question';
 
-export interface IMultipleChoiceQuestion extends IBaseQuestion {
-	equation: string;
+export interface IMultipleChoiceQuestion extends IBaseEquationQuestion {
 	answers: string[];
 }

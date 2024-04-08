@@ -14,4 +14,8 @@
 <app-edit-order-question class="question-component" [question]="question | as"
 	(requestDialogClose)="closeDialog()"></app-edit-order-question>
 }
+@case (QuestionType.Fraction) {
+<app-edit-fraction class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-fraction>
+}
 }

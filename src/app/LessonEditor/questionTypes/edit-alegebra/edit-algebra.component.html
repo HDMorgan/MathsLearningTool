@@ -1,0 +1,63 @@
+<form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
+	@if (hasTitle)
+	{<section>
+		<header>
+			Title
+			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
+		</header>
+		<mat-form-field>
+			<input matInput formControlName="title" />
+			<mat-error>A title is required</mat-error>
+		</mat-form-field>
+	</section>}
+
+	@if (!hasTitle){<section>
+		<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>
+	</section>}
+
+	<mat-divider></mat-divider>
+
+	<section style="flex-grow: 1;" formArrayName="equations">
+		<header>Number of unknowns</header>
+		<mat-form-field>
+			<mat-select [formControl]="noOfUnknownsControl">
+				<mat-option [value]="1">1</mat-option>
+				<mat-option [value]="2">2</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<header>
+			Equations
+		</header>
+		@for (control of formEquations.controls; track control;) {
+
+		<mat-form-field>
+			<input matInput [formControlName]="$index" />
+			<mat-error>An equation is required</mat-error>
+		</mat-form-field>
+		}
+		<app-hint>Use square brackets to create
+			fractions. (e.g. [21/7] or [4+2/3])</app-hint>
+	</section>
+
+	<mat-divider></mat-divider>
+
+	<section formArrayName="answers">
+		<header>
+			Answers
+		</header>
+		@for (control of formAnswers.controls; track control;) {
+		<div class="answer-container">
+			<span>{{unknownSymbols[$index]}} =</span>
+			<mat-form-field>
+				<input matInput type="number" [formControlName]="$index" />
+				<mat-error>Not a valid number</mat-error>
+			</mat-form-field>
+		</div>
+		}
+	</section>
+
+	<header>
+		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button (click)="saveQuestion()">Save</button>
+	</header>
+</form>

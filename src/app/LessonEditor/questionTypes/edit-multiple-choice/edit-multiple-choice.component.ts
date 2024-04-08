@@ -107,7 +107,6 @@ export class EditMultipleChoiceComponent implements OnInit {
 	}
 
 	saveQuestion() {
-		console.log(this.formGroup.controls);
 		if (this.formGroup.valid) {
 			this.question.data.answers = this.formAnswers.controls.map(
 				(control) => control.value

@@ -5,6 +5,7 @@ import {
 	QuestionType,
 } from '../../interfaces/data/ibase-question';
 import { IBaseEquationQuestion } from '../../interfaces/data/ibase-equation-question';
+import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,6 +23,9 @@ export class QuestionSummaryService {
 			case QuestionType.Order:
 				this.setOrderSummary(question as IOrderQuestion);
 				break;
+			case QuestionType.Algebra:
+				this.setAlgebraSummary(question as IAlgebraQuestion);
+				break;
 			default:
 				question.summary = question.title;
 		}
@@ -38,5 +42,9 @@ export class QuestionSummaryService {
 
 	private setOrderSummary(question: IOrderQuestion) {
 		question.summary = question.items.join(', ');
+	}
+
+	private setAlgebraSummary(question: IAlgebraQuestion) {
+		question.summary = question.equations.join(', ');
 	}
 }

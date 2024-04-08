@@ -12,6 +12,7 @@ import { asPipe } from '../../pipes/as.pipe';
 import { EditMultipleChoiceComponent } from '../questionTypes/edit-multiple-choice/edit-multiple-choice.component';
 import { EditOrderQuestionComponent } from '../questionTypes/edit-order-question/edit-order-question.component';
 import { EditFractionComponent } from '../questionTypes/edit-fraction/edit-fraction.component';
+import { EditAlgebraComponent } from '../questionTypes/edit-alegebra/edit-algebra.component';
 
 @Component({
 	selector: 'app-edit-question-container',
@@ -22,6 +23,7 @@ import { EditFractionComponent } from '../questionTypes/edit-fraction/edit-fract
 		EditFractionComponent,
 		EditMultipleChoiceComponent,
 		EditOrderQuestionComponent,
+		EditAlgebraComponent,
 		QuestionTypeToStringPipe,
 		asPipe,
 	],

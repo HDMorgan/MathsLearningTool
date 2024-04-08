@@ -18,4 +18,8 @@
 <app-edit-fraction class="question-component" [question]="question | as"
 	(requestDialogClose)="closeDialog()"></app-edit-fraction>
 }
+@case (QuestionType.Algebra) {
+<app-edit-algebra class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-algebra>
+}
 }

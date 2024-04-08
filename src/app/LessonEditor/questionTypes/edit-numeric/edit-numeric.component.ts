@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { INumericQuestion } from '../../../interfaces/data/inumeric-question';
 import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
@@ -24,6 +25,7 @@ import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
 		MatButtonModule,
 		MatDividerModule,
 		MatIconModule,
+		MatCheckboxModule,
 		HintComponent,
 		ReactiveFormsModule,
 	],
@@ -37,6 +39,7 @@ export class EditNumericComponent implements OnInit {
 
 	hasEquation: boolean = false;
 	hasTitle: boolean = false;
+	hasUnit: boolean = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -58,6 +61,10 @@ export class EditNumericComponent implements OnInit {
 		if (this.question.data.equation != '') {
 			this.addEquation();
 		}
+
+		if (this.question.data.unit != '') {
+			this.addUnit();
+		}
 	}
 
 	addTitle() {
@@ -76,6 +83,20 @@ export class EditNumericComponent implements OnInit {
 		this.hasEquation = true;
 	}
 
+	addUnit() {
+		const unitControl = this.formBuilder.control(this.question.data.unit, [
+			Validators.required,
+		]);
+		this.formGroup.addControl('unit', unitControl);
+
+		const unitOnLeftControl = this.formBuilder.control(
+			this.question.data.unitOnLeft
+		);
+		this.formGroup.addControl('unitOnLeft', unitOnLeftControl);
+
+		this.hasUnit = true;
+	}
+
 	removeTitle() {
 		this.hasTitle = false;
 		this.formGroup.removeControl('title');
@@ -84,6 +105,12 @@ export class EditNumericComponent implements OnInit {
 	removeEquation() {
 		this.hasEquation = false;
 		this.formGroup.removeControl('equation');
+	}
+
+	removeUnit() {
+		this.hasUnit = false;
+		this.formGroup.removeControl('unit');
+		this.formGroup.removeControl('unitOnLeft');
 	}
 
 	saveQuestion() {
@@ -96,6 +123,12 @@ export class EditNumericComponent implements OnInit {
 
 			const equation = this.formGroup.get('equation');
 			this.question.data.equation = equation ? equation.value : '';
+
+			const unit = this.formGroup.get('unit');
+			this.question.data.unit = unit ? unit.value : '';
+
+			const unitOnLeft = this.formGroup.get('unit');
+			this.question.data.unitOnLeft = unitOnLeft ? unitOnLeft.value : false;
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)

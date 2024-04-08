@@ -1,1 +1,10 @@
+.unit-container {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	align-items: center;
+	gap: 5px;
+}
 
+.unit-container mat-form-field {
+	margin-top: 1em;
+}

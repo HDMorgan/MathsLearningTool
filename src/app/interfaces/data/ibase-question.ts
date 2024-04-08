@@ -10,6 +10,7 @@ export enum QuestionType {
 	Fraction,
 	MultipleChoice,
 	Order,
+	Algebra,
 }
 
 export function QuestionTypeToString(type: QuestionType): string {
@@ -22,6 +23,8 @@ export function QuestionTypeToString(type: QuestionType): string {
 			return 'Multiple Choice';
 		case QuestionType.Order:
 			return 'Order';
+		case QuestionType.Algebra:
+			return 'Algebra';
 		default:
 			return 'Unknown Type';
 	}

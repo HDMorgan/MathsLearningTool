@@ -7,6 +7,7 @@ import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-
 import { INumericQuestion } from '../../interfaces/data/inumeric-question';
 import { IOrderQuestion } from '../../interfaces/data/iorder-question';
 import { IFractionQuestion } from '../../interfaces/data/ifraction-question';
+import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
 
 @Injectable({
 	providedIn: 'root',
@@ -52,6 +53,15 @@ export class QuestionCreatorService {
 					summary: '',
 					items: ['', ''],
 				} as IOrderQuestion;
+			case QuestionType.Algebra:
+				return {
+					type: QuestionType.Algebra,
+					number: questionNumber,
+					title: '',
+					summary: '',
+					equations: [''],
+					answers: [0],
+				} as IAlgebraQuestion;
 		}
 	}
 }

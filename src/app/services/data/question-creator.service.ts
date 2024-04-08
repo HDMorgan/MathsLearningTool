@@ -26,6 +26,8 @@ export class QuestionCreatorService {
 					summary: '',
 					equation: '',
 					answer: 0,
+					unit: '',
+					unitOnLeft: false,
 				} as INumericQuestion;
 			case QuestionType.Fraction:
 				return {

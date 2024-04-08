@@ -69,6 +69,7 @@ export class EditLessonComponent implements OnDestroy {
 		QuestionType.MultipleChoice,
 		QuestionType.Order,
 		QuestionType.Algebra,
+		QuestionType.Time,
 	];
 
 	private nameSubscription!: Subscription;

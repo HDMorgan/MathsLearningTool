@@ -22,4 +22,8 @@
 <app-edit-algebra class="question-component" [question]="question | as"
 	(requestDialogClose)="closeDialog()"></app-edit-algebra>
 }
+@case (QuestionType.Time) {
+<app-edit-time class="question-component" [question]="question | as"
+	(requestDialogClose)="closeDialog()"></app-edit-time>
+}
 }

@@ -1,0 +1,37 @@
+<form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
+	<section style="flex-grow: 1;">
+		<header>
+			Title
+		</header>
+		<mat-form-field>
+			<input matInput formControlName="title" />
+			<mat-error>A title is required</mat-error>
+		</mat-form-field>
+	</section>
+
+	<mat-divider></mat-divider>
+
+	<section>
+		<header>
+			Answer
+		</header>
+		<div class="answer-container">
+			<mat-form-field hideRequiredMarker="true">
+				<mat-label>Hours</mat-label>
+				<input matInput type="number" formControlName="hours" />
+				<mat-error>Not a valid number</mat-error>
+			</mat-form-field>
+			<span>:</span>
+			<mat-form-field hideRequiredMarker="true">
+				<mat-label>Minutes</mat-label>
+				<input matInput type="number" formControlName="minutes" />
+				<mat-error>Not a valid number</mat-error>
+			</mat-form-field>
+		</div>
+	</section>
+
+	<header>
+		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button (click)="saveQuestion()">Save</button>
+	</header>
+</form>

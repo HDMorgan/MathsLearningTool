@@ -7,6 +7,8 @@
 	<h2>The requested lobby doesn't exist</h2>
 	<button mat-button routerLink="/dashboard">Back to dashboard</button>
 </div>
-} @else {
+} @else if (lobbyInfo.data.currentQuestion === 0) {
 <app-lobby [lobbyInfo]="lobbyInfo" [playerCount]="playerCount" [questionsLoaded]="questionsLoaded"></app-lobby>
-}
+} @else if (questionsLoaded) {
+<app-host-question-container [lobbyInfo]="lobbyInfo" [numberAnswered]="0"
+	[playerCount]="playerCount"></app-host-question-container> }

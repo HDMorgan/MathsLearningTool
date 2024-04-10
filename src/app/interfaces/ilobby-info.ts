@@ -5,4 +5,5 @@ export interface ILobbyInfo {
 	answers: object;
 	teacherName: string;
 	lessonName: string;
+	showAnswer: boolean;
 }

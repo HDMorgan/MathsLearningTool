@@ -1,0 +1,15 @@
+@if (question.title !== '') {
+<h1>{{question.title}}</h1>
+}
+@if (question.equation !== '') {
+<app-equation-display [equation]="question.equation"></app-equation-display>
+}
+@if (showAnswer) {
+<app-answer-container>
+	<div style="display: flex; gap: 5px">
+		@if (question.unitOnLeft) {<h2>{{question.unit}}</h2>}
+		<h2 style="text-align: center;"> {{question.answer}} </h2>
+		@if (!question.unitOnLeft) {<h2>{{question.unit}}</h2>}
+	</div>
+</app-answer-container>
+}

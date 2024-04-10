@@ -34,6 +34,10 @@ export class CurrentLessonService {
 		return this.questions;
 	}
 
+	getQuestionsWithoutIds() {
+		return this.questions.map((q) => q.data);
+	}
+
 	async loadLessonFromName(lessonName: string): Promise<void> {
 		this.info = await this.lessonService.getLessonFromId(lessonName);
 
@@ -47,7 +51,7 @@ export class CurrentLessonService {
 
 	loadLessonFromLobby(lobbyInfo: ILobbyInfo): Promise<void> {
 		return this.firestoreQuestionService
-			.getQuestionsUsingTeacherId(lobbyInfo.teacherId, lobbyInfo.teacherId)
+			.getQuestionsUsingTeacherId(lobbyInfo.teacherId, lobbyInfo.lessonId)
 			.then((questions) => {
 				this.questions = questions;
 				return Promise.resolve();

@@ -3,7 +3,7 @@
 	{<section>
 		<header>
 			Title
-			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
+			<button mat-icon-button type="button" (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
 		</header>
 		<mat-form-field>
 			<input matInput formControlName="title" />
@@ -16,7 +16,7 @@
 	<section>
 		<header>
 			Equation
-			<button mat-icon-button (click)="removeEquation()"><mat-icon>delete</mat-icon></button>
+			<button mat-icon-button type="button" (click)="removeEquation()"><mat-icon>delete</mat-icon></button>
 		</header>
 
 		<mat-form-field>
@@ -31,8 +31,10 @@
 	}
 
 	<section class="edit-question-buttons">
-		@if (!hasTitle){<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>}
-		@if (!hasEquation){<button mat-button (click)="addEquation()"><mat-icon>add</mat-icon> Add equation</button>}
+		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()"><mat-icon>add</mat-icon> Add
+			title</button>}
+		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()"><mat-icon>add</mat-icon> Add
+			equation</button>}
 	</section>
 
 	<mat-divider></mat-divider>
@@ -56,7 +58,8 @@
 	</section>
 
 	<header>
-		<button mat-button (click)="closeDialog()">Cancel</button>
-		<button mat-flat-button (click)="saveQuestion()" [disabled]="!hasTitle && !hasEquation">Save</button>
+		<button mat-button type="button" (click)="closeDialog()">Cancel</button>
+		<button mat-flat-button type="submit" (click)="saveQuestion()"
+			[disabled]="!hasTitle && !hasEquation">Save</button>
 	</header>
 </form>

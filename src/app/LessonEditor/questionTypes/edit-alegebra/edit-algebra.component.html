@@ -3,7 +3,7 @@
 	{<section>
 		<header>
 			Title
-			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
+			<button mat-icon-button type="button" (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
 		</header>
 		<mat-form-field>
 			<input matInput formControlName="title" />
@@ -57,7 +57,7 @@
 	</section>
 
 	<header>
-		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
-		<button mat-flat-button (click)="saveQuestion()">Save</button>
+		<button mat-button type="button" (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button type="submit" (click)="saveQuestion()">Save</button>
 	</header>
 </form>

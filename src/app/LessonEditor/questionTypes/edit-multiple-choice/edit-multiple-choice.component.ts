@@ -15,6 +15,11 @@ import { HintComponent } from '../../../shared/hint/hint.component';
 import { IMultipleChoiceQuestion } from '../../../interfaces/data/imultiple-choice-question';
 import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
 import { CurrentLessonService } from '../../../services/data/current-lesson.service';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../../interfaces/data/ibase-question';
+import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 
 @Component({
 	selector: 'app-edit-multiple-choice',
@@ -33,7 +38,10 @@ import { CurrentLessonService } from '../../../services/data/current-lesson.serv
 })
 export class EditMultipleChoiceComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IMultipleChoiceQuestion>;
+	@Input() previewRequested!: EventEmitter<void>;
 	@Output() requestDialogClose = new EventEmitter<void>();
+	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
+
 	formGroup!: FormGroup;
 	formAnswers!: FormArray;
 
@@ -42,7 +50,8 @@ export class EditMultipleChoiceComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService
 	) {}
 
 	ngOnInit(): void {
@@ -51,6 +60,8 @@ export class EditMultipleChoiceComponent implements OnInit {
 			answers: this.formAnswers,
 		});
 		this.loadQuestion();
+
+		this.previewRequested.subscribe(() => this.openPreview());
 	}
 
 	private loadQuestion() {
@@ -108,19 +119,32 @@ export class EditMultipleChoiceComponent implements OnInit {
 
 	saveQuestion() {
 		if (this.formGroup.valid) {
-			this.question.data.answers = this.formAnswers.controls.map(
-				(control) => control.value
-			);
-
-			const title = this.formGroup.get('title');
-			this.question.data.title = title ? title.value : '';
-
-			const equation = this.formGroup.get('equation');
-			this.question.data.equation = equation ? equation.value : '';
+			this.saveToQuestion(this.question.data);
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)
 				.then(() => this.closeDialog());
+		}
+	}
+
+	saveToQuestion(q: IMultipleChoiceQuestion) {
+		q.answers = this.formAnswers.controls.map((control) => control.value);
+
+		const title = this.formGroup.get('title');
+		q.title = title ? title.value : '';
+
+		const equation = this.formGroup.get('equation');
+		q.equation = equation ? equation.value : '';
+	}
+
+	openPreview() {
+		if (this.formGroup.valid) {
+			const previewQuestion = this.questionCreatorService.createQuestion(
+				this.question.data.number,
+				QuestionType.MultipleChoice
+			);
+			this.saveToQuestion(previewQuestion as IMultipleChoiceQuestion);
+			this.openPreviewRequested.emit(previewQuestion);
 		}
 	}
 

@@ -1,18 +1,12 @@
 <form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
-	@if (hasTitle)
-	{<section>
+	<section>
 		<header>
 			Title
-			<button mat-icon-button (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
 		</header>
 		<mat-form-field>
 			<input matInput formControlName="title" />
 			<mat-error>A title is required</mat-error>
 		</mat-form-field>
-	</section>}
-
-	<section>
-		@if (!hasTitle){<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>}
 	</section>
 
 	<mat-divider></mat-divider>
@@ -27,7 +21,7 @@
 				<input matInput [formControlName]="$index" />
 				<mat-error>An answer is required</mat-error>
 			</mat-form-field>
-			<button mat-icon-button (click)="removeItem($index)"
+			<button mat-icon-button type="button" (click)="removeItem($index)"
 				[disabled]="formItems.length <= 2"><mat-icon>remove</mat-icon></button>
 		</div>
 		}
@@ -40,7 +34,7 @@
 	</section>
 
 	<header>
-		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
-		<button mat-flat-button (click)="saveQuestion()">Save</button>
+		<button mat-button type="button" (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button type="submit" (click)="saveQuestion()">Save</button>
 	</header>
 </form>

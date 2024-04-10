@@ -11,14 +11,7 @@ import { Auth } from '@angular/fire/auth';
 export class HostingService {
 	lobbyInfo: IFirebaseDocument<ILobbyInfo> = {
 		id: '',
-		data: {
-			teacherId: '',
-			teacherName: '',
-			lessonName: '',
-			lessonId: '',
-			currentQuestion: 0,
-			answers: {},
-		},
+		data: {} as ILobbyInfo,
 	};
 
 	constructor(
@@ -36,6 +29,7 @@ export class HostingService {
 			lessonId: lesson.id,
 			currentQuestion: 0,
 			answers: {},
+			showAnswer: false,
 		};
 
 		await this.setUniqueLobbyCode();

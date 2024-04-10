@@ -1,5 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject } from '@angular/core';
+import {
+	MatDialogRef,
+	MAT_DIALOG_DATA,
+	MatDialog,
+} from '@angular/material/dialog';
 import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
 import {
 	IBaseQuestion,
@@ -14,6 +18,8 @@ import { EditOrderQuestionComponent } from '../questionTypes/edit-order-question
 import { EditFractionComponent } from '../questionTypes/edit-fraction/edit-fraction.component';
 import { EditAlgebraComponent } from '../questionTypes/edit-alegebra/edit-algebra.component';
 import { EditTimeComponent } from '../questionTypes/edit-time/edit-time.component';
+import { QuestionDisplayContainerComponent } from '../../questionDisplay/question-display-container/question-display-container.component';
+import { QuestionPreviewComponent } from '../question-preview/question-preview.component';
 
 @Component({
 	selector: 'app-edit-question-container',
@@ -27,6 +33,7 @@ import { EditTimeComponent } from '../questionTypes/edit-time/edit-time.componen
 		EditAlgebraComponent,
 		EditTimeComponent,
 		QuestionTypeToStringPipe,
+		QuestionDisplayContainerComponent,
 		asPipe,
 	],
 	templateUrl: './edit-question-container.component.html',
@@ -35,13 +42,30 @@ import { EditTimeComponent } from '../questionTypes/edit-time/edit-time.componen
 export class EditQuestionContainerComponent {
 	questionValid: boolean = false;
 	QuestionType = QuestionType;
+	previewShown: boolean = false;
+	previewRequested = new EventEmitter<void>();
 
 	constructor(
 		private dialogRef: MatDialogRef<EditQuestionContainerComponent>,
-		@Inject(MAT_DIALOG_DATA) public question: IFirebaseDocument<IBaseQuestion>
+		@Inject(MAT_DIALOG_DATA) public question: IFirebaseDocument<IBaseQuestion>,
+		private matDialog: MatDialog
 	) {}
 
 	closeDialog() {
 		this.dialogRef.close();
+	}
+
+	requestPreview() {
+		this.previewRequested.emit();
+	}
+
+	showPreview(previewQuestion: IBaseQuestion) {
+		this.matDialog.open(QuestionPreviewComponent, {
+			data: previewQuestion,
+			height: '95vh',
+			width: '95vw',
+			maxHeight: '100%',
+			maxWidth: '100%',
+		});
 	}
 }

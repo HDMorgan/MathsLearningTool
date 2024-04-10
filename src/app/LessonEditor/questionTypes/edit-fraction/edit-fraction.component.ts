@@ -14,6 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { HintComponent } from '../../../shared/hint/hint.component';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../../interfaces/data/ibase-question';
+import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 
 @Component({
 	selector: 'app-edit-fraction',
@@ -32,7 +37,10 @@ import { HintComponent } from '../../../shared/hint/hint.component';
 })
 export class EditFractionComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IFractionQuestion>;
+	@Input() previewRequested!: EventEmitter<void>;
 	@Output() requestDialogClose = new EventEmitter<void>();
+	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
+
 	formGroup!: FormGroup;
 
 	hasEquation: boolean = false;
@@ -40,7 +48,8 @@ export class EditFractionComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService
 	) {}
 
 	ngOnInit(): void {
@@ -49,6 +58,8 @@ export class EditFractionComponent implements OnInit {
 			denominator: [this.question.data.denominator, [Validators.required]],
 		});
 		this.loadQuestion();
+
+		this.previewRequested.subscribe(() => this.openPreview());
 	}
 
 	private loadQuestion() {
@@ -89,21 +100,36 @@ export class EditFractionComponent implements OnInit {
 
 	saveQuestion() {
 		if (this.formGroup.valid) {
-			const numerator = this.formGroup.get('numerator')?.value as number;
-			this.question.data.numerator = numerator;
-
-			const denominator = this.formGroup.get('denominator')?.value as number;
-			this.question.data.denominator = denominator;
-
-			const title = this.formGroup.get('title');
-			this.question.data.title = title ? title.value : '';
-
-			const equation = this.formGroup.get('equation');
-			this.question.data.equation = equation ? equation.value : '';
+			this.saveToQuestion(this.question.data);
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)
 				.then(() => this.closeDialog());
+		}
+	}
+
+	saveToQuestion(q: IFractionQuestion) {
+		const numerator = this.formGroup.get('numerator')?.value as number;
+		q.numerator = numerator;
+
+		const denominator = this.formGroup.get('denominator')?.value as number;
+		q.denominator = denominator;
+
+		const title = this.formGroup.get('title');
+		q.title = title ? title.value : '';
+
+		const equation = this.formGroup.get('equation');
+		q.equation = equation ? equation.value : '';
+	}
+
+	openPreview() {
+		if (this.formGroup.valid) {
+			const previewQuestion = this.questionCreatorService.createQuestion(
+				this.question.data.number,
+				QuestionType.Fraction
+			);
+			this.saveToQuestion(previewQuestion as IFractionQuestion);
+			this.openPreviewRequested.emit(previewQuestion);
 		}
 	}
 

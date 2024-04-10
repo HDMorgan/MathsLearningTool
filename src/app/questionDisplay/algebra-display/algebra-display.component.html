@@ -1,0 +1,18 @@
+@if (question.title !== '') {
+<h1>{{question.title}}</h1>
+}
+<div class="vertical-container">
+	@for (e of question.equations; track e) {
+	<app-equation-display [equation]="e"></app-equation-display>
+	}
+</div>
+
+@if (showAnswer) {
+<app-answer-container>
+	<div class="vertical-container">
+		@for (a of question.answers; track a ) {
+		<h1>{{unknowns[$index]}} = {{a}}</h1>
+		}
+	</div>
+</app-answer-container>
+}

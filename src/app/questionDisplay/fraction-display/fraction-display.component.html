@@ -1,0 +1,14 @@
+@if (question.title !== '') {
+<h1>{{question.title}}</h1>
+}
+@if (question.equation !== '') {
+<app-equation-display [equation]="question.equation"></app-equation-display>}
+@if (showAnswer) {
+<app-answer-container>
+	<div class="fraction">
+		<h3>{{question.numerator}}</h3>
+		<hr />
+		<h3>{{question.denominator}}</h3>
+	</div>
+</app-answer-container>
+}

@@ -58,4 +58,12 @@ export class LobbyComponent implements OnInit {
 		}
 		this.qrWidth = 600;
 	}
+
+	startLesson() {
+		this.lobbyInfo.data.currentQuestion = 1;
+		this.firestoreLobbyService.setCurrentQuestionNumber(
+			this.lobbyInfo.id,
+			this.lobbyInfo.data.currentQuestion
+		);
+	}
 }

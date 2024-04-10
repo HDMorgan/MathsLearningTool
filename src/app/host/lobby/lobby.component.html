@@ -17,6 +17,7 @@
 
 
 <div class="align-right">
-	<button mat-flat-button [disabled]="!questionsLoaded || playerCount <= 0">{{questionsLoaded ? "Start Lesson" :
+	<button mat-flat-button [disabled]="!questionsLoaded || playerCount <= 0" (click)="startLesson()">{{questionsLoaded
+		? "Start Lesson" :
 		"Questions Loading"}}<mat-icon iconPositionEnd>navigate_next</mat-icon></button>
 </div>

@@ -6,5 +6,5 @@
 </section>
 <section class="button-flex">
 	<button mat-button [routerLink]="['/lesson', lesson.id]">EDIT</button>
-	<button mat-flat-button>Host</button>
+	<button mat-flat-button (click)="createLobby()">Host</button>
 </section>

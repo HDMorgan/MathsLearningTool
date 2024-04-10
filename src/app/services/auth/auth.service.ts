@@ -5,6 +5,7 @@ import {
 	User,
 	confirmPasswordReset,
 	createUserWithEmailAndPassword,
+	signInAnonymously,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	updateProfile,
@@ -73,8 +74,11 @@ export class AuthService {
 		});
 	}
 
-	getAuthState(): boolean {
-		return !!this.auth.currentUser;
+	checkUserSignedIn(): boolean {
+		return (
+			!!this.auth.currentUser &&
+			this.auth.currentUser.providerId !== 'anonymous'
+		);
 	}
 
 	resetPassword(newPassword: string, oob: string) {
@@ -101,5 +105,13 @@ export class AuthService {
 					reject();
 				});
 		});
+	}
+
+	authoriseStudent(): Promise<void> {
+		if (!this.auth.currentUser) {
+			return signInAnonymously(this.auth).then(() => Promise.resolve());
+		}
+
+		return Promise.resolve();
 	}
 }

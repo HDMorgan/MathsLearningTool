@@ -1,3 +1,4 @@
+import { FirestoreLobbyService } from './../services/firestore/firestore-lobby.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,10 +26,24 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class JoinComponent {
 	isVisible = false;
+	joinCode: string = '';
+	lobbyExists = true;
 
-	constructor(private router: Router) {}
+	constructor(
+		private firestoreLobbyService: FirestoreLobbyService,
+		private router: Router
+	) {}
 
 	OnJoinPress() {
-		this.router.navigateByUrl('assets/logo.svg');
+		this.firestoreLobbyService
+			.checkLobbyExists(this.joinCode)
+			.then((exists) => {
+				if (exists) {
+					this.router.navigateByUrl(`/session/${this.joinCode}`);
+					return;
+				}
+
+				this.lobbyExists = false;
+			});
 	}
 }

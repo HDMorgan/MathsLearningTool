@@ -16,7 +16,7 @@ import { ILobbyInfo } from '../../interfaces/ilobby-info';
 export class CurrentLessonService {
 	private info: IFirebaseDocument<ILesson> = {
 		id: '',
-		data: { name: '', summary: [] },
+		data: { name: '', summary: [], numberOfQuestions: 0 },
 	};
 	private questions: IFirebaseDocument<IBaseQuestion>[] = [];
 
@@ -58,11 +58,6 @@ export class CurrentLessonService {
 			});
 	}
 
-	clearLesson() {
-		this.info = { id: '', data: { name: '', summary: [] } };
-		this.questions = [];
-	}
-
 	commitQuestionChanges(
 		question: IFirebaseDocument<IBaseQuestion>
 	): Promise<void> {
@@ -86,12 +81,10 @@ export class CurrentLessonService {
 	updateQuestionSummary(question: IBaseQuestion) {
 		this.questionSummaryService.updateQuestionSummary(question);
 
-		if (question.number <= 3) {
-			this.updateLessonSummary();
-		}
+		this.updateLesson();
 	}
 
-	updateLessonSummary() {
+	updateLesson() {
 		this.info.data.summary = [];
 		for (let i = 0; i <= 2 && i < this.questions.length; i++) {
 			this.info.data.summary.push(
@@ -100,6 +93,8 @@ export class CurrentLessonService {
 					this.questions[i].data.summary
 			);
 		}
+
+		this.info.data.numberOfQuestions = this.questions.length;
 
 		this.lessonService.saveLesson(this.info);
 	}
@@ -120,15 +115,13 @@ export class CurrentLessonService {
 			this.questions
 		);
 
-		if (index <= 2) {
-			this.updateLessonSummary();
-		}
+		this.updateLesson();
 	}
 
 	saveQuestionOrder() {
 		this.updateQuestionNumbers();
 
-		this.updateLessonSummary();
+		this.updateLesson();
 
 		this.firestoreQuestionService.saveMultipleQuestions(
 			this.info.id,

@@ -2,9 +2,14 @@
 	<app-join-header></app-join-header>
 	<section class="verticalFlexbox">
 		<mat-form-field class="joinInput">
-			<input matInput placeholder="Enter code" class="centerText" oninput="this.value = this.value.toUpperCase()"
-				maxlength="4">
+			<input matInput #joinInput placeholder="Enter code" class="centerText"
+				oninput="this.value = this.value.toUpperCase()" maxlength="4" (input)="joinCode = joinInput.value">
 		</mat-form-field>
 		<button mat-flat-button (click)="OnJoinPress()" style="transform: scale(2);">JOIN</button>
+		@if (!lobbyExists) {
+		<div class="error-container">
+			<h3>That lobby doesn't exist</h3>
+		</div>
+		}
 	</section>
 </div>

@@ -1,0 +1,5 @@
+<header>
+	<button mat-button (click)="sessionService.leaveLobby()"><mat-icon>navigate_before</mat-icon>Leave lesson</button>
+</header>
+<h1>{{sessionService.lobbyInfo.data.teacherName | apostrophe}} lesson</h1>
+<h2>Waiting to start...</h2>

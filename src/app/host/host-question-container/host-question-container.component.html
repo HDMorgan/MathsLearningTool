@@ -1,12 +1,13 @@
 <header>
 	<mat-icon svgIcon="main-logo"></mat-icon>
-	<span>Question: {{lobbyInfo.data.currentQuestion}} / {{questions.length}}</span>
-	<button mat-icon-button (click)="closeLobby()"><mat-icon>close</mat-icon></button>
+	<span>Question: {{hostingService.lobbyInfo.data.currentQuestion}} / {{questions.length}}</span>
+	<button mat-icon-button (click)="hostingService.closeLobby()"><mat-icon>close</mat-icon></button>
 </header>
-<app-player-count>{{numberAnswered}} / {{playerCount}}</app-player-count>
-<app-question-display-container [question]="questions[lobbyInfo.data.currentQuestion - 1]"
-	[showAnswer]="lobbyInfo.data.showAnswer"></app-question-display-container>
+<app-player-count>{{hostingService.numberAnswered}} / {{hostingService.playerCount}}</app-player-count>
+<app-question-display-container [question]="questions[hostingService.lobbyInfo.data.currentQuestion - 1]"
+	[showAnswer]="hostingService.lobbyInfo.data.showAnswer"></app-question-display-container>
 <div class="align-right">
-	<button mat-flat-button (click)="nextAction()">{{lobbyInfo.data.showAnswer ? "Next Question" : "Show Answer"}}
+	<button mat-flat-button (click)="hostingService.goNext()">
+		{{hostingService.lobbyInfo.data.showAnswer ? "Next Question" : "Show Answer"}}
 		<mat-icon iconPositionEnd>navigate_next</mat-icon></button>
 </div>

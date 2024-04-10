@@ -1,3 +1,4 @@
+import { LessonService } from './../services/data/lesson.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -38,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 	constructor(
 		private auth: Auth,
 		private router: Router,
+		private lessonService: LessonService,
 		authService: AuthService
 	) {
 		this.teacherName = auth.currentUser?.displayName as string;
@@ -64,6 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 	}
 
 	Logout() {
+		this.lessonService.clearLessons();
 		this.auth.signOut().then(() => this.router.navigateByUrl('/'));
 	}
 }

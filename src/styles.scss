@@ -188,3 +188,8 @@ input[type="number"] {
 	border: none;
 	border-top: 2px solid black;
 }
+
+.error-container {
+	color: mat.get-theme-color($theme, error);
+	padding: 10px;
+}

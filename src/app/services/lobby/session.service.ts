@@ -14,7 +14,7 @@ export class SessionService implements OnDestroy {
 	lobbyInfo: IFirebaseDocument<ILobbyInfo> = { id: '', data: {} as ILobbyInfo };
 	loaded: boolean = false;
 	lessonEnded: boolean = false;
-	docUnsubscribe!: Unsubscribe;
+	docUnsubscribe?: Unsubscribe;
 
 	constructor(
 		private firestoreLobbyService: FirestoreLobbyService,
@@ -54,6 +54,8 @@ export class SessionService implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.docUnsubscribe();
+		if (this.docUnsubscribe) {
+			this.docUnsubscribe();
+		}
 	}
 }

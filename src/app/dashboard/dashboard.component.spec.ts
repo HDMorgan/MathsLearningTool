@@ -8,9 +8,10 @@ import {
 	provideFirebaseApp,
 	initializeApp,
 } from '@angular/fire/app';
-import { AuthModule } from '@angular/fire/auth';
+import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 describe('DashboardComponent', () => {
 	let component: DashboardComponent;
@@ -29,6 +30,8 @@ describe('DashboardComponent', () => {
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
+				importProvidersFrom(provideAuth(() => getAuth())),
+				importProvidersFrom(provideFirestore(() => getFirestore())),
 			],
 		}).compileComponents();
 

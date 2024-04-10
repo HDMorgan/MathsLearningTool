@@ -1,0 +1,20 @@
+@switch (question.type) {
+@case (QuestionType.Numeric) {
+<app-numeric-display [showAnswer]="showAnswer" [question]="question | as"></app-numeric-display>
+}
+@case (QuestionType.Fraction) {
+<app-fraction-display [showAnswer]="showAnswer" [question]="question | as"></app-fraction-display>
+}
+@case (QuestionType.MultipleChoice) {
+<app-multiple-choice-display [showAnswer]="showAnswer" [question]="question | as"></app-multiple-choice-display>
+}
+@case (QuestionType.Order) {
+<app-order-display [showAnswer]="showAnswer" [question]="question | as"></app-order-display>
+}
+@case (QuestionType.Algebra) {
+<app-algebra-display [showAnswer]="showAnswer" [question]="question | as"></app-algebra-display>
+}
+@case (QuestionType.Time) {
+<app-time-display [showAnswer]="showAnswer" [question]="question | as"></app-time-display>
+}
+}

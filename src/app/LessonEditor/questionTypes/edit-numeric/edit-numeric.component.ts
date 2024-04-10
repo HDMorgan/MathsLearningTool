@@ -15,6 +15,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { INumericQuestion } from '../../../interfaces/data/inumeric-question';
 import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../../interfaces/data/ibase-question';
+import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 
 @Component({
 	selector: 'app-edit-numeric',
@@ -34,7 +39,9 @@ import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
 })
 export class EditNumericComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<INumericQuestion>;
+	@Input() previewRequested!: EventEmitter<void>;
 	@Output() requestDialogClose = new EventEmitter<void>();
+	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
 	formGroup!: FormGroup;
 
 	hasEquation: boolean = false;
@@ -43,7 +50,8 @@ export class EditNumericComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService
 	) {}
 
 	ngOnInit(): void {
@@ -51,6 +59,8 @@ export class EditNumericComponent implements OnInit {
 			answer: [this.question.data.answer, [Validators.required]],
 		});
 		this.loadQuestion();
+
+		this.previewRequested.subscribe(() => this.openPreview());
 	}
 
 	private loadQuestion() {
@@ -115,24 +125,39 @@ export class EditNumericComponent implements OnInit {
 
 	saveQuestion() {
 		if (this.formGroup.valid) {
-			const answer = this.formGroup.get('answer')?.value as number;
-			this.question.data.answer = answer;
-
-			const title = this.formGroup.get('title');
-			this.question.data.title = title ? title.value : '';
-
-			const equation = this.formGroup.get('equation');
-			this.question.data.equation = equation ? equation.value : '';
-
-			const unit = this.formGroup.get('unit');
-			this.question.data.unit = unit ? unit.value : '';
-
-			const unitOnLeft = this.formGroup.get('unit');
-			this.question.data.unitOnLeft = unitOnLeft ? unitOnLeft.value : false;
+			this.saveToQuestion(this.question.data);
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)
 				.then(() => this.closeDialog());
+		}
+	}
+
+	saveToQuestion(q: INumericQuestion) {
+		const answer = this.formGroup.get('answer')?.value as number;
+		q.answer = answer;
+
+		const title = this.formGroup.get('title');
+		q.title = title ? title.value : '';
+
+		const equation = this.formGroup.get('equation');
+		q.equation = equation ? equation.value : '';
+
+		const unit = this.formGroup.get('unit');
+		q.unit = unit ? unit.value : '';
+
+		const unitOnLeft = this.formGroup.get('unitOnLeft');
+		q.unitOnLeft = unitOnLeft ? unitOnLeft.value : false;
+	}
+
+	openPreview() {
+		if (this.formGroup.valid) {
+			const previewQuestion = this.questionCreatorService.createQuestion(
+				this.question.data.number,
+				QuestionType.Numeric
+			);
+			this.saveToQuestion(previewQuestion as INumericQuestion);
+			this.openPreviewRequested.emit(previewQuestion);
 		}
 	}
 

@@ -7,6 +7,7 @@ import {
 	doc,
 	getDoc,
 	setDoc,
+	updateDoc,
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -20,10 +21,6 @@ export class FirestoreLobbyService {
 		return setDoc(document, lobby.data);
 	}
 
-	// getLobby(lobbyId: string): Promise<IFirebaseDocument<ILobbyInfo>> {
-
-	// }
-
 	checkLobbyExists(lobbyId: string): Promise<boolean> {
 		const document = doc(this.firestore, 'sessions', lobbyId);
 		return getDoc(document).then((result) => {
@@ -34,5 +31,15 @@ export class FirestoreLobbyService {
 	deleteLobby(lobbyId: string) {
 		const document = doc(this.firestore, 'sessions', lobbyId);
 		deleteDoc(document);
+	}
+
+	setCurrentQuestionNumber(lobbyId: string, questionNumber: number) {
+		const document = doc(this.firestore, 'sessions', lobbyId);
+		updateDoc(document, { currentQuestion: questionNumber });
+	}
+
+	setShowAnswer(lobbyId: string, showAnswer: boolean) {
+		const document = doc(this.firestore, 'sessions', lobbyId);
+		updateDoc(document, { showAnswer: showAnswer });
 	}
 }

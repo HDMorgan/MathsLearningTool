@@ -12,6 +12,11 @@ import { CurrentLessonService } from '../../../services/data/current-lesson.serv
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../../interfaces/data/ibase-question';
+import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 
 @Component({
 	selector: 'app-edit-time',
@@ -28,13 +33,16 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class EditTimeComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<ITimeQuestion>;
+	@Input() previewRequested!: EventEmitter<void>;
 	@Output() requestDialogClose = new EventEmitter<void>();
+	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
 
 	formGroup!: FormGroup;
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService
 	) {}
 
 	ngOnInit(): void {
@@ -43,22 +51,39 @@ export class EditTimeComponent implements OnInit {
 			hours: [this.question.data.hours, Validators.required],
 			minutes: [this.question.data.minutes, Validators.required],
 		});
+
+		this.previewRequested.subscribe(() => this.openPreview());
 	}
 
 	saveQuestion() {
 		if (this.formGroup.valid) {
-			const title = this.formGroup.get('title')?.value as string;
-			this.question.data.title = title;
-
-			const hours = this.formGroup.get('hours')?.value;
-			this.question.data.hours = hours as number;
-
-			const minutes = this.formGroup.get('minutes')?.value;
-			this.question.data.minutes = minutes as number;
+			this.saveToQuestion(this.question.data);
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)
 				.then(() => this.requestDialogClose.emit());
+		}
+	}
+
+	saveToQuestion(q: ITimeQuestion) {
+		const title = this.formGroup.get('title')?.value as string;
+		q.title = title;
+
+		const hours = this.formGroup.get('hours')?.value;
+		q.hours = hours as number;
+
+		const minutes = this.formGroup.get('minutes')?.value;
+		q.minutes = minutes as number;
+	}
+
+	openPreview() {
+		if (this.formGroup.valid) {
+			const previewQuestion = this.questionCreatorService.createQuestion(
+				this.question.data.number,
+				QuestionType.Time
+			);
+			this.saveToQuestion(previewQuestion as ITimeQuestion);
+			this.openPreviewRequested.emit(previewQuestion);
 		}
 	}
 }

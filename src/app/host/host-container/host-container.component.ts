@@ -8,6 +8,7 @@ import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
 import { Unsubscribe } from '@angular/fire/auth';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { HostQuestionContainerComponent } from '../host-question-container/host-question-container.component';
 
 @Component({
 	selector: 'app-host-container',
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 		MatProgressSpinnerModule,
 		MatButtonModule,
 		RouterLink,
+		HostQuestionContainerComponent,
 	],
 	templateUrl: './host-container.component.html',
 	styleUrl: './host-container.component.scss',

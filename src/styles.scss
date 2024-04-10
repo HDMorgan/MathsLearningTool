@@ -84,6 +84,15 @@ header {
 	color: mat.get-theme-color($theme, on-surface);
 }
 
+.primary-container {
+	background-color: mat.get-theme-color($theme, primary-container);
+	color: mat.get-theme-color($theme, on-primary-container);
+	padding: 20px;
+	width: calc(100% - 60px);
+	max-width: 600px;
+	border-radius: 20px;
+}
+
 .container-outline {
 	border: 1px solid;
 	border-color: mat.get-theme-color($theme, outline);
@@ -156,4 +165,26 @@ input[type="number"] {
 	flex-direction: column;
 	align-items: stretch;
 	margin: 0px 20px;
+}
+
+.question-display {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	height: 100%;
+}
+
+.fraction {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 0px 10px;
+}
+
+.fraction hr {
+	width: 100%;
+	border: none;
+	border-top: 2px solid black;
 }

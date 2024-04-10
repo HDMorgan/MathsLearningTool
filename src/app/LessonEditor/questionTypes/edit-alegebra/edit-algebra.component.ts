@@ -1,3 +1,4 @@
+import { QuestionCreatorService } from './../../../services/data/question-creator.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IAlgebraQuestion } from '../../../interfaces/data/ialgebra-question';
 import {
@@ -17,6 +18,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { HintComponent } from '../../../shared/hint/hint.component';
+import {
+	IBaseQuestion,
+	QuestionType,
+} from '../../../interfaces/data/ibase-question';
 
 @Component({
 	selector: 'app-edit-algebra',
@@ -36,7 +41,9 @@ import { HintComponent } from '../../../shared/hint/hint.component';
 })
 export class EditAlgebraComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IAlgebraQuestion>;
+	@Input() previewRequested!: EventEmitter<void>;
 	@Output() requestDialogClose = new EventEmitter<void>();
+	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
 
 	formGroup!: FormGroup;
 	formEquations!: FormArray;
@@ -48,7 +55,8 @@ export class EditAlgebraComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService
+		private currentLessonService: CurrentLessonService,
+		private questionCreatorService: QuestionCreatorService
 	) {}
 
 	ngOnInit(): void {
@@ -69,6 +77,8 @@ export class EditAlgebraComponent implements OnInit {
 		});
 
 		this.loadQuestion();
+
+		this.previewRequested.subscribe(() => this.openPreview());
 	}
 
 	private loadQuestion() {
@@ -125,18 +135,27 @@ export class EditAlgebraComponent implements OnInit {
 		this.formAnswers.push(control);
 	}
 
+	saveToQuestion(q: IAlgebraQuestion) {
+		q.equations = this.formEquations.controls.map((control) => control.value);
+
+		q.answers = this.formAnswers.controls.map((control) => control.value);
+
+		const title = this.formGroup.get('title');
+		q.title = title ? title.value : '';
+	}
+
+	openPreview() {
+		const previewQuestion = this.questionCreatorService.createQuestion(
+			this.question.data.number,
+			QuestionType.Algebra
+		);
+		this.saveToQuestion(previewQuestion as IAlgebraQuestion);
+		this.openPreviewRequested.emit(previewQuestion);
+	}
+
 	saveQuestion() {
 		if (this.formGroup.valid) {
-			this.question.data.equations = this.formEquations.controls.map(
-				(control) => control.value
-			);
-
-			this.question.data.answers = this.formAnswers.controls.map(
-				(control) => control.value
-			);
-
-			const title = this.formGroup.get('title');
-			this.question.data.title = title ? title.value : '';
+			this.saveToQuestion(this.question.data);
 
 			this.currentLessonService
 				.commitQuestionChanges(this.question)

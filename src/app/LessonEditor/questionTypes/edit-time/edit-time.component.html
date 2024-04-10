@@ -31,7 +31,7 @@
 	</section>
 
 	<header>
-		<button mat-button (click)="requestDialogClose.emit()">Cancel</button>
-		<button mat-flat-button (click)="saveQuestion()">Save</button>
+		<button mat-button type="button" (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-flat-button type="submit" (click)="saveQuestion()">Save</button>
 	</header>
 </form>

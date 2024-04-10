@@ -18,5 +18,14 @@ export const routes: Routes = [
 			import('./LessonEditor/edit-lesson/edit-lesson.component').then(
 				(m) => m.EditLessonComponent
 			),
+		canActivate: [authGuard],
+	},
+	{
+		path: 'host/:id',
+		loadComponent: () =>
+			import('./host/host-container/host-container.component').then(
+				(c) => c.HostContainerComponent
+			),
+		canActivate: [authGuard],
 	},
 ];

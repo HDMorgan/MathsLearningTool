@@ -8,6 +8,7 @@ import {
 import { ILesson } from '../../interfaces/data/ilesson';
 import { FirestoreQuestionService } from '../firestore/firestore-question.service';
 import { LessonService } from './lesson.service';
+import { ILobbyInfo } from '../../interfaces/ilobby-info';
 
 @Injectable({
 	providedIn: 'root',
@@ -33,7 +34,7 @@ export class CurrentLessonService {
 		return this.questions;
 	}
 
-	async loadLesson(lessonName: string): Promise<void> {
+	async loadLessonFromName(lessonName: string): Promise<void> {
 		this.info = await this.lessonService.getLessonFromId(lessonName);
 
 		return this.firestoreQuestionService
@@ -41,9 +42,15 @@ export class CurrentLessonService {
 			.then((questions) => {
 				this.questions = questions;
 				return Promise.resolve();
-			})
-			.catch((error) => {
-				return Promise.reject(error);
+			});
+	}
+
+	loadLessonFromLobby(lobbyInfo: ILobbyInfo): Promise<void> {
+		return this.firestoreQuestionService
+			.getQuestionsUsingTeacherId(lobbyInfo.teacherId, lobbyInfo.teacherId)
+			.then((questions) => {
+				this.questions = questions;
+				return Promise.resolve();
 			});
 	}
 

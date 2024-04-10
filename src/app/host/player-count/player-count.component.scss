@@ -1,0 +1,14 @@
+@use "@angular/material" as mat;
+@import "../../../variables";
+
+:host {
+	display: inline-flex;
+	background-color: mat.get-theme-color($theme, primary);
+	color: mat.get-theme-color($theme, on-primary);
+	font: mat.get-theme-typography($theme, headline-large, font);
+	padding: 5px 20px;
+	gap: 20px;
+	align-items: center;
+	justify-content: space-evenly;
+	border-radius: 999em;
+}

@@ -93,7 +93,7 @@ export class EditLessonComponent implements OnDestroy {
 			(lesson) => lesson.data
 		);
 
-		await this.currentLessonService.loadLesson(lessonId);
+		await this.currentLessonService.loadLessonFromName(lessonId);
 
 		this.questions = this.currentLessonService.getQuestions();
 		this.info = this.currentLessonService.getInfo();

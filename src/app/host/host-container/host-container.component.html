@@ -1,0 +1,12 @@
+@if (loading) {
+<div class="center-flex">
+	<mat-spinner diameter="30"></mat-spinner>
+</div>
+} @else if (!lobbyExists) {
+<div class="center-flex">
+	<h2>The requested lobby doesn't exist</h2>
+	<button mat-button routerLink="/dashboard">Back to dashboard</button>
+</div>
+} @else {
+<app-lobby [lobbyInfo]="lobbyInfo" [playerCount]="playerCount" [questionsLoaded]="questionsLoaded"></app-lobby>
+}

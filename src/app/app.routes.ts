@@ -3,7 +3,7 @@ import { JoinComponent } from './join/join.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
-	{ path: '', redirectTo: 'join', pathMatch: 'full' },
+	{ path: '', component: JoinComponent },
 	{ path: 'join', component: JoinComponent },
 	{ path: 'auth', loadChildren: () => import('./auth/auth.routes') },
 	{
@@ -27,5 +27,12 @@ export const routes: Routes = [
 				(c) => c.HostContainerComponent
 			),
 		canActivate: [authGuard],
+	},
+	{
+		path: 'session/:id',
+		loadComponent: () =>
+			import('./session/session-container/session-container.component').then(
+				(c) => c.SessionContainerComponent
+			),
 	},
 ];

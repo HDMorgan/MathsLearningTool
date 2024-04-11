@@ -1,0 +1,13 @@
+@if (!sessionService.loaded) {
+<div class="center-flex">
+	<mat-spinner diameter="30"></mat-spinner>
+</div>
+} @else if (sessionService.lessonEnded) {
+<div class="center-flex">
+	<h2>This lesson has ended!</h2>
+	<button mat-button routerLink="/">Back home</button>
+</div>
+} @else if (sessionService.lobbyInfo.data.currentQuestion === 0) {
+<app-session-lobby></app-session-lobby>
+} @else {
+nothing yet! }

@@ -1,0 +1,20 @@
+<header>
+	<button mat-button (click)="hostingService.closeLobby()">Back to dashboard</button>
+</header>
+<div class="align-center">
+	<h1>{{hostingService.lobbyInfo.data.lessonName}}</h1>
+	<h1 class="code">Code: {{hostingService.lobbyInfo.id}}</h1>
+	<h2>maths-quiz.co.uk</h2>
+	<h1>Players:</h1>
+	<app-player-count>{{hostingService.playerCount}}</app-player-count>
+
+	<qrcode [qrdata]="link" [width]="qrWidth" [errorCorrectionLevel]="'M'"></qrcode>
+	<button mat-button (click)="clipboard.copy(link)">Copy Link<mat-icon
+			iconPositionEnd>content_copy</mat-icon></button>
+</div>
+
+
+<div class="align-right">
+	<button mat-flat-button [disabled]="hostingService.playerCount <= 0" (click)="hostingService.goNext()">Start
+		Lesson<mat-icon iconPositionEnd>navigate_next</mat-icon></button>
+</div>

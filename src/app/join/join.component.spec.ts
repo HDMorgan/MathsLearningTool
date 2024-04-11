@@ -9,6 +9,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { importProvidersFrom } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth/auth.service';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 describe('JoinComponent', () => {
 	let component: JoinComponent;
@@ -28,12 +29,13 @@ describe('JoinComponent', () => {
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
 				),
 				importProvidersFrom(provideAuth(() => getAuth())),
+				importProvidersFrom(provideFirestore(() => getFirestore())),
 			],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(JoinComponent);
 		const authService = TestBed.inject(AuthService);
-		spyOn(authService, 'getAuthState').and.returnValue(true);
+		spyOn(authService, 'checkUserSignedIn').and.returnValue(true);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -1,22 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LessonService } from './lesson.service';
+import { SessionService } from './session.service';
 import { importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../../../environments/environment';
-import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
-import {
-	FirestoreModule,
-	getFirestore,
-	provideFirestore,
-} from '@angular/fire/firestore';
 
-describe('LessonService', () => {
-	let service: LessonService;
+describe('SessionService', () => {
+	let service: SessionService;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [AuthModule, FirestoreModule],
+			imports: [],
 			providers: [
 				importProvidersFrom(
 					provideFirebaseApp(() => initializeApp(environment.firebaseConfig))
@@ -25,7 +21,7 @@ describe('LessonService', () => {
 				importProvidersFrom(provideFirestore(() => getFirestore())),
 			],
 		});
-		service = TestBed.inject(LessonService);
+		service = TestBed.inject(SessionService);
 	});
 
 	it('should be created', () => {

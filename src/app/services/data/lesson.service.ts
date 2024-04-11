@@ -14,9 +14,10 @@ export class LessonService {
 	private lessons: IFirebaseDocument<ILesson>[] = [];
 
 	createNewLesson() {
-		const newLesson = {
+		const newLesson: ILesson = {
 			name: this.getUniqueLessonName(),
 			summary: [],
+			numberOfQuestions: 0,
 		};
 		this.firestoreLessonService.createLesson(newLesson).then((id) => {
 			this.lessons.push({ id: id, data: newLesson });
@@ -79,5 +80,10 @@ export class LessonService {
 				return 0;
 			}
 		});
+	}
+
+	clearLessons() {
+		this.lessons = [];
+		this.lessonsLoaded = false;
 	}
 }

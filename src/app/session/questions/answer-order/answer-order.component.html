@@ -1,0 +1,7 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	<div cdkDropList class="order-list" (cdkDropListDropped)="drop($event)">
+		@for (item of items; track item) {
+		<div class="order-item" cdkDrag><mat-icon>drag_indicator</mat-icon>{{item}}</div>
+		}
+	</div>
+</app-answer-container>

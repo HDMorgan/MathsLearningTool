@@ -21,7 +21,7 @@
 				<input matInput [formControlName]="$index" />
 				<mat-error>An answer is required</mat-error>
 			</mat-form-field>
-			<button mat-icon-button type="button" (click)="removeItem($index)"
+			<button mat-icon-button style="margin-bottom: 1em;" type="button" (click)="removeItem($index)"
 				[disabled]="formItems.length <= 2"><mat-icon>remove</mat-icon></button>
 		</div>
 		}

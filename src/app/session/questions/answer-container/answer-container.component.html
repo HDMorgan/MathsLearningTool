@@ -1,0 +1,19 @@
+@if (sessionService.lobbyInfo.data.showAnswer) {
+<div class="result-container">
+	@if (correct) {
+	<div class="tick"></div>
+	<h1>Correct!</h1>
+	} @else {
+	<div class="cross"></div>
+	<h1>Not quite</h1>
+	}
+</div>
+}
+@else {
+<div class="content-container"><ng-content></ng-content></div>
+
+<div class="button-container">
+	<button mat-flat-button (click)="submitClick.emit()" [disabled]="!valid">
+		{{submitted ? "Change your answer" : "Done!"}}</button>
+</div>
+}

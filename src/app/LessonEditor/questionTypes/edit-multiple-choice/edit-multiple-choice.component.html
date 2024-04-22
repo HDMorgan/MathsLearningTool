@@ -38,21 +38,29 @@
 	</section>
 
 	<mat-divider></mat-divider>
-	<section formArrayName="answers">
+	<section>
 		<header>
-			Answers
+			Correct Answer
+		</header>
+		<mat-form-field>
+			<input matInput formControlName="correctAnswer" />
+			<mat-error>An answer is required</mat-error>
+		</mat-form-field>
+		<header>
+			Other Answers
 		</header>
 		@for (control of formAnswers.controls; track control;) {
-		<div class="answer-container">
+		<div class="answer-container" formArrayName="otherAnswers">
 			<mat-form-field>
 				<input matInput [formControlName]="$index" />
 				<mat-error>An answer is required</mat-error>
 			</mat-form-field>
-			<button mat-icon-button (click)="removeAnswer($index)"
-				[disabled]="formAnswers.length <= 2"><mat-icon>remove</mat-icon></button>
+			<button mat-icon-button style="margin-bottom: 1em;" (click)="removeAnswer($index)"
+				[disabled]="formAnswers.length <= 1"><mat-icon>remove</mat-icon></button>
 		</div>
 		}
-		@if (formAnswers.length < 4) { <button mat-button (click)="addAnswer()"><mat-icon>add</mat-icon>Add
+		@if (formAnswers.length < 3) { <button mat-button type="button" (click)="addAnswer()">
+			<mat-icon>add</mat-icon>Add
 			answer</button>
 			}
 	</section>

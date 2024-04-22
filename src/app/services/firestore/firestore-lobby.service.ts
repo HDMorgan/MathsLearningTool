@@ -5,7 +5,7 @@ import {
 	Firestore,
 	arrayRemove,
 	arrayUnion,
-	deleteDoc,
+	deleteField,
 	doc,
 	getDoc,
 	setDoc,
@@ -24,6 +24,7 @@ export class FirestoreLobbyService {
 		const document = doc(this.firestore, 'sessions', lobby.id);
 
 		await setDoc(document, lobby.data);
+		console.log('created');
 		const lobbyBatch = writeBatch(this.firestore);
 		for (let i = 1; i <= lobby.data.numberOfQuestions; i++) {
 			const answerDoc = doc(
@@ -43,9 +44,21 @@ export class FirestoreLobbyService {
 		});
 	}
 
-	deleteLobby(lobbyId: string): Promise<void> {
-		const document = doc(this.firestore, 'sessions', lobbyId);
-		return deleteDoc(document);
+	deleteLobby(lobbyId: string, numberOfQuestions: number): Promise<void> {
+		const lobbyDocument = doc(this.firestore, 'sessions', lobbyId);
+		const deleteBatch = writeBatch(this.firestore);
+		deleteBatch.delete(lobbyDocument);
+
+		for (let i = 1; i <= numberOfQuestions; i++) {
+			const answerDoc = doc(
+				this.firestore,
+				`sessions/${lobbyId}/answers`,
+				i.toString()
+			);
+			deleteBatch.delete(answerDoc);
+		}
+
+		return deleteBatch.commit();
 	}
 
 	setCurrentQuestionNumber(lobbyId: string, questionNumber: number) {
@@ -68,5 +81,29 @@ export class FirestoreLobbyService {
 		const document = doc(this.firestore, 'sessions', lobbyId);
 		const uid = this.auth.currentUser?.uid as string;
 		return updateDoc(document, { students: arrayRemove(uid) });
+	}
+
+	submitAnswer(
+		lobbyId: string,
+		result: boolean,
+		questionNumber: number
+	): Promise<void> {
+		const document = doc(
+			this.firestore,
+			`sessions/${lobbyId}/answers`,
+			questionNumber.toString()
+		);
+		const uid = this.auth.currentUser?.uid as string;
+		return updateDoc(document, { [uid]: result });
+	}
+
+	removeAnswer(lobbyId: string, questionNumber: number): Promise<void> {
+		const document = doc(
+			this.firestore,
+			`sessions/${lobbyId}/answers`,
+			questionNumber.toString()
+		);
+		const uid = this.auth.currentUser?.uid as string;
+		return updateDoc(document, { [uid]: deleteField() });
 	}
 }

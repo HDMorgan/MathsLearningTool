@@ -4,5 +4,5 @@ import { Auth } from '@angular/fire/auth';
 
 export const authGuard: CanActivateFn = () => {
 	const auth = inject(Auth);
-	return !!auth.currentUser && auth.currentUser.providerId !== 'anonymous';
+	return !!auth.currentUser && !auth.currentUser.isAnonymous;
 };

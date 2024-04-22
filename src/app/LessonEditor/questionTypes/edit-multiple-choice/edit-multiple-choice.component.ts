@@ -57,7 +57,8 @@ export class EditMultipleChoiceComponent implements OnInit {
 	ngOnInit(): void {
 		this.formAnswers = this.formBuilder.array([]);
 		this.formGroup = this.formBuilder.group({
-			answers: this.formAnswers,
+			correctAnswer: [this.question.data.correctAnswer, Validators.required],
+			otherAnswers: this.formAnswers,
 		});
 		this.loadQuestion();
 
@@ -65,7 +66,7 @@ export class EditMultipleChoiceComponent implements OnInit {
 	}
 
 	private loadQuestion() {
-		this.question.data.answers.forEach((answer) => {
+		this.question.data.otherAnswers.forEach((answer) => {
 			const answerControl = this.formBuilder.control(
 				answer,
 				Validators.required
@@ -128,7 +129,10 @@ export class EditMultipleChoiceComponent implements OnInit {
 	}
 
 	saveToQuestion(q: IMultipleChoiceQuestion) {
-		q.answers = this.formAnswers.controls.map((control) => control.value);
+		const correctAnswer = this.formGroup.get('correctAnswer');
+		q.correctAnswer = correctAnswer ? correctAnswer.value : '';
+
+		q.otherAnswers = this.formAnswers.controls.map((control) => control.value);
 
 		const title = this.formGroup.get('title');
 		q.title = title ? title.value : '';

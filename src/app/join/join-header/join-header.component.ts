@@ -17,7 +17,7 @@ export class JoinHeaderComponent implements OnInit {
 	constructor(private authService: AuthService) {}
 
 	ngOnInit(): void {
-		const loggedIn = !!this.authService.checkUserSignedIn();
+		const loggedIn = this.authService.checkUserSignedIn();
 		this.teacherButtonRoute = loggedIn ? '/dashboard' : '/auth/login';
 		this.teacherButtonText = loggedIn ? 'DASHBOARD' : 'TEACHER LOGIN';
 	}

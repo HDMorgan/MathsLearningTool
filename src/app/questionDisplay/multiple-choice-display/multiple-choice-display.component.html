@@ -5,6 +5,6 @@
 <app-equation-display [equation]="question.equation"></app-equation-display>}
 @if (showAnswer) {
 <app-answer-container>
-	<app-equation-display [equation]="question.answers[0]"></app-equation-display>
+	<app-equation-display [equation]="question.correctAnswer"></app-equation-display>
 </app-answer-container>
 }

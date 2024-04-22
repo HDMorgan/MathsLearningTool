@@ -46,7 +46,8 @@ export class QuestionCreatorService {
 					title: '',
 					summary: '',
 					equation: '',
-					answers: ['', ''],
+					correctAnswer: '',
+					otherAnswers: [''],
 				} as IMultipleChoiceQuestion;
 			case QuestionType.Order:
 				return {

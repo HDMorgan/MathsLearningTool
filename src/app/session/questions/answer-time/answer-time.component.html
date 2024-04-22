@@ -1,0 +1,13 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	<div class="time-container">
+		<mat-form-field hideRequiredMarker="true">
+			<mat-label>Hours</mat-label>
+			<input matInput type="number" [(ngModel)]="hours" (input)="validate()" />
+		</mat-form-field>
+		<span>:</span>
+		<mat-form-field hideRequiredMarker="true">
+			<mat-label>Minutes</mat-label>
+			<input matInput type="number" [(ngModel)]="minutes" (input)="validate()" />
+		</mat-form-field>
+	</div>
+</app-answer-container>

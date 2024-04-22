@@ -44,6 +44,7 @@ export class JoinComponent {
 				}
 
 				this.lobbyExists = false;
-			});
+			})
+			.catch(() => (this.lobbyExists = false));
 	}
 }

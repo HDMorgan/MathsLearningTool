@@ -30,20 +30,20 @@ export class HostLobbyComponent implements OnInit {
 	) {}
 
 	@HostListener('window:resize', ['$event'])
-	onResize(event: { target: { innerWidth: number } }) {
-		this.updateQrSize(event.target.innerWidth);
+	onResize(event: { target: { innerHeight: number } }) {
+		this.updateQrSize(event.target.innerHeight);
 	}
 
 	ngOnInit(): void {
 		this.link = `https://maths-quiz.co.uk/session/${this.hostingService.lobbyInfo.id}`;
-		this.updateQrSize(window.innerWidth);
+		this.updateQrSize(window.innerHeight);
 	}
 
-	updateQrSize(screenWidth: number) {
-		if (screenWidth < 600) {
-			this.qrWidth = screenWidth - 40;
-			return;
-		}
-		this.qrWidth = 600;
+	updateQrSize(screenHeight: number) {
+		// if (screenHeight < 600) {
+		// 	this.qrWidth = screenHeight - 40;
+		// 	return;
+		// }
+		this.qrWidth = screenHeight * 0.3;
 	}
 }

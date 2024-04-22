@@ -1,4 +1,6 @@
 .answer-container {
 	display: grid;
+	align-items: end;
 	grid-template-columns: 1fr auto;
+	gap: 10px;
 }

@@ -1,0 +1,13 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	<div class="fraction">
+		<mat-form-field>
+			<input matInput type="number" [(ngModel)]="numeratorAnswer" [disabled]="answerSubmitted"
+				(input)="validate()" />
+		</mat-form-field>
+		<hr />
+		<mat-form-field style="margin-top: 1em;">
+			<input matInput type="number" [(ngModel)]="denominatorAnswer" [disabled]="answerSubmitted"
+				(input)="validate()" />
+		</mat-form-field>
+	</div>
+</app-answer-container>

@@ -10,4 +10,24 @@
 } @else if (sessionService.lobbyInfo.data.currentQuestion === 0) {
 <app-session-lobby></app-session-lobby>
 } @else {
-nothing yet! }
+@switch (questions[sessionService.lobbyInfo.data.currentQuestion - 1].type) {
+@case (QuestionType.Numeric) {
+<app-answer-numeric [question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-numeric>
+}
+@case (QuestionType.Fraction) {
+<app-answer-fraction [question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-fraction>
+}
+@case (QuestionType.MultipleChoice) {
+<app-answer-multiple-choice
+	[question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-multiple-choice>
+}
+@case (QuestionType.Order) {
+<app-answer-order [question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-order>
+}
+@case (QuestionType.Algebra) {
+<app-answer-alegebra [question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-alegebra>
+}
+@case (QuestionType.Time) {
+<app-answer-time [question]="questions[sessionService.lobbyInfo.data.currentQuestion - 1]"></app-answer-time>
+}
+} }

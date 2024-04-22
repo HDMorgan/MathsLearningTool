@@ -1,0 +1,11 @@
+.algebra-answer {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: start;
+	gap: 10px;
+}
+
+.algebra-answer span {
+	margin-top: 0.5em;
+	font-size: 1.5em;
+}

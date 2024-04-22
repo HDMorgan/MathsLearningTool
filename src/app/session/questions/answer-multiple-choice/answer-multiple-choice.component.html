@@ -1,0 +1,16 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	<div class="button-container">
+		@for (option of options; track option) {
+		@if (option.selected) {
+		<button mat-flat-button (click)="answerClick(option)" [disabled]="answerSubmitted"><app-equation-display
+				[equation]="option.text"></app-equation-display></button>
+		}
+
+		@else {
+		<button mat-stroked-button (click)="answerClick(option)" [disabled]="answerSubmitted"><app-equation-display
+				[equation]="option.text"></app-equation-display></button>
+		}
+		}
+
+	</div>
+</app-answer-container>

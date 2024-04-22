@@ -75,10 +75,7 @@ export class AuthService {
 	}
 
 	checkUserSignedIn(): boolean {
-		return (
-			!!this.auth.currentUser &&
-			this.auth.currentUser.providerId !== 'anonymous'
-		);
+		return !!this.auth.currentUser && !this.auth.currentUser.isAnonymous;
 	}
 
 	resetPassword(newPassword: string, oob: string) {
@@ -107,11 +104,13 @@ export class AuthService {
 		});
 	}
 
-	authoriseStudent(): Promise<void> {
+	authoriseStudent(): Promise<string> {
 		if (!this.auth.currentUser) {
-			return signInAnonymously(this.auth).then(() => Promise.resolve());
+			return signInAnonymously(this.auth).then((credential) =>
+				Promise.resolve(credential.user.uid)
+			);
 		}
 
-		return Promise.resolve();
+		return Promise.resolve(this.auth.currentUser.uid);
 	}
 }

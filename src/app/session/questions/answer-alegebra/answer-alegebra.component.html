@@ -1,0 +1,11 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	@for (answer of answers; track answer) {
+	<div class="algebra-answer">
+		<span>{{values[$index]}} = </span>
+		<mat-form-field>
+			<input matInput type="number" [(ngModel)]="answers[$index]" [disabled]="answerSubmitted"
+				(input)="validate()">
+		</mat-form-field>
+	</div>
+	}
+</app-answer-container>

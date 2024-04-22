@@ -172,7 +172,11 @@ export class HostingService implements OnDestroy {
 				if (result) {
 					this.questionsLoaded = false;
 					this.router.navigateByUrl('/dashboard');
-					this.firestoreLobbyService.deleteLobby(this.lobbyInfo.id);
+					this.firestoreLobbyService.deleteLobby(
+						this.lobbyInfo.id,
+						this.lobbyInfo.data.numberOfQuestions
+					);
+					this.ngOnDestroy();
 				}
 			});
 	}

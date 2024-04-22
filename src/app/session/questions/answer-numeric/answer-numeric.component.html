@@ -1,0 +1,6 @@
+<app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
+	<mat-form-field>
+		<input matInput autoFocus type="number" [(ngModel)]="answer" [disabled]="answerSubmitted"
+			(input)="validate()" />
+	</mat-form-field>
+</app-answer-container>

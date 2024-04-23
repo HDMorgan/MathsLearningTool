@@ -16,6 +16,7 @@ import { AnswerOrderComponent } from '../questions/answer-order/answer-order.com
 import { AnswerFractionComponent } from '../questions/answer-fraction/answer-fraction.component';
 import { AnswerTimeComponent } from '../questions/answer-time/answer-time.component';
 import { AnswerAlgebraComponent as AnswerAlgebraComponent } from '../questions/answer-alegebra/answer-alegebra.component';
+import { SessionSummaryComponent } from '../session-summary/session-summary.component';
 
 @Component({
 	selector: 'app-session-container',
@@ -31,6 +32,7 @@ import { AnswerAlgebraComponent as AnswerAlgebraComponent } from '../questions/a
 		AnswerFractionComponent,
 		AnswerTimeComponent,
 		AnswerAlgebraComponent,
+		SessionSummaryComponent,
 	],
 	templateUrl: './session-container.component.html',
 	styleUrl: './session-container.component.scss',

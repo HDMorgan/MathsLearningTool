@@ -22,12 +22,13 @@
 	align-items: center;
 	justify-content: center;
 	flex-grow: 1;
+	width: 100%;
 }
 
 .button-container {
 	display: flex;
 	justify-content: flex-end;
-	width: 100%;
+	width: calc(100% - 20px);
 	padding: 10px;
 }
 

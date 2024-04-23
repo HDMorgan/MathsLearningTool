@@ -1,0 +1,10 @@
+<header>
+	<button mat-button routerLink="/">Go back home</button>
+</header>
+<h1 style="text-align: center;">Summary</h1>
+@for (result of sessionService.results; track result) {
+<div class="result">
+	<h2>Q{{$index + 1}}:</h2>
+	<div [class.tick]="result" [class.cross]="!result"></div>
+</div>
+}

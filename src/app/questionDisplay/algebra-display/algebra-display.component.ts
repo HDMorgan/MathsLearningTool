@@ -1,7 +1,8 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EquationDisplayComponent } from '../../shared/equation-display/equation-display.component';
 import { AnswerContainerComponent } from '../answer-container/answer-container.component';
 import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
+import { BaseDisplay } from '../base-display';
 
 @Component({
 	selector: 'app-algebra-display',
@@ -10,10 +11,7 @@ import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
 	templateUrl: './algebra-display.component.html',
 	styleUrl: './algebra-display.component.scss',
 })
-export class AlgebraDisplayComponent {
+export class AlgebraDisplayComponent extends BaseDisplay {
 	unknowns = ['a', 'b'];
 	@Input() question!: IAlgebraQuestion;
-	@Input() showAnswer!: boolean;
-
-	@HostBinding('class') class = 'question-display';
 }

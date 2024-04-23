@@ -1,7 +1,8 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IMultipleChoiceQuestion } from '../../interfaces/data/imultiple-choice-question';
 import { EquationDisplayComponent } from '../../shared/equation-display/equation-display.component';
 import { AnswerContainerComponent } from '../answer-container/answer-container.component';
+import { BaseDisplay } from '../base-display';
 
 @Component({
 	selector: 'app-multiple-choice-display',
@@ -9,9 +10,6 @@ import { AnswerContainerComponent } from '../answer-container/answer-container.c
 	imports: [EquationDisplayComponent, AnswerContainerComponent],
 	templateUrl: './multiple-choice-display.component.html',
 })
-export class MultipleChoiceDisplayComponent {
+export class MultipleChoiceDisplayComponent extends BaseDisplay {
 	@Input() question!: IMultipleChoiceQuestion;
-	@Input() showAnswer!: boolean;
-
-	@HostBinding('class') class = 'question-display';
 }

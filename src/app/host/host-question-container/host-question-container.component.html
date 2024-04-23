@@ -5,9 +5,16 @@
 </header>
 <app-player-count>{{hostingService.numberAnswered}} / {{hostingService.playerCount}}</app-player-count>
 <app-question-display-container [question]="questions[hostingService.lobbyInfo.data.currentQuestion - 1]"
-	[showAnswer]="hostingService.lobbyInfo.data.showAnswer"></app-question-display-container>
+	[showAnswer]="hostingService.lobbyInfo.data.showAnswer" [correct]="hostingService.correctAnswers"
+	[total]="hostingService.playerCount"></app-question-display-container>
 <div class="align-right">
-	<button mat-flat-button (click)="hostingService.goNext()">
+	@if (hostingService.lobbyInfo.data.currentQuestion < hostingService.lobbyInfo.data.numberOfQuestions ||
+		!hostingService.lobbyInfo.data.showAnswer) {<button mat-flat-button (click)="hostingService.goNext()">
 		{{hostingService.lobbyInfo.data.showAnswer ? "Next Question" : "Show Answer"}}
-		<mat-icon iconPositionEnd>navigate_next</mat-icon></button>
+		<mat-icon iconPositionEnd>navigate_next</mat-icon></button>}
+		@else {
+		<button mat-flat-button (click)="hostingService.goNext()">
+			Show Summary
+			<mat-icon iconPositionEnd>navigate_next</mat-icon></button>
+		}
 </div>

@@ -5,7 +5,7 @@
 <app-equation-display [equation]="question.equation"></app-equation-display>
 }
 @if (showAnswer) {
-<app-answer-container>
+<app-answer-container [correct]="correct" [total]="total">
 	<div style="display: flex; gap: 5px">
 		@if (question.unitOnLeft) {<h2>{{question.unit}}</h2>}
 		<h2 style="text-align: center;"> {{question.answer}} </h2>

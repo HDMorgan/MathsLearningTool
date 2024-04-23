@@ -8,7 +8,7 @@
 </div>
 
 @if (showAnswer) {
-<app-answer-container>
+<app-answer-container [correct]="correct" [total]="total">
 	<div class="vertical-container">
 		@for (a of question.answers; track a ) {
 		<h1>{{unknowns[$index]}} = {{a}}</h1>

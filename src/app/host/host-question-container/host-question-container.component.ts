@@ -23,7 +23,7 @@ export class HostQuestionContainerComponent {
 	questions: IBaseQuestion[];
 
 	constructor(
-		private currentLessonService: CurrentLessonService,
+		currentLessonService: CurrentLessonService,
 		public hostingService: HostingService
 	) {
 		this.questions = currentLessonService.getQuestionsWithoutIds();

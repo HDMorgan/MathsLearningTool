@@ -1,6 +1,6 @@
 <h1>{{question.title}}</h1>
 @if (showAnswer) {
-<app-answer-container>
+<app-answer-container [correct]="correct" [total]="total">
 	@for (i of question.items; track i) {
 	<app-equation-display [equation]="($index + 1) + ': ' + i"></app-equation-display>
 	}

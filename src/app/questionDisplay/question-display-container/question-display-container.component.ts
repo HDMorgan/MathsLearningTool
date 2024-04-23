@@ -27,6 +27,8 @@ import { TimeDisplayComponent } from '../time-display/time-display.component';
 export class QuestionDisplayContainerComponent {
 	@Input() question!: IBaseQuestion;
 	@Input() showAnswer: boolean = false;
+	@Input() correct!: number;
+	@Input() total!: number;
 
 	QuestionType = QuestionType;
 }

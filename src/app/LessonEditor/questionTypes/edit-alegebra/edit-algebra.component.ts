@@ -1,16 +1,11 @@
-import { QuestionCreatorService } from './../../../services/data/question-creator.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { IAlgebraQuestion } from '../../../interfaces/data/ialgebra-question';
 import {
 	FormArray,
-	FormBuilder,
 	FormControl,
-	FormGroup,
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
-import { CurrentLessonService } from '../../../services/data/current-lesson.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,10 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { HintComponent } from '../../../shared/hint/hint.component';
-import {
-	IBaseQuestion,
-	QuestionType,
-} from '../../../interfaces/data/ibase-question';
+import { BaseEditQuestion } from '../base-edit-question';
+import { EditImageComponent } from '../../edit-image/edit-image.component';
 import { collapseAnimation } from '../../../animations/collapse-animation';
 
 @Component({
@@ -36,18 +29,13 @@ import { collapseAnimation } from '../../../animations/collapse-animation';
 		ReactiveFormsModule,
 		MatDividerModule,
 		HintComponent,
+		EditImageComponent,
 	],
 	templateUrl: './edit-algebra.component.html',
 	styleUrl: './edit-algebra.component.scss',
 	animations: [collapseAnimation],
 })
-export class EditAlgebraComponent implements OnInit {
-	@Input() question!: IFirebaseDocument<IAlgebraQuestion>;
-	@Input() previewRequested!: EventEmitter<void>;
-	@Output() requestDialogClose = new EventEmitter<void>();
-	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
-
-	formGroup!: FormGroup;
+export class EditAlgebraComponent extends BaseEditQuestion<IAlgebraQuestion> {
 	formEquations!: FormArray;
 	formAnswers!: FormArray;
 	noOfUnknownsControl!: FormControl;
@@ -55,13 +43,7 @@ export class EditAlgebraComponent implements OnInit {
 
 	hasTitle = false;
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService,
-		private questionCreatorService: QuestionCreatorService
-	) {}
-
-	ngOnInit(): void {
+	loadQuestion() {
 		this.formEquations = this.formBuilder.array([]);
 		this.formAnswers = this.formBuilder.array([]);
 
@@ -78,12 +60,6 @@ export class EditAlgebraComponent implements OnInit {
 			answers: this.formAnswers,
 		});
 
-		this.loadQuestion();
-
-		this.previewRequested.subscribe(() => this.openPreview());
-	}
-
-	private loadQuestion() {
 		if (this.question.data.title != '') {
 			this.addTitle();
 		}
@@ -144,24 +120,5 @@ export class EditAlgebraComponent implements OnInit {
 
 		const title = this.formGroup.get('title');
 		q.title = title ? title.value : '';
-	}
-
-	openPreview() {
-		const previewQuestion = this.questionCreatorService.createQuestion(
-			this.question.data.number,
-			QuestionType.Algebra
-		);
-		this.saveToQuestion(previewQuestion as IAlgebraQuestion);
-		this.openPreviewRequested.emit(previewQuestion);
-	}
-
-	saveQuestion() {
-		if (this.formGroup.valid) {
-			this.saveToQuestion(this.question.data);
-
-			this.currentLessonService
-				.commitQuestionChanges(this.question)
-				.then(() => this.requestDialogClose.emit());
-		}
 	}
 }

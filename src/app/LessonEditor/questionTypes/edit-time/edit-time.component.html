@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
-	<section style="flex-grow: 1;">
+	<section>
 		<header>
 			Title
 		</header>
@@ -7,6 +7,20 @@
 			<input matInput formControlName="title" />
 			<mat-error>A title is required</mat-error>
 		</mat-form-field>
+	</section>
+
+	<mat-divider></mat-divider>
+
+	@if (hasImage) {
+	<app-edit-image [imageUrl]="currentImageUrl" (changeImage)="changeImage()" (removeImage)="removeImage()"
+		@collapse></app-edit-image>
+	<mat-divider></mat-divider>
+	}
+
+	<section class="edit-question-buttons">
+		@if (!hasImage) {<button mat-button type="button" (click)="addImage()" @collapse><mat-icon>add</mat-icon>
+			Add
+			image</button>}
 	</section>
 
 	<mat-divider></mat-divider>
@@ -31,7 +45,7 @@
 	</section>
 
 	<header>
-		<button mat-button type="button" (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-button type="button" (click)="closeDialog()">Cancel</button>
 		<button mat-flat-button type="submit" (click)="saveQuestion()">Save</button>
 	</header>
 </form>

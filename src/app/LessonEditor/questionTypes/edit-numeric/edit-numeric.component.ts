@@ -1,11 +1,5 @@
-import { CurrentLessonService } from './../../../services/data/current-lesson.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-	FormBuilder,
-	FormGroup,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,13 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { INumericQuestion } from '../../../interfaces/data/inumeric-question';
-import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
-import {
-	IBaseQuestion,
-	QuestionType,
-} from '../../../interfaces/data/ibase-question';
-import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 import { collapseAnimation } from '../../../animations/collapse-animation';
+import { BaseEditQuestion } from '../base-edit-question';
+import { EditImageComponent } from '../../edit-image/edit-image.component';
 
 @Component({
 	selector: 'app-edit-numeric',
@@ -34,38 +24,23 @@ import { collapseAnimation } from '../../../animations/collapse-animation';
 		MatCheckboxModule,
 		HintComponent,
 		ReactiveFormsModule,
+		EditImageComponent,
 	],
 	templateUrl: './edit-numeric.component.html',
 	styleUrl: './edit-numeric.component.scss',
 	animations: [collapseAnimation],
 })
-export class EditNumericComponent implements OnInit {
-	@Input() question!: IFirebaseDocument<INumericQuestion>;
-	@Input() previewRequested!: EventEmitter<void>;
-	@Output() requestDialogClose = new EventEmitter<void>();
-	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
-	formGroup!: FormGroup;
-
+export class EditNumericComponent extends BaseEditQuestion<INumericQuestion> {
 	hasEquation: boolean = false;
 	hasTitle: boolean = false;
 	hasUnit: boolean = false;
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService,
-		private questionCreatorService: QuestionCreatorService
-	) {}
+	override loadQuestion() {
+		this.formGroup.addControl(
+			'answer',
+			this.formBuilder.control(this.question.data.answer, [Validators.required])
+		);
 
-	ngOnInit(): void {
-		this.formGroup = this.formBuilder.group({
-			answer: [this.question.data.answer, [Validators.required]],
-		});
-		this.loadQuestion();
-
-		this.previewRequested.subscribe(() => this.openPreview());
-	}
-
-	private loadQuestion() {
 		if (this.question.data.title != '') {
 			this.addTitle();
 		}
@@ -125,17 +100,7 @@ export class EditNumericComponent implements OnInit {
 		this.formGroup.removeControl('unitOnLeft');
 	}
 
-	saveQuestion() {
-		if (this.formGroup.valid) {
-			this.saveToQuestion(this.question.data);
-
-			this.currentLessonService
-				.commitQuestionChanges(this.question)
-				.then(() => this.closeDialog());
-		}
-	}
-
-	saveToQuestion(q: INumericQuestion) {
+	override saveToQuestion(q: INumericQuestion) {
 		const answer = this.formGroup.get('answer')?.value as number;
 		q.answer = answer;
 
@@ -150,20 +115,5 @@ export class EditNumericComponent implements OnInit {
 
 		const unitOnLeft = this.formGroup.get('unitOnLeft');
 		q.unitOnLeft = unitOnLeft ? unitOnLeft.value : false;
-	}
-
-	openPreview() {
-		if (this.formGroup.valid) {
-			const previewQuestion = this.questionCreatorService.createQuestion(
-				this.question.data.number,
-				QuestionType.Numeric
-			);
-			this.saveToQuestion(previewQuestion as INumericQuestion);
-			this.openPreviewRequested.emit(previewQuestion);
-		}
-	}
-
-	closeDialog() {
-		this.requestDialogClose.emit();
 	}
 }

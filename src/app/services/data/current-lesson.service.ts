@@ -1,3 +1,4 @@
+import { ImageService } from '../image.service';
 import { QuestionSummaryService } from './question-summary.service';
 import { IFirebaseDocument } from './../../interfaces/ifirebase-document';
 import { Injectable } from '@angular/core';
@@ -23,7 +24,8 @@ export class CurrentLessonService {
 	constructor(
 		private firestoreQuestionService: FirestoreQuestionService,
 		private lessonService: LessonService,
-		private questionSummaryService: QuestionSummaryService
+		private questionSummaryService: QuestionSummaryService,
+		private imageService: ImageService
 	) {}
 
 	getInfo() {
@@ -108,6 +110,10 @@ export class CurrentLessonService {
 		const index = this.questions.indexOf(question);
 		this.questions.splice(index, 1);
 		this.updateQuestionNumbers();
+
+		if (question.data.imageUrl !== '') {
+			this.imageService.deleteImage(question.data.imageUrl);
+		}
 
 		this.firestoreQuestionService.deleteQuestionAndUpdateQuestionNumbers(
 			this.info.id,

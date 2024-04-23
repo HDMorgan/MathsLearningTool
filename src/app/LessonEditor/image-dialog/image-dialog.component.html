@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Upload Image</h1>
+<div mat-dialog-content class="flex-center">
+	@if (!uploading) {
+	<input type="file" (change)="onFileSelected(fileInput)" accept="image/*" multiple="false" #fileInput
+		style="display: none;" />
+	<button mat-flat-button (click)="fileInput.click()">Upload Image</button>
+	<span>Or</span>
+	<h3>Paste an image here (ctrl + v)</h3>
+	} @else {
+	<mat-spinner></mat-spinner>
+	}
+</div>
+<div mat-dialog-actions>
+	<button mat-button [mat-dialog-close]>Cancel</button>
+</div>

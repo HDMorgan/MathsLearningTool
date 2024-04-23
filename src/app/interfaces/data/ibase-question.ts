@@ -3,6 +3,7 @@ export interface IBaseQuestion {
 	type: QuestionType;
 	summary: string;
 	title: string;
+	imageUrl: string;
 }
 
 export enum QuestionType {

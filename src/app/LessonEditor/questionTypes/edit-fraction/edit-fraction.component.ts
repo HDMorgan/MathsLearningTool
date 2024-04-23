@@ -1,25 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { IFractionQuestion } from '../../../interfaces/data/ifraction-question';
-import {
-	FormGroup,
-	FormBuilder,
-	Validators,
-	ReactiveFormsModule,
-} from '@angular/forms';
-import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
-import { CurrentLessonService } from '../../../services/data/current-lesson.service';
+import { Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { HintComponent } from '../../../shared/hint/hint.component';
-import {
-	IBaseQuestion,
-	QuestionType,
-} from '../../../interfaces/data/ibase-question';
-import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 import { collapseAnimation } from '../../../animations/collapse-animation';
+import { BaseEditQuestion } from '../base-edit-question';
+import { EditImageComponent } from '../../edit-image/edit-image.component';
 
 @Component({
 	selector: 'app-edit-fraction',
@@ -32,39 +22,22 @@ import { collapseAnimation } from '../../../animations/collapse-animation';
 		MatIconModule,
 		HintComponent,
 		ReactiveFormsModule,
+		EditImageComponent,
 	],
 	templateUrl: './edit-fraction.component.html',
 	styleUrl: './edit-fraction.component.scss',
 	animations: [collapseAnimation],
 })
-export class EditFractionComponent implements OnInit {
-	@Input() question!: IFirebaseDocument<IFractionQuestion>;
-	@Input() previewRequested!: EventEmitter<void>;
-	@Output() requestDialogClose = new EventEmitter<void>();
-	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
-
-	formGroup!: FormGroup;
-
+export class EditFractionComponent extends BaseEditQuestion<IFractionQuestion> {
 	hasEquation: boolean = false;
 	hasTitle: boolean = false;
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService,
-		private questionCreatorService: QuestionCreatorService
-	) {}
-
-	ngOnInit(): void {
+	loadQuestion() {
 		this.formGroup = this.formBuilder.group({
 			numerator: [this.question.data.numerator, [Validators.required]],
 			denominator: [this.question.data.denominator, [Validators.required]],
 		});
-		this.loadQuestion();
 
-		this.previewRequested.subscribe(() => this.openPreview());
-	}
-
-	private loadQuestion() {
 		if (this.question.data.title != '') {
 			this.addTitle();
 		}
@@ -100,16 +73,6 @@ export class EditFractionComponent implements OnInit {
 		this.formGroup.removeControl('equation');
 	}
 
-	saveQuestion() {
-		if (this.formGroup.valid) {
-			this.saveToQuestion(this.question.data);
-
-			this.currentLessonService
-				.commitQuestionChanges(this.question)
-				.then(() => this.closeDialog());
-		}
-	}
-
 	saveToQuestion(q: IFractionQuestion) {
 		const numerator = this.formGroup.get('numerator')?.value as number;
 		q.numerator = numerator;
@@ -122,20 +85,5 @@ export class EditFractionComponent implements OnInit {
 
 		const equation = this.formGroup.get('equation');
 		q.equation = equation ? equation.value : '';
-	}
-
-	openPreview() {
-		if (this.formGroup.valid) {
-			const previewQuestion = this.questionCreatorService.createQuestion(
-				this.question.data.number,
-				QuestionType.Fraction
-			);
-			this.saveToQuestion(previewQuestion as IFractionQuestion);
-			this.openPreviewRequested.emit(previewQuestion);
-		}
-	}
-
-	closeDialog() {
-		this.requestDialogClose.emit();
 	}
 }

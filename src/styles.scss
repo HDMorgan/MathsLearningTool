@@ -173,6 +173,13 @@ input[type="number"] {
 	align-items: center;
 	justify-content: space-around;
 	height: 100%;
+	gap: 10px;
+}
+
+.question-display img {
+	flex-grow: 1;
+	max-height: 33vh;
+	height: 100%;
 }
 
 .fraction {

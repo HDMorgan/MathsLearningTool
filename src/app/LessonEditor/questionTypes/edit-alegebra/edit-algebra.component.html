@@ -17,7 +17,7 @@
 
 	<mat-divider></mat-divider>
 
-	<section style="flex-grow: 1;" formArrayName="equations">
+	<section formArrayName="equations">
 		<header>Number of unknowns</header>
 		<mat-form-field>
 			<mat-select [formControl]="noOfUnknownsControl">
@@ -41,6 +41,20 @@
 
 	<mat-divider></mat-divider>
 
+	@if (hasImage) {
+	<app-edit-image [imageUrl]="currentImageUrl" (changeImage)="changeImage()" (removeImage)="removeImage()"
+		@collapse></app-edit-image>
+	<mat-divider></mat-divider>
+	}
+
+	<section class="edit-question-buttons">
+		@if (!hasImage) {<button mat-button type="button" (click)="addImage()" @collapse><mat-icon>add</mat-icon>
+			Add
+			image</button>}
+	</section>
+
+	<mat-divider></mat-divider>
+
 	<section formArrayName="answers">
 		<header>
 			Answers
@@ -57,7 +71,7 @@
 	</section>
 
 	<header>
-		<button mat-button type="button" (click)="requestDialogClose.emit()">Cancel</button>
+		<button mat-button type="button" (click)="closeDialog()">Cancel</button>
 		<button mat-flat-button type="submit" (click)="saveQuestion()">Save</button>
 	</header>
 </form>

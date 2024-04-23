@@ -24,6 +24,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					equation: '',
 					answer: 0,
 					unit: '',
@@ -35,6 +36,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					equation: '',
 					numerator: 0,
 					denominator: 1,
@@ -45,6 +47,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					equation: '',
 					correctAnswer: '',
 					otherAnswers: [''],
@@ -55,6 +58,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					items: ['', ''],
 				} as IOrderQuestion;
 			case QuestionType.Algebra:
@@ -63,6 +67,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					equations: [''],
 					answers: [0],
 				} as IAlgebraQuestion;
@@ -72,6 +77,7 @@ export class QuestionCreatorService {
 					number: questionNumber,
 					title: '',
 					summary: '',
+					imageUrl: '',
 					hours: 0,
 					minutes: 0,
 				} as ITimeQuestion;

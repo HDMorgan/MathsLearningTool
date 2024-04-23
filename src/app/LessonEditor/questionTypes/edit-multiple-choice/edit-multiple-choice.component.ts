@@ -20,6 +20,7 @@ import {
 	QuestionType,
 } from '../../../interfaces/data/ibase-question';
 import { QuestionCreatorService } from '../../../services/data/question-creator.service';
+import { collapseAnimation } from '../../../animations/collapse-animation';
 
 @Component({
 	selector: 'app-edit-multiple-choice',
@@ -35,6 +36,7 @@ import { QuestionCreatorService } from '../../../services/data/question-creator.
 	],
 	templateUrl: './edit-multiple-choice.component.html',
 	styleUrl: './edit-multiple-choice.component.scss',
+	animations: [collapseAnimation],
 })
 export class EditMultipleChoiceComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IMultipleChoiceQuestion>;

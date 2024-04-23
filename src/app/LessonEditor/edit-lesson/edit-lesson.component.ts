@@ -33,6 +33,8 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
+import { collapseAnimation } from '../../animations/collapse-animation';
+import { fadeAnimation } from '../../animations/fade-animation';
 
 @Component({
 	selector: 'app-edit-lesson',
@@ -55,6 +57,7 @@ import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pi
 	],
 	templateUrl: './edit-lesson.component.html',
 	styleUrl: './edit-lesson.component.scss',
+	animations: [collapseAnimation, fadeAnimation],
 })
 export class EditLessonComponent implements OnDestroy {
 	nameSaved: boolean = true;

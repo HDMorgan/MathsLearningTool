@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
 	@if (hasTitle)
-	{<section>
+	{<section @collapse>
 		<header>
 			Title
 			<button mat-icon-button type="button" (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
@@ -13,7 +13,7 @@
 	<mat-divider></mat-divider>}
 
 	@if (hasEquation) {
-	<section>
+	<section @collapse>
 		<header>
 			Equation
 			<button mat-icon-button type="button" (click)="removeEquation()"><mat-icon>delete</mat-icon></button>
@@ -31,9 +31,10 @@
 	}
 
 	<section class="edit-question-buttons">
-		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()"><mat-icon>add</mat-icon> Add
+		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()" @collapse><mat-icon>add</mat-icon> Add
 			title</button>}
-		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()"><mat-icon>add</mat-icon> Add
+		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()" @collapse><mat-icon>add</mat-icon>
+			Add
 			equation</button>}
 	</section>
 
@@ -50,7 +51,7 @@
 			Other Answers
 		</header>
 		@for (control of formAnswers.controls; track control;) {
-		<div class="answer-container" formArrayName="otherAnswers">
+		<div class="other-answer-container" formArrayName="otherAnswers" @collapse>
 			<mat-form-field>
 				<input matInput [formControlName]="$index" />
 				<mat-error>An answer is required</mat-error>
@@ -59,9 +60,8 @@
 				[disabled]="formAnswers.length <= 1"><mat-icon>remove</mat-icon></button>
 		</div>
 		}
-		@if (formAnswers.length < 3) { <button mat-button type="button" (click)="addAnswer()">
-			<mat-icon>add</mat-icon>Add
-			answer</button>
+		@if (formAnswers.length < 3) { <button mat-button type="button" (click)="addAnswer()" @collapse>
+			<mat-icon>add</mat-icon>Add answer</button>
 			}
 	</section>
 

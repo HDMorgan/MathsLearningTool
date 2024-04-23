@@ -4,6 +4,7 @@ import { IMultipleChoiceQuestion } from '../../../interfaces/data/imultiple-choi
 import { AnswerContainerComponent } from '../answer-container/answer-container.component';
 import { MatButtonModule } from '@angular/material/button';
 import { EquationDisplayComponent } from '../../../shared/equation-display/equation-display.component';
+import { fadeAnimation } from '../../../animations/fade-animation';
 
 @Component({
 	selector: 'app-answer-multiple-choice',
@@ -15,6 +16,7 @@ import { EquationDisplayComponent } from '../../../shared/equation-display/equat
 	],
 	templateUrl: './answer-multiple-choice.component.html',
 	styleUrl: './answer-multiple-choice.component.scss',
+	animations: [fadeAnimation],
 })
 export class AnswerMultipleChoiceComponent
 	extends BaseQuestionAnswer

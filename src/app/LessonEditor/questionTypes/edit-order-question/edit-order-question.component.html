@@ -16,7 +16,7 @@
 			Items
 		</header>
 		@for (control of formItems.controls; track control;) {
-		<div class="answer-container">
+		<div class="items-container" @collapse>
 			<mat-form-field>
 				<input matInput [formControlName]="$index" />
 				<mat-error>An answer is required</mat-error>
@@ -25,7 +25,7 @@
 				[disabled]="formItems.length <= 2"><mat-icon>remove</mat-icon></button>
 		</div>
 		}
-		@if (formItems.length < 4) { <button mat-button (click)="addItem()"><mat-icon>add</mat-icon>Add
+		@if (formItems.length < 4) { <button mat-button (click)="addItem()" @collapse><mat-icon>add</mat-icon>Add
 			item</button>
 			}
 			<app-hint>The order of these items will be used as the correct answer</app-hint>

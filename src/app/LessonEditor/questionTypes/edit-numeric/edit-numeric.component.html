@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" class="edit-question-form" autocomplete="off">
 	@if (hasTitle)
-	{<section>
+	{<section @collapse>
 		<header>
 			Title
 			<button mat-icon-button type="button" (click)="removeTitle()"><mat-icon>delete</mat-icon></button>
@@ -13,7 +13,7 @@
 	<mat-divider></mat-divider>}
 
 	@if (hasEquation) {
-	<section>
+	<section @collapse>
 		<header>
 			Equation
 			<button mat-icon-button type="button" (click)="removeEquation()"><mat-icon>delete</mat-icon></button>
@@ -31,9 +31,10 @@
 	}
 
 	<section class="edit-question-buttons">
-		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()"><mat-icon>add</mat-icon> Add
+		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()" @collapse><mat-icon>add</mat-icon> Add
 			title</button>}
-		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()"><mat-icon>add</mat-icon> Add
+		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()" @collapse><mat-icon>add</mat-icon>
+			Add
 			equation</button>}
 	</section>
 
@@ -47,7 +48,7 @@
 			<mat-error>Not a valid number</mat-error>
 		</mat-form-field>
 		@if (hasUnit) {
-		<div class="unit-container">
+		<div class="unit-container" @collapse>
 			<mat-form-field>
 				<input matInput formControlName="unit" />
 				<mat-error>A unit is required</mat-error>
@@ -58,9 +59,8 @@
 		</div>
 		}
 		@else {
-		<button mat-button type="button" (click)="addUnit()"><mat-icon>add</mat-icon>Add unit</button>
+		<button mat-button type="button" (click)="addUnit()" @collapse><mat-icon>add</mat-icon>Add unit</button>
 		}
-		<button mat-button type="button">AUTO CALCULATE</button>
 	</section>
 
 	<header>

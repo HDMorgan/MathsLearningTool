@@ -32,7 +32,7 @@
 
 	@for (q of questions; track q) {
 	<app-question-item [question]="q" [moving]="moving" (requestMove)="onMoveRequested()" cdkDrag
-		[cdkDragDisabled]="!moving" class="drag-drop-item"></app-question-item>
+		[cdkDragDisabled]="!moving" class="drag-drop-item" @collapse></app-question-item>
 	}
 </section>
 }

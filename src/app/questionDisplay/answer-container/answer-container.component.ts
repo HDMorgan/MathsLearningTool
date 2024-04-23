@@ -1,12 +1,14 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CorrectDisplayComponent } from '../../host/correct-display/correct-display.component';
 
 @Component({
 	selector: 'app-answer-container',
 	standalone: true,
-	imports: [],
+	imports: [CorrectDisplayComponent],
 	templateUrl: './answer-container.component.html',
 	styleUrl: './answer-container.component.scss',
 })
 export class AnswerContainerComponent {
-	@HostBinding('class') class = 'primary-container';
+	@Input() correct!: number;
+	@Input() total!: number;
 }

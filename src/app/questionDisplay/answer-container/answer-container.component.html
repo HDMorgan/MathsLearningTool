@@ -1,4 +1,7 @@
-<header>
-	<h1>Answer:</h1>
-</header>
-<ng-content></ng-content>
+<div class="primary-container answer">
+	<header>
+		<h1>Answer:</h1>
+	</header>
+	<ng-content></ng-content>
+</div>
+<app-correct-display [correct]="correct" [total]="total"></app-correct-display>

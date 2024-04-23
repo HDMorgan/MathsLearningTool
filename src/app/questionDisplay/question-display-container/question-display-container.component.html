@@ -1,20 +1,26 @@
 @switch (question.type) {
 @case (QuestionType.Numeric) {
-<app-numeric-display [showAnswer]="showAnswer" [question]="question | as"></app-numeric-display>
+<app-numeric-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-numeric-display>
 }
 @case (QuestionType.Fraction) {
-<app-fraction-display [showAnswer]="showAnswer" [question]="question | as"></app-fraction-display>
+<app-fraction-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-fraction-display>
 }
 @case (QuestionType.MultipleChoice) {
-<app-multiple-choice-display [showAnswer]="showAnswer" [question]="question | as"></app-multiple-choice-display>
+<app-multiple-choice-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-multiple-choice-display>
 }
 @case (QuestionType.Order) {
-<app-order-display [showAnswer]="showAnswer" [question]="question | as"></app-order-display>
+<app-order-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-order-display>
 }
 @case (QuestionType.Algebra) {
-<app-algebra-display [showAnswer]="showAnswer" [question]="question | as"></app-algebra-display>
+<app-algebra-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-algebra-display>
 }
 @case (QuestionType.Time) {
-<app-time-display [showAnswer]="showAnswer" [question]="question | as"></app-time-display>
+<app-time-display [showAnswer]="showAnswer" [question]="question | as" [correct]="correct"
+	[total]="total"></app-time-display>
 }
 }

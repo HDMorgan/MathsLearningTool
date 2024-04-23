@@ -15,6 +15,7 @@ export class SessionService implements OnDestroy {
 	lobbyInfo: IFirebaseDocument<ILobbyInfo> = { id: '', data: {} as ILobbyInfo };
 	loaded: boolean = false;
 	lessonEnded: boolean = false;
+	results: boolean[] = [];
 	docUnsubscribe?: Unsubscribe;
 
 	lobbyLoaded: EventEmitter<void> = new EventEmitter<void>();
@@ -50,6 +51,11 @@ export class SessionService implements OnDestroy {
 						if (this.lobbyInfo.data.students.every((id) => id !== studentUid)) {
 							await this.firestoreLobbyService.joinLobby(this.lobbyInfo.id);
 						}
+
+						if (this.lobbyInfo.data.currentQuestion !== 0) {
+							this.loadResults();
+						}
+
 						this.currentLessonService
 							.loadLessonFromLobby(this.lobbyInfo.data)
 							.then(() => {
@@ -64,7 +70,17 @@ export class SessionService implements OnDestroy {
 		);
 	}
 
-	async tryJoinLobby() {}
+	private loadResults() {
+		for (let i = 0; i < this.lobbyInfo.data.numberOfQuestions; i++) {
+			this.results[i] = false;
+		}
+
+		this.firestoreLobbyService
+			.getPersonalResults(this.lobbyInfo.id)
+			.then((numbers) => {
+				numbers.forEach((number) => (this.results[number - 1] = true));
+			});
+	}
 
 	leaveLobby() {
 		this.router.navigateByUrl('/');
@@ -79,6 +95,7 @@ export class SessionService implements OnDestroy {
 	SubmitAnswer(result: boolean) {
 		const id = this.lobbyInfo.id;
 		const number = this.lobbyInfo.data.currentQuestion;
+		this.results[number - 1] = result;
 		this.firestoreLobbyService.submitAnswer(id, result, number);
 	}
 

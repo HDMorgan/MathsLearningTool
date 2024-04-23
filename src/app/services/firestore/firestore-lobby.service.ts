@@ -5,11 +5,15 @@ import {
 	Firestore,
 	arrayRemove,
 	arrayUnion,
+	collection,
 	deleteField,
 	doc,
 	getDoc,
+	getDocs,
+	query,
 	setDoc,
 	updateDoc,
+	where,
 	writeBatch,
 } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
@@ -105,5 +109,21 @@ export class FirestoreLobbyService {
 		);
 		const uid = this.auth.currentUser?.uid as string;
 		return updateDoc(document, { [uid]: deleteField() });
+	}
+
+	getPersonalResults(lobbyId: string): Promise<number[]> {
+		const uid = this.auth.currentUser?.uid as string;
+		const resultQuery = query(
+			collection(this.firestore, `sessions/${lobbyId}/answers`),
+			where(uid, '==', true)
+		);
+
+		return getDocs(resultQuery).then((result) => {
+			const numbers: number[] = [];
+			result.docs.forEach((document) => {
+				numbers.push(Number(document.id));
+			});
+			return Promise.resolve(numbers);
+		});
 	}
 }

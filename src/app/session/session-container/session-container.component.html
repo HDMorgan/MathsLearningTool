@@ -2,6 +2,8 @@
 <div class="center-flex">
 	<mat-spinner diameter="30"></mat-spinner>
 </div>
+} @else if (sessionService.lobbyInfo.data.currentQuestion > sessionService.lobbyInfo.data.numberOfQuestions) {
+<app-session-summary></app-session-summary>
 } @else if (sessionService.lessonEnded) {
 <div class="center-flex">
 	<h2>This lesson has ended!</h2>

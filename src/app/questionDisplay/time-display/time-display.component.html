@@ -1,6 +1,6 @@
 <h1>{{question.title}}</h1>
 @if (showAnswer) {
-<app-answer-container>
+<app-answer-container [correct]="correct" [total]="total">
 	<h1>{{question.hours}} : {{question.minutes}}</h1>
 </app-answer-container>
 }

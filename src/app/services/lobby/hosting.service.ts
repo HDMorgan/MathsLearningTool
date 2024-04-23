@@ -24,6 +24,7 @@ export class HostingService implements OnDestroy {
 	lobbyExists: boolean = true;
 	playerCount: number = 0;
 	numberAnswered: number = 0;
+	correctAnswers: number = 0;
 
 	questionsLoaded = false;
 	private docUnsubscribe?: Unsubscribe;
@@ -39,6 +40,7 @@ export class HostingService implements OnDestroy {
 	) {}
 
 	async createLobby(lesson: IFirebaseDocument<ILesson>): Promise<string> {
+		this.questionsLoaded = false;
 		const teacherId = this.auth.currentUser?.uid as string;
 		const teacherName = this.auth.currentUser?.displayName as string;
 		const lobby: IFirebaseDocument<ILobbyInfo> = {
@@ -85,12 +87,15 @@ export class HostingService implements OnDestroy {
 	}
 
 	loadLobby(lobbyId: string) {
+		this.questionsLoaded = false;
+		this.lobbyExists = true;
 		this.lobbyInfo.id = lobbyId;
 		const lobbyDoc = doc(this.firestore, '/sessions', this.lobbyInfo.id);
 
 		this.docUnsubscribe = onSnapshot(lobbyDoc, (document) => {
 			if (!document.exists()) {
 				this.lobbyExists = false;
+				this.questionsLoaded = true;
 				return;
 			}
 
@@ -98,9 +103,10 @@ export class HostingService implements OnDestroy {
 
 			this.playerCount = this.lobbyInfo.data.students.length;
 
-			this.listenToAnswers();
+			this.updateNumberAnswered();
 
 			if (!this.questionsLoaded) {
+				this.listenToAnswers();
 				this.currentLessonService
 					.loadLessonFromLobby(this.lobbyInfo.data)
 					.then(() => (this.questionsLoaded = true));
@@ -127,23 +133,37 @@ export class HostingService implements OnDestroy {
 		}
 	}
 
+	getCorrectSummary(): number[] {
+		const correct: number[] = [];
+		for (let i = 0; i < this.lobbyInfo.data.numberOfQuestions; i++) {
+			correct[i] = 0;
+			this.studentAnswers.get((i + 1).toString())?.forEach((answer) => {
+				if (answer) {
+					correct[i]++;
+				}
+			});
+		}
+		return correct;
+	}
+
 	updateNumberAnswered() {
 		this.numberAnswered =
 			this.studentAnswers.get(this.lobbyInfo.data.currentQuestion.toString())
 				?.length ?? 0;
+		this.calculateCorrect();
 	}
 
-	// calculateCorrect() {
-	// 	let count = 0;
-	// 	this.studentAnswers
-	// 		.get(this.lobbyInfo.data.currentQuestion.toString())
-	// 		?.forEach((answer) => {
-	// 			if (answer) {
-	// 				count++;
-	// 			}
-	// 		});
-	// 	this.numberAnswered = count;
-	// }
+	calculateCorrect() {
+		let count = 0;
+		this.studentAnswers
+			.get(this.lobbyInfo.data.currentQuestion.toString())
+			?.forEach((answer) => {
+				if (answer) {
+					count++;
+				}
+			});
+		this.correctAnswers = count;
+	}
 
 	goNext() {
 		if (
@@ -170,15 +190,18 @@ export class HostingService implements OnDestroy {
 			.afterClosed()
 			.subscribe((result) => {
 				if (result) {
-					this.questionsLoaded = false;
+					this.closeLobbyInBackground();
 					this.router.navigateByUrl('/dashboard');
-					this.firestoreLobbyService.deleteLobby(
-						this.lobbyInfo.id,
-						this.lobbyInfo.data.numberOfQuestions
-					);
-					this.ngOnDestroy();
 				}
 			});
+	}
+
+	closeLobbyInBackground() {
+		this.firestoreLobbyService.deleteLobby(
+			this.lobbyInfo.id,
+			this.lobbyInfo.data.numberOfQuestions
+		);
+		this.ngOnDestroy();
 	}
 
 	ngOnDestroy(): void {

@@ -1,0 +1,8 @@
+.question-summary {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	width: (calc(100% - 20px));
+	max-width: 600px;
+	padding: 10px;
+	align-items: center;
+}

@@ -1,7 +1,8 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITimeQuestion } from '../../interfaces/data/itime-question';
 import { AnswerContainerComponent } from '../answer-container/answer-container.component';
 import { EquationDisplayComponent } from '../../shared/equation-display/equation-display.component';
+import { BaseDisplay } from '../base-display';
 
 @Component({
 	selector: 'app-time-display',
@@ -10,9 +11,6 @@ import { EquationDisplayComponent } from '../../shared/equation-display/equation
 	templateUrl: './time-display.component.html',
 	styleUrl: './time-display.component.scss',
 })
-export class TimeDisplayComponent {
+export class TimeDisplayComponent extends BaseDisplay {
 	@Input() question!: ITimeQuestion;
-	@Input() showAnswer!: boolean;
-
-	@HostBinding('class') class = 'question-display';
 }

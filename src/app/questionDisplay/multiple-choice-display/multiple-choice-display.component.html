@@ -4,7 +4,7 @@
 @if (question.equation !== '') {
 <app-equation-display [equation]="question.equation"></app-equation-display>}
 @if (showAnswer) {
-<app-answer-container>
+<app-answer-container [correct]="correct" [total]="total">
 	<app-equation-display [equation]="question.correctAnswer"></app-equation-display>
 </app-answer-container>
 }

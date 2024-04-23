@@ -1,0 +1,10 @@
+<header>
+	<button mat-button routerLink="/dashboard">Exit back to dashboard</button>
+</header>
+<h1 style="text-align: center;">Summary</h1>
+@for (result of correctAnswers; track result) {
+<div class="question-summary">
+	<h2>Q{{$index + 1}}</h2>
+	<app-correct-display [correct]="result" [total]="hostingService.playerCount"></app-correct-display>
+</div>
+}

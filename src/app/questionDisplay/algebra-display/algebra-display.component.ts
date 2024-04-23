@@ -3,6 +3,7 @@ import { EquationDisplayComponent } from '../../shared/equation-display/equation
 import { AnswerContainerComponent } from '../answer-container/answer-container.component';
 import { IAlgebraQuestion } from '../../interfaces/data/ialgebra-question';
 import { BaseDisplay } from '../base-display';
+import { collapseAnimation } from '../../animations/collapse-animation';
 
 @Component({
 	selector: 'app-algebra-display',
@@ -10,6 +11,7 @@ import { BaseDisplay } from '../base-display';
 	imports: [EquationDisplayComponent, AnswerContainerComponent],
 	templateUrl: './algebra-display.component.html',
 	styleUrl: './algebra-display.component.scss',
+	animations: [collapseAnimation],
 })
 export class AlgebraDisplayComponent extends BaseDisplay {
 	unknowns = ['a', 'b'];

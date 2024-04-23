@@ -20,6 +20,7 @@ import {
 	QuestionType,
 } from '../../../interfaces/data/ibase-question';
 import { QuestionCreatorService } from '../../../services/data/question-creator.service';
+import { collapseAnimation } from '../../../animations/collapse-animation';
 
 @Component({
 	selector: 'app-edit-numeric',
@@ -36,6 +37,7 @@ import { QuestionCreatorService } from '../../../services/data/question-creator.
 	],
 	templateUrl: './edit-numeric.component.html',
 	styleUrl: './edit-numeric.component.scss',
+	animations: [collapseAnimation],
 })
 export class EditNumericComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<INumericQuestion>;

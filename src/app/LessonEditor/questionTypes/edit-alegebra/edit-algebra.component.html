@@ -11,7 +11,7 @@
 		</mat-form-field>
 	</section>}
 
-	@if (!hasTitle){<section>
+	@if (!hasTitle){<section @collapse>
 		<button mat-button (click)="addTitle()"><mat-icon>add</mat-icon> Add title</button>
 	</section>}
 

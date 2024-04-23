@@ -4,7 +4,7 @@
 @if (question.equation !== '') {
 <app-equation-display [equation]="question.equation"></app-equation-display>}
 @if (showAnswer) {
-<app-answer-container [correct]="correct" [total]="total">
+<app-answer-container [correct]="correct" [total]="total" @collapse>
 	<div class="fraction">
 		<h3>{{question.numerator}}</h3>
 		<hr />

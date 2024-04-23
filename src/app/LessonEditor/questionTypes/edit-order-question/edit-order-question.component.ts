@@ -20,6 +20,7 @@ import {
 	QuestionType,
 } from '../../../interfaces/data/ibase-question';
 import { QuestionCreatorService } from '../../../services/data/question-creator.service';
+import { collapseAnimation } from '../../../animations/collapse-animation';
 
 @Component({
 	selector: 'app-edit-order-question',
@@ -35,6 +36,7 @@ import { QuestionCreatorService } from '../../../services/data/question-creator.
 	],
 	templateUrl: './edit-order-question.component.html',
 	styleUrl: './edit-order-question.component.scss',
+	animations: [collapseAnimation],
 })
 export class EditOrderQuestionComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IOrderQuestion>;

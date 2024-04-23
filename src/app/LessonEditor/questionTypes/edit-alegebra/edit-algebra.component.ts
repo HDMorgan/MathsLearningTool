@@ -22,6 +22,7 @@ import {
 	IBaseQuestion,
 	QuestionType,
 } from '../../../interfaces/data/ibase-question';
+import { collapseAnimation } from '../../../animations/collapse-animation';
 
 @Component({
 	selector: 'app-edit-algebra',
@@ -38,6 +39,7 @@ import {
 	],
 	templateUrl: './edit-algebra.component.html',
 	styleUrl: './edit-algebra.component.scss',
+	animations: [collapseAnimation],
 })
 export class EditAlgebraComponent implements OnInit {
 	@Input() question!: IFirebaseDocument<IAlgebraQuestion>;

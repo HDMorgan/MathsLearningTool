@@ -30,12 +30,22 @@
 	<mat-divider></mat-divider>
 	}
 
+
+	@if (hasImage) {
+	<app-edit-image [imageUrl]="currentImageUrl" (changeImage)="changeImage()" (removeImage)="removeImage()"
+		@collapse></app-edit-image>
+	<mat-divider></mat-divider>
+	}
+
 	<section class="edit-question-buttons">
 		@if (!hasTitle){<button mat-button type="button" (click)="addTitle()" @collapse><mat-icon>add</mat-icon> Add
 			title</button>}
 		@if (!hasEquation){<button mat-button type="button" (click)="addEquation()" @collapse><mat-icon>add</mat-icon>
 			Add
 			equation</button>}
+		@if (!hasImage) {<button mat-button type="button" (click)="addImage()" @collapse><mat-icon>add</mat-icon>
+			Add
+			image</button>}
 	</section>
 
 	<mat-divider></mat-divider>

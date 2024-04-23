@@ -1,11 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-	FormArray,
-	FormBuilder,
-	FormGroup,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,14 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { HintComponent } from '../../../shared/hint/hint.component';
 import { IMultipleChoiceQuestion } from '../../../interfaces/data/imultiple-choice-question';
-import { IFirebaseDocument } from '../../../interfaces/ifirebase-document';
-import { CurrentLessonService } from '../../../services/data/current-lesson.service';
-import {
-	IBaseQuestion,
-	QuestionType,
-} from '../../../interfaces/data/ibase-question';
-import { QuestionCreatorService } from '../../../services/data/question-creator.service';
 import { collapseAnimation } from '../../../animations/collapse-animation';
+import { BaseEditQuestion } from '../base-edit-question';
+import { EditImageComponent } from '../../edit-image/edit-image.component';
 
 @Component({
 	selector: 'app-edit-multiple-choice',
@@ -33,41 +22,25 @@ import { collapseAnimation } from '../../../animations/collapse-animation';
 		MatIconModule,
 		HintComponent,
 		ReactiveFormsModule,
+		EditImageComponent,
 	],
 	templateUrl: './edit-multiple-choice.component.html',
 	styleUrl: './edit-multiple-choice.component.scss',
 	animations: [collapseAnimation],
 })
-export class EditMultipleChoiceComponent implements OnInit {
-	@Input() question!: IFirebaseDocument<IMultipleChoiceQuestion>;
-	@Input() previewRequested!: EventEmitter<void>;
-	@Output() requestDialogClose = new EventEmitter<void>();
-	@Output() openPreviewRequested = new EventEmitter<IBaseQuestion>();
-
-	formGroup!: FormGroup;
+export class EditMultipleChoiceComponent extends BaseEditQuestion<IMultipleChoiceQuestion> {
 	formAnswers!: FormArray;
 
 	hasEquation: boolean = false;
 	hasTitle: boolean = false;
 
-	constructor(
-		private formBuilder: FormBuilder,
-		private currentLessonService: CurrentLessonService,
-		private questionCreatorService: QuestionCreatorService
-	) {}
-
-	ngOnInit(): void {
+	override loadQuestion() {
 		this.formAnswers = this.formBuilder.array([]);
 		this.formGroup = this.formBuilder.group({
 			correctAnswer: [this.question.data.correctAnswer, Validators.required],
 			otherAnswers: this.formAnswers,
 		});
-		this.loadQuestion();
 
-		this.previewRequested.subscribe(() => this.openPreview());
-	}
-
-	private loadQuestion() {
 		this.question.data.otherAnswers.forEach((answer) => {
 			const answerControl = this.formBuilder.control(
 				answer,
@@ -120,17 +93,7 @@ export class EditMultipleChoiceComponent implements OnInit {
 		this.formGroup.removeControl('equation');
 	}
 
-	saveQuestion() {
-		if (this.formGroup.valid) {
-			this.saveToQuestion(this.question.data);
-
-			this.currentLessonService
-				.commitQuestionChanges(this.question)
-				.then(() => this.closeDialog());
-		}
-	}
-
-	saveToQuestion(q: IMultipleChoiceQuestion) {
+	override saveToQuestion(q: IMultipleChoiceQuestion) {
 		const correctAnswer = this.formGroup.get('correctAnswer');
 		q.correctAnswer = correctAnswer ? correctAnswer.value : '';
 
@@ -141,20 +104,5 @@ export class EditMultipleChoiceComponent implements OnInit {
 
 		const equation = this.formGroup.get('equation');
 		q.equation = equation ? equation.value : '';
-	}
-
-	openPreview() {
-		if (this.formGroup.valid) {
-			const previewQuestion = this.questionCreatorService.createQuestion(
-				this.question.data.number,
-				QuestionType.MultipleChoice
-			);
-			this.saveToQuestion(previewQuestion as IMultipleChoiceQuestion);
-			this.openPreviewRequested.emit(previewQuestion);
-		}
-	}
-
-	closeDialog() {
-		this.requestDialogClose.emit();
 	}
 }

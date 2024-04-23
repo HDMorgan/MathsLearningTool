@@ -6,6 +6,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../../../environments/environment';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 describe('HostingService', () => {
 	let service: HostingService;
@@ -19,6 +20,7 @@ describe('HostingService', () => {
 				),
 				importProvidersFrom(provideAuth(() => getAuth())),
 				importProvidersFrom(provideFirestore(() => getFirestore())),
+				importProvidersFrom(provideStorage(() => getStorage())),
 			],
 		});
 		service = TestBed.inject(HostingService);

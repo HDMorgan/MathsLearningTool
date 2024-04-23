@@ -10,6 +10,7 @@ import {
 	FirestoreModule,
 } from '@angular/fire/firestore';
 import { environment } from '../../../environments/environment';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 describe('CurrentLessonService', () => {
 	let service: CurrentLessonService;
@@ -23,6 +24,7 @@ describe('CurrentLessonService', () => {
 				),
 				importProvidersFrom(provideAuth(() => getAuth())),
 				importProvidersFrom(provideFirestore(() => getFirestore())),
+				importProvidersFrom(provideStorage(() => getStorage())),
 			],
 		});
 		service = TestBed.inject(CurrentLessonService);

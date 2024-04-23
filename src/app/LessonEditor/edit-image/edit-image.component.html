@@ -1,0 +1,11 @@
+<section>
+	<header>
+		Image
+		<button mat-icon-button type="button" (click)="removeImage.emit()"><mat-icon>delete</mat-icon></button>
+	</header>
+
+	<div class="image-container">
+		<img [src]="imageUrl" style="height: 4em;" alt="Question Image">
+		<button (click)="changeImage.emit()" mat-button>Change image</button>
+	</div>
+</section>

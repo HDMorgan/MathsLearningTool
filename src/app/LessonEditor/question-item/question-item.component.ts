@@ -45,7 +45,7 @@ export class QuestionItemComponent {
 	editQuestion() {
 		this.matDialog.open(EditQuestionContainerComponent, {
 			data: this.question,
-			maxHeight: '100%',
+			disableClose: true,
 			maxWidth: '100%',
 			panelClass: 'dialog-panel',
 		});

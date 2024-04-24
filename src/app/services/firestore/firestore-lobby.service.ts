@@ -28,7 +28,6 @@ export class FirestoreLobbyService {
 		const document = doc(this.firestore, 'sessions', lobby.id);
 
 		await setDoc(document, lobby.data);
-		console.log('created');
 		const lobbyBatch = writeBatch(this.firestore);
 		for (let i = 1; i <= lobby.data.numberOfQuestions; i++) {
 			const answerDoc = doc(

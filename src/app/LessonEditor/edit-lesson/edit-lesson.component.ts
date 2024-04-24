@@ -13,7 +13,7 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { uniqueLessonNameValidator } from './lessonNameValidator';
 import { IBaseQuestion } from '../../interfaces/data/ibase-question';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -35,6 +35,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { QuestionTypeToStringPipe } from '../../pipes/question-type-to-string.pipe';
 import { collapseAnimation } from '../../animations/collapse-animation';
 import { fadeAnimation } from '../../animations/fade-animation';
+import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
 
 @Component({
 	selector: 'app-edit-lesson',
@@ -54,6 +55,7 @@ import { fadeAnimation } from '../../animations/fade-animation';
 		MatIconModule,
 		MatMenuModule,
 		QuestionTypeToStringPipe,
+		MatMenuModule,
 	],
 	templateUrl: './edit-lesson.component.html',
 	styleUrl: './edit-lesson.component.scss',
@@ -84,7 +86,8 @@ export class EditLessonComponent implements OnDestroy {
 		private lessonService: LessonService,
 		private currentLessonService: CurrentLessonService,
 		private questionCreatorService: QuestionCreatorService,
-		private dialogService: MatDialog
+		private dialogService: MatDialog,
+		private router: Router
 	) {
 		const lessonId = activatedRoute.snapshot.params['id'];
 
@@ -168,6 +171,20 @@ export class EditLessonComponent implements OnDestroy {
 
 	onMoveRequested() {
 		this.moving = true;
+	}
+
+	deleteLesson() {
+		this.dialogService
+			.open(DeleteDialogComponent, {
+				data: `Are you sure you want to delete ${this.info.name}`,
+			})
+			.afterClosed()
+			.subscribe((result) => {
+				if (result) {
+					this.router.navigateByUrl('/dashboard');
+					this.currentLessonService.deleteLesson();
+				}
+			});
 	}
 
 	saveMove() {

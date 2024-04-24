@@ -22,11 +22,11 @@ export class LessonService {
 			name: this.getUniqueLessonName(),
 			summary: [],
 			numberOfQuestions: 0,
+			changed: Date.now(),
 		};
 		this.firestoreLessonService.createLesson(newLesson).then((id) => {
 			this.router.navigateByUrl(`/lesson/${id}`);
 			this.lessons.push({ id: id, data: newLesson });
-			this.sortLessons();
 		});
 	}
 
@@ -70,25 +70,21 @@ export class LessonService {
 	}
 
 	saveLesson(lesson: IFirebaseDocument<ILesson>): Promise<void> {
-		this.sortLessons();
+		lesson.data.changed = Date.now();
 
 		return this.firestoreLessonService.saveLesson(lesson);
-	}
-
-	sortLessons() {
-		this.lessons.sort((a, b) => {
-			if (a.data.name < b.data.name) {
-				return -1;
-			} else if (a.data.name > b.data.name) {
-				return 1;
-			} else {
-				return 0;
-			}
-		});
 	}
 
 	clearLessons() {
 		this.lessons = [];
 		this.lessonsLoaded = false;
+	}
+
+	deleteLesson(lesson: IFirebaseDocument<ILesson>) {
+		if (this.lessonsLoaded) {
+			const index = this.lessons.indexOf(lesson);
+			this.lessons.splice(index, 1);
+		}
+		this.firestoreLessonService.deleteLesson(lesson.id);
 	}
 }

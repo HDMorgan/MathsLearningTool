@@ -67,7 +67,6 @@ export abstract class BaseEditQuestion<T extends IBaseQuestion>
 
 	saveImage() {
 		if (!this.hasImage && this.currentImageUrl != '') {
-			console.log('delete');
 			this.imageService.deleteImage(this.currentImageUrl);
 			this.currentImageUrl = '';
 		}

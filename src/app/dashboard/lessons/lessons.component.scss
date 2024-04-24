@@ -27,3 +27,13 @@ h1 {
 mat-spinner {
 	margin: auto;
 }
+
+.search-container {
+	display: grid;
+	grid-template-columns: auto 1fr 1fr;
+	gap: 10px;
+	width: calc(100% - 20px);
+	align-items: center;
+	max-width: 600px;
+	padding: 10px;
+}

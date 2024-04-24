@@ -4,6 +4,7 @@ import {
 	Firestore,
 	addDoc,
 	collection,
+	deleteDoc,
 	doc,
 	getDoc,
 	getDocs,
@@ -75,5 +76,9 @@ export class FirestoreLessonService {
 		return setDoc(lessonDoc, lesson.data).then(() => {
 			return Promise.resolve();
 		});
+	}
+
+	deleteLesson(lessonId: string) {
+		deleteDoc(doc(this.firestore, this.collectionUrl, lessonId));
 	}
 }

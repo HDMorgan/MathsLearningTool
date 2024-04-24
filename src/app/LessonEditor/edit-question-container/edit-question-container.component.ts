@@ -62,6 +62,7 @@ export class EditQuestionContainerComponent {
 	showPreview(previewQuestion: IBaseQuestion) {
 		this.matDialog.open(QuestionPreviewComponent, {
 			data: previewQuestion,
+			disableClose: true,
 			height: '95vh',
 			width: '95vw',
 			maxHeight: '100%',

@@ -101,13 +101,16 @@ header {
 .dialog-panel {
 	min-height: 80vh;
 	width: 100vw;
+	max-height: 95vh;
 	max-width: 600px !important;
+	overflow: scroll;
 }
 
 @media only screen and (max-width: 600px) {
 	.dialog-panel {
 		--mdc-dialog-container-shape: 0px;
 		height: 100vh;
+		max-height: 100vh;
 	}
 }
 

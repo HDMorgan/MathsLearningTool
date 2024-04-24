@@ -17,7 +17,7 @@ import { ILobbyInfo } from '../../interfaces/ilobby-info';
 export class CurrentLessonService {
 	private info: IFirebaseDocument<ILesson> = {
 		id: '',
-		data: { name: '', summary: [], numberOfQuestions: 0 },
+		data: {} as ILesson,
 	};
 	private questions: IFirebaseDocument<IBaseQuestion>[] = [];
 
@@ -139,5 +139,19 @@ export class CurrentLessonService {
 		this.questions.forEach((question, i) => {
 			question.data.number = i + 1;
 		});
+	}
+
+	deleteLesson() {
+		this.questions.forEach((question) => {
+			if (!!question.data.imageUrl && question.data.imageUrl !== '') {
+				this.imageService.deleteImage(question.data.imageUrl);
+			}
+		});
+
+		this.firestoreQuestionService.deleteMultipleQuestions(
+			this.info.id,
+			this.questions.map((q) => q.id)
+		);
+		this.lessonService.deleteLesson(this.info);
 	}
 }

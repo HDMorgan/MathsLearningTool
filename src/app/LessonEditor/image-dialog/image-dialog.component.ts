@@ -35,7 +35,6 @@ export class ImageDialogComponent {
 	@HostListener('paste', ['$event'])
 	onPaste(event: ClipboardEvent): void {
 		const items = event.clipboardData?.items;
-		console.log(items);
 
 		if (items) {
 			for (let i = 0; i < items.length; i++) {

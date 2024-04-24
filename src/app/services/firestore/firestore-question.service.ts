@@ -135,4 +135,17 @@ export class FirestoreQuestionService {
 
 		return batch;
 	}
+
+	deleteMultipleQuestions(lessonId: string, questionIds: string[]) {
+		const deleteBatch = writeBatch(this.firestore);
+		const teacherId = this.auth.currentUser?.uid as string;
+		const questionCollection = collection(
+			this.firestore,
+			`teachers/${teacherId}/lessons/${lessonId}/questions`
+		);
+		questionIds.forEach((id) =>
+			deleteBatch.delete(doc(questionCollection, id))
+		);
+		deleteBatch.commit();
+	}
 }

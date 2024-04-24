@@ -75,6 +75,6 @@
 	<header>
 		<button mat-button type="button" (click)="closeDialog()">Cancel</button>
 		<button mat-flat-button type="submit" (click)="saveQuestion()"
-			[disabled]="!hasTitle && !hasEquation">Save</button>
+			[disabled]="!hasTitle && !hasEquation && !hasImage">Save</button>
 	</header>
 </form>

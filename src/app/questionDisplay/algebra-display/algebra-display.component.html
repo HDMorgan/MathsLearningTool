@@ -6,6 +6,9 @@
 	<app-equation-display [equation]="e"></app-equation-display>
 	}
 </div>
+@if (question.imageUrl !== '') {
+<img [src]="question.imageUrl" alt="Question Image" />
+}
 
 @if (showAnswer) {
 <app-answer-container [correct]="correct" [total]="total" @collapse>

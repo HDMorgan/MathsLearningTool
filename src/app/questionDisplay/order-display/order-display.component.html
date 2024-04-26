@@ -1,4 +1,7 @@
 <h1>{{question.title}}</h1>
+@if (question.imageUrl !== '') {
+<img [src]="question.imageUrl" alt="Question Image" />
+}
 @if (showAnswer) {
 <app-answer-container [correct]="correct" [total]="total" @collapse>
 	@for (i of question.items; track i) {

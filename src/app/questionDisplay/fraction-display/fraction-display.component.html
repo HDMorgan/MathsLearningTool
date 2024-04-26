@@ -3,6 +3,9 @@
 }
 @if (question.equation !== '') {
 <app-equation-display [equation]="question.equation"></app-equation-display>}
+@if (question.imageUrl !== '') {
+<img [src]="question.imageUrl" alt="Question Image" />
+}
 @if (showAnswer) {
 <app-answer-container [correct]="correct" [total]="total" @collapse>
 	<div class="fraction">

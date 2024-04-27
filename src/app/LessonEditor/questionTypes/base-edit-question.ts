@@ -2,10 +2,7 @@ import { CurrentLessonService } from './../../services/data/current-lesson.servi
 import { QuestionCreatorService } from './../../services/data/question-creator.service';
 import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ImageService } from '../../services/image.service';
-import {
-	IBaseQuestion,
-	QuestionType,
-} from '../../interfaces/data/ibase-question';
+import { IBaseQuestion } from '../../interfaces/data/ibase-question';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
 
@@ -45,7 +42,7 @@ export abstract class BaseEditQuestion<T extends IBaseQuestion>
 		if (this.formGroup.valid) {
 			const previewQuestion = this.questionCreatorService.createQuestion(
 				this.question.data.number,
-				QuestionType.Numeric
+				this.question.data.type
 			);
 			this.saveToQuestion(previewQuestion as T);
 			previewQuestion.imageUrl = this.currentImageUrl;

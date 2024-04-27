@@ -5,6 +5,7 @@ import {
 	User,
 	confirmPasswordReset,
 	createUserWithEmailAndPassword,
+	getAdditionalUserInfo,
 	signInAnonymously,
 	signInWithEmailAndPassword,
 	signInWithPopup,
@@ -62,8 +63,9 @@ export class AuthService {
 	loginWithGoogle(): Promise<boolean> {
 		return new Promise<boolean>((resolve) => {
 			signInWithPopup(this.auth, this.googleAuthProvider)
-				.then(() => {
-					this.router.navigateByUrl('/dashboard');
+				.then((credentials) => {
+					if (getAdditionalUserInfo(credentials)?.isNewUser)
+						this.router.navigateByUrl('/dashboard');
 					resolve(true);
 				})
 				.catch((error) => {

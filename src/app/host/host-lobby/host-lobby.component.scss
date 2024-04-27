@@ -25,6 +25,19 @@
 	gap: 20px;
 }
 
+.host-lobby-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+	.host-lobby-container {
+		grid-template-columns: auto;
+	}
+}
+
 .code {
 	font-size: 4em;
 }

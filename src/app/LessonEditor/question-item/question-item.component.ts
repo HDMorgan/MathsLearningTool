@@ -47,6 +47,7 @@ export class QuestionItemComponent {
 			data: this.question,
 			disableClose: true,
 			maxWidth: '100%',
+			maxHeight: '100%',
 			panelClass: 'dialog-panel',
 		});
 	}

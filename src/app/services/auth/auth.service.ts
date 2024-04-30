@@ -3,6 +3,7 @@ import {
 	Auth,
 	GoogleAuthProvider,
 	User,
+	UserCredential,
 	confirmPasswordReset,
 	createUserWithEmailAndPassword,
 	getAdditionalUserInfo,
@@ -47,8 +48,8 @@ export class AuthService {
 	loginWithEmail(email: string, password: string): Promise<boolean> {
 		return new Promise<boolean>((resolve, reject) => {
 			signInWithEmailAndPassword(this.auth, email, password)
-				.then(() => {
-					this.router.navigateByUrl('/dashboard');
+				.then((credentials) => {
+					this.resolveSignIn(credentials);
 					resolve(true);
 				})
 				.catch((error) => {
@@ -64,8 +65,7 @@ export class AuthService {
 		return new Promise<boolean>((resolve) => {
 			signInWithPopup(this.auth, this.googleAuthProvider)
 				.then((credentials) => {
-					if (getAdditionalUserInfo(credentials)?.isNewUser)
-						this.router.navigateByUrl('/dashboard');
+					this.resolveSignIn(credentials);
 					resolve(true);
 				})
 				.catch((error) => {
@@ -114,5 +114,13 @@ export class AuthService {
 		}
 
 		return Promise.resolve(this.auth.currentUser.uid);
+	}
+
+	private resolveSignIn(credentials: UserCredential) {
+		if (getAdditionalUserInfo(credentials)?.isNewUser) {
+			this.router.navigateByUrl('/auth/set-teacher-name');
+			return;
+		}
+		this.router.navigateByUrl('/dashboard');
 	}
 }

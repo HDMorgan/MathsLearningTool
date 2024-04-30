@@ -19,15 +19,14 @@ import { IFirebaseDocument } from '../../interfaces/ifirebase-document';
 	providedIn: 'any',
 })
 export class FirestoreLessonService {
-	private collectionUrl: string = '';
-
-	constructor(private firestore: Firestore, auth: Auth) {
-		this.collectionUrl = `teachers/${auth.currentUser?.uid}/lessons`;
-	}
+	constructor(private firestore: Firestore, private auth: Auth) {}
 
 	loadLessons(): Promise<IFirebaseDocument<ILesson>[]> {
 		const lessonsQuery = query(
-			collection(this.firestore, this.collectionUrl),
+			collection(
+				this.firestore,
+				`teachers/${this.auth.currentUser?.uid}/lessons`
+			),
 			orderBy('name')
 		);
 		return getDocs(lessonsQuery)
@@ -47,7 +46,10 @@ export class FirestoreLessonService {
 
 	getLessonFromId(lessonId: string): Promise<IFirebaseDocument<ILesson>> {
 		const lessonDocument = doc(
-			collection(this.firestore, this.collectionUrl),
+			collection(
+				this.firestore,
+				`teachers/${this.auth.currentUser?.uid}/lessons`
+			),
 			lessonId
 		);
 		return getDoc(lessonDocument).then((result) => {
@@ -58,7 +60,13 @@ export class FirestoreLessonService {
 	}
 
 	createLesson(lesson: ILesson): Promise<string> {
-		return addDoc(collection(this.firestore, this.collectionUrl), lesson)
+		return addDoc(
+			collection(
+				this.firestore,
+				`teachers/${this.auth.currentUser?.uid}/lessons`
+			),
+			lesson
+		)
 			.then((result) => {
 				return Promise.resolve(result.id);
 			})
@@ -69,7 +77,10 @@ export class FirestoreLessonService {
 
 	saveLesson(lesson: IFirebaseDocument<ILesson>): Promise<void> {
 		const lessonDoc = doc(
-			collection(this.firestore, this.collectionUrl),
+			collection(
+				this.firestore,
+				`teachers/${this.auth.currentUser?.uid}/lessons`
+			),
 			lesson.id
 		);
 
@@ -79,6 +90,12 @@ export class FirestoreLessonService {
 	}
 
 	deleteLesson(lessonId: string) {
-		deleteDoc(doc(this.firestore, this.collectionUrl, lessonId));
+		deleteDoc(
+			doc(
+				this.firestore,
+				`teachers/${this.auth.currentUser?.uid}/lessons`,
+				lessonId
+			)
+		);
 	}
 }

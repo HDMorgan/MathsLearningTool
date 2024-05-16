@@ -40,10 +40,6 @@ export class HostLobbyComponent implements OnInit {
 	}
 
 	updateQrSize(screenHeight: number) {
-		// if (screenHeight < 600) {
-		// 	this.qrWidth = screenHeight - 40;
-		// 	return;
-		// }
 		this.qrWidth = screenHeight * 0.3;
 	}
 }

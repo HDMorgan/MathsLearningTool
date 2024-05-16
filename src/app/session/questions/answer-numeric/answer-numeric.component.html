@@ -1,6 +1,10 @@
 <app-answer-container [submitted]="answerSubmitted" [correct]="result" [valid]="valid" (submitClick)="SubmitClicked()">
-	<mat-form-field>
-		<input matInput autoFocus type="number" [(ngModel)]="answer" [disabled]="answerSubmitted"
-			(input)="validate()" />
-	</mat-form-field>
+	<div style="display: flex; gap: 5px; align-items: center;">
+		@if (numericQuestion.unitOnLeft) {<h2>{{numericQuestion.unit}}</h2>}
+		<mat-form-field>
+			<input matInput autoFocus type="number" [(ngModel)]="answer" [disabled]="answerSubmitted"
+				(input)="validate()" />
+		</mat-form-field>
+		@if (!numericQuestion.unitOnLeft) {<h2>{{numericQuestion.unit}}</h2>}
+	</div>
 </app-answer-container>

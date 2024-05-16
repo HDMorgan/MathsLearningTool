@@ -52,9 +52,7 @@ export class SessionService implements OnDestroy {
 							await this.firestoreLobbyService.joinLobby(this.lobbyInfo.id);
 						}
 
-						if (this.lobbyInfo.data.currentQuestion !== 0) {
-							this.loadResults();
-						}
+						this.loadResults();
 
 						this.currentLessonService
 							.loadLessonFromLobby(this.lobbyInfo.data)
@@ -75,11 +73,13 @@ export class SessionService implements OnDestroy {
 			this.results[i] = false;
 		}
 
-		this.firestoreLobbyService
-			.getPersonalResults(this.lobbyInfo.id)
-			.then((numbers) => {
-				numbers.forEach((number) => (this.results[number - 1] = true));
-			});
+		if (this.lobbyInfo.data.currentQuestion !== 0) {
+			this.firestoreLobbyService
+				.getPersonalResults(this.lobbyInfo.id)
+				.then((numbers) => {
+					numbers.forEach((number) => (this.results[number - 1] = true));
+				});
+		}
 	}
 
 	leaveLobby() {
